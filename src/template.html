@@ -10,6 +10,28 @@
         </style>
     </head>
     <body>
+        <div class="pure-menu pure-menu-horizontal">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                    <a href="javascript:void(0)" id="menuLink1" class="pure-menu-link">View</a>
+                    <ul class="pure-menu-children">
+                        <li class="pure-menu-item"><a id="collapse" href="javascript:void(0)" class="pure-menu-link">Code Text Height</a></li>
+                        <li class="pure-menu-item"><a id="passages" href="javascript:void(0)" class="pure-menu-link">View Passages</a></li>
+                        <li class="pure-menu-item"><a id="javascript" href="javascript:void(0)" class="pure-menu-link">View JavaScript</a></li>
+                        <li class="pure-menu-item"><a id="stylesheet" href="javascript:void(0)" class="pure-menu-link">View Stylesheet</a></li>
+                    </ul>
+                </li>
+                <li class="pure-menu-item"><a id="tools-link" href="javascript:void(0)" class="pure-menu-link">Tools</a></li>
+                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                    <a href="javascript:void(0)" id="menuLink3" class="pure-menu-link">Export</a>
+                    <ul class="pure-menu-children">
+                        <li class="pure-menu-item"><a id="twee-export" href="javascript:void(0)" class="pure-menu-link">Twee</a></li>
+                        <li class="pure-menu-item"><a id="html-export" href="javascript:void(0)" class="pure-menu-link">HTML</a></li>
+                        <li class="pure-menu-item"><a id="pdf-export" href="javascript:void(0)" class="pure-menu-link">PDF</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         <div id="content">Loading...</div>
         {{STORY_DATA}}
         <script type="text/javascript">
