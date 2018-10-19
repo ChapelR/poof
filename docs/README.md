@@ -1,5 +1,8 @@
 ## poof
 
+[Demo](https://twinelab.net/poof/demo/)
+[Repo](https://github.com/ChapelR/poof/)
+
 A Twine 2 proofing format. In a prerelease state, currently.
 
 Features:  
