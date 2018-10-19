@@ -29,32 +29,32 @@ Double-click this passage to edit it.
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 :: links [nobr]
-&lt;&lt;set _delay to random(2,5) + 's'&gt;&gt;
-&lt;&lt;repeat _delay&gt;&gt;
+<<set _delay to random(2,5) + 's'>>
+<<repeat _delay>>
 	Test!
-&lt;&lt;/repeat&gt;&gt;
+<</repeat>>
 
 What's your favorite pie?
 
-* &lt;&lt;radiobutton "_pie" "blueberry"&gt;&gt; Blueberry?
-* &lt;&lt;radiobutton "_pie" "cherry"&gt;&gt; Cherry?
-* &lt;&lt;radiobutton "_pie" "coconut cream"&gt;&gt; Coconut cream?
+* <<radiobutton "_pie" "blueberry">> Blueberry?
+* <<radiobutton "_pie" "cherry">> Cherry?
+* <<radiobutton "_pie" "coconut cream">> Coconut cream?
 
-&lt;&lt;link "Continue"&gt;&gt;
-	&lt;&lt;if def _pie&gt;&gt;
-		&lt;&lt;set $pie to _pie&gt;&gt;
-		&lt;&lt;goto [[Next Passage]]&gt;&gt;
-	&lt;&lt;else&gt;&gt;
-		&lt;&lt;replace "#error-pie"&gt;&gt;&amp;nbsp;— Please select a pie.&lt;&lt;/replace&gt;&gt;
-	&lt;&lt;/if&gt;&gt;
-&lt;&lt;/link&gt;&gt;@@#error-pie;@@
+<<link "Continue">>
+	<<if def _pie>>
+		<<set $pie to _pie>>
+		<<goto [[Next Passage]]>>
+	<<else>>
+		<<replace "#error-pie">>&nbsp;— Please select a pie.<</replace>>
+	<</if>>
+<</link>>@@#error-pie;@@
 
-&lt;&lt;set $dwarves to ["Doc", "Dopey", "Bashful", "Grumpy", "Sneezy", "Sleepy", "Happy"]&gt;&gt;
+<<set $dwarves to ["Doc", "Dopey", "Bashful", "Grumpy", "Sneezy", "Sleepy", "Happy"]>>
 
 
-&lt;&lt;for _i, _name range $dwarves&gt;&gt;
-    &lt;&lt;print _i + 1&gt;&gt;. _name
-&lt;&lt;/for&gt;&gt;
+<<for _i, _name range $dwarves>>
+    <<print _i + 1>>. _name
+<</for>>
 
 
 :: Next Passage
