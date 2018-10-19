@@ -86,6 +86,12 @@ div#overlay {
     display: none;
 }
 
+.smallify {
+    height: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
 #main.collapse p.passage-source {
     max-height: 20em;
 }

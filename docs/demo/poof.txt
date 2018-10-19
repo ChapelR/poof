@@ -1,0 +1,99 @@
+:: StorySettings
+ifid:4D6AB108-B3F7-40BA-BC9D-4200564E22C4
+
+:: StoryTitle
+Poof Test
+
+:: Twine_UserStylesheet [stylesheet]
+p { font-weight: normal }
+
+:: Twine_UserScript [script]
+function blah () { 
+	return 'hi'; 
+}
+
+:: Start
+[[links]]
+[[links]][[links]]
+[[links]]
+
+:: Lorem [whee]
+Double-click this passage to edit it.
+
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+:: links [nobr]
+&lt;&lt;set _delay to random(2,5) + 's'&gt;&gt;
+&lt;&lt;repeat _delay&gt;&gt;
+	Test!
+&lt;&lt;/repeat&gt;&gt;
+
+What's your favorite pie?
+
+* &lt;&lt;radiobutton "_pie" "blueberry"&gt;&gt; Blueberry?
+* &lt;&lt;radiobutton "_pie" "cherry"&gt;&gt; Cherry?
+* &lt;&lt;radiobutton "_pie" "coconut cream"&gt;&gt; Coconut cream?
+
+&lt;&lt;link "Continue"&gt;&gt;
+	&lt;&lt;if def _pie&gt;&gt;
+		&lt;&lt;set $pie to _pie&gt;&gt;
+		&lt;&lt;goto [[Next Passage]]&gt;&gt;
+	&lt;&lt;else&gt;&gt;
+		&lt;&lt;replace "#error-pie"&gt;&gt;&amp;nbsp;— Please select a pie.&lt;&lt;/replace&gt;&gt;
+	&lt;&lt;/if&gt;&gt;
+&lt;&lt;/link&gt;&gt;@@#error-pie;@@
+
+&lt;&lt;set $dwarves to ["Doc", "Dopey", "Bashful", "Grumpy", "Sneezy", "Sleepy", "Happy"]&gt;&gt;
+
+
+&lt;&lt;for _i, _name range $dwarves&gt;&gt;
+    &lt;&lt;print _i + 1&gt;&gt;. _name
+&lt;&lt;/for&gt;&gt;
+
+
+:: Next Passage
+Wer reitet so spät durch Nacht und Wind?
+Es ist der Vater mit seinem Kind;
+Er hat den Knaben wohl in dem Arm,
+Er faßt ihn sicher, er hält ihn warm.
+
+"Mein Sohn, was birgst du so bang dein Gesicht?" –
+"Siehst, Vater, du den Erlkönig nicht?
+Den Erlenkönig mit Kron' und Schweif?" –
+"Mein Sohn, es ist ein Nebelstreif."
+
+"Du liebes Kind, komm, geh mit mir!
+Gar schöne Spiele spiel' ich mit dir;
+Manch' bunte Blumen sind an dem Strand,
+Meine Mutter hat manch gülden Gewand." –
+
+"Mein Vater, mein Vater, und hörest du nicht,
+Was Erlenkönig mir leise verspricht?" –
+"Sei ruhig, bleibe ruhig, mein Kind;
+In dürren Blättern säuselt der Wind." –
+
+"Willst, feiner Knabe, du mit mir gehn?
+Meine Töchter sollen dich warten schön;
+Meine Töchter führen den nächtlichen Reihn,
+Und wiegen und tanzen und singen dich ein." –
+
+"Mein Vater, mein Vater, und siehst du nicht dort
+Erlkönigs Töchter am düstern Ort?" –
+"Mein Sohn, mein Sohn, ich seh' es genau:
+Es scheinen die alten Weiden so grau. –"
+
+"Ich liebe dich, mich reizt deine schöne Gestalt;
+Und bist du nicht willig, so brauch' ich Gewalt." –
+"Mein Vater, mein Vater, jetzt faßt er mich an!
+Erlkönig hat mir ein Leids getan!" –
+
+Dem Vater grauset's; er reitet geschwind,
+Er hält in Armen das ächzende Kind,
+Erreicht den Hof mit Mühe und Not;
+In seinen Armen das Kind war tot.

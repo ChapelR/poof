@@ -1,7 +1,9 @@
 ## poof
 
-[Demo](https://twinelab.net/poof/demo/)
-[Repo](https://github.com/ChapelR/poof/)
+Demos:  
+[Example HTML output](http://twinelab.net/poof/demo/)  
+[Example PDF output](http://twinelab.net/poof/demo/poof.pdf)  
+[Example plain text output](http://twinelab.net/poof/demo/poof.txt)
 
 A Twine 2 proofing format. In a prerelease state, currently.
 

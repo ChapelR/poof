@@ -27,38 +27,48 @@
         }
     }
 
+    function showOverlay () {
+        $('#overlay').removeClass('hide');
+        $('#main').addClass('smallify');
+    }
+
+    function hideOverlay () {
+        $('#overlay').addClass('hide');
+        $('#main').removeClass('smallify');
+    }
+
     $(document).ready(function () {
         $('#twee-export').on('click', function () {
             createDownload('txt');
-        });
+        }).attr('title', 'Export to plain text in Twee notation.');
         $('#html-export').on('click', function () {
             createDownload('html');
-        });
+        }).attr('title', 'Save this HTML view for sharing and later use.');
         $('#pdf-export').on('click', function () {
             createDownload('pdf');
-        });
+        }).attr('title', 'Export to PDF format for printing or sharing.');
 
         $('#simple').on('click', function () {
             $('#content').toggleClass('simple');
-        });
+        }).attr('title', 'Toggle a simpler view mode.');
         $('#collapse').on('click', function () {
             $('#main').toggleClass('collapse');
-        });
+        }).attr('title', 'Toggle whether to use a scrollbar for lengthy text.');
         $('#passages').on('click', function () {
-            $('#overlay').addClass('hide');
+            hideOverlay();
             $('#story-stylesheet').addClass('hide');
             $('#story-javascript').addClass('hide');
-        });
+        }).attr('title', 'View your passages.');
         $('#javascript').on('click', function () {
-            $('#overlay').removeClass('hide');
+            showOverlay();
             $('#story-stylesheet').addClass('hide');
             $('#story-javascript').removeClass('hide');
-        });
+        }).attr('title', 'View your JavaScript code.');
         $('#stylesheet').on('click', function () {
-            $('#overlay').removeClass('hide');
+            showOverlay();
             $('#story-stylesheet').removeClass('hide');
             $('#story-javascript').addClass('hide');
-        });
+        }).attr('title', 'View your stylesheet.');
     });
 
 

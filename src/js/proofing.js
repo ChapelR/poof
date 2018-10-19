@@ -139,7 +139,7 @@
     };
 
     $(document).ready( function () {
-        $('#content').empty().append(output.html)
+        $('#content').empty().append(output.html())
             .append( html('div', { id : 'overlay' }, [output.$scripts.addClass('hide'), output.$styles.addClass('hide')] )
                 .addClass('hide'));
     });
