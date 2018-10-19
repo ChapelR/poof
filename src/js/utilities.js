@@ -38,6 +38,9 @@
             createDownload('pdf');
         });
 
+        $('#simple').on('click', function () {
+            $('#content').toggleClass('simple');
+        });
         $('#collapse').on('click', function () {
             $('#main').toggleClass('collapse');
         });
