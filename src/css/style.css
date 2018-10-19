@@ -113,3 +113,18 @@ div#content.simple p.passage-source {
     background-color: #eee;
     min-height: unset;
 }
+
+@media only screen and (max-width: 800px) {
+    body {
+        font-size: 14px;
+    }
+    div#content {
+        margin: 3em 1em 1em 1em;
+    }
+    div.passage-card {
+        margin: 1em 0;
+    }
+    p.passage-source {
+        margin: 0;
+    }
+}
