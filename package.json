@@ -1,7 +1,7 @@
 {
   "name": "poof",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "A Twine 2 proofing format.",
   "main": "gulpfile.js",
   "dependencies": {
     "del": "^3.0.0",
@@ -23,5 +23,21 @@
     "gulp": "gulp"
   },
   "author": "chapel",
-  "license": "Unlicense"
+  "license": "Unlicense",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChapelR/poof.git"
+  },
+  "keywords": [
+    "Twine",
+    "proofing",
+    "proof"
+  ],
+  "bugs": {
+    "url": "https://github.com/ChapelR/poof/issues"
+  },
+  "homepage": "https://github.com/ChapelR/poof#readme"
 }
