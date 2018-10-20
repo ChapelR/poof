@@ -81,7 +81,12 @@
             .append( html('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
                 .addClass(tagsClass) )
             .append( html('p', { classes : 'passage-source' })
-                .append( html('pre', {}, passage.source.trim())) );
+                .append( html('pre', {}, passage.source.trim())) )
+            .attr({
+                name : passage.name,
+                'data-pid' : passage.id,
+                'data-lt' : passage.source.length
+            });
         passage.$el = $el;
         return $el;
     }
@@ -163,7 +168,8 @@
         scripts : userScripts,
         styles : userStyles,
         $scripts : userScriptsToHtml(),
-        $styles : userStylesToHtml()
+        $styles : userStylesToHtml(),
+        sortState : 'pid', // 'name', 'length', '-pid', '-name', '-length'
     };
     $(document).ready( function () {
         // attach the DOM structure, and the overlay and view-switching elements, to the #content element

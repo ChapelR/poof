@@ -192,7 +192,7 @@
 
         /*** INPUTS ***/
 
-        // todo: will use purecss forms
+        // todo: will use purecss forms for filtering, dropdown and checkbox for sorts (check box to reverse)
 
 }());
 
@@ -202,6 +202,8 @@
 
 (function () {
     'use strict';
+
+    // out filterer just hides and shows passages with a class
 
     function handleStrings (str) {
         // normalize strings
@@ -216,6 +218,8 @@
 
     function filter (arr, prop, test) {
         return arr.filter( function (member) {
+            // because we're filtering out the passages we *don't* want to hide, 
+            // this filter function needs to return the opposite of what you may expect
             if (prop === 'tags') {
                 if (!member.tags || !member.tags.trim()) {
                     return true;
@@ -244,6 +248,7 @@
     }
 
     function resetFilters () {
+        // un-hides all passages, effectively reseting the filters
         var toRevert = [];
         if (revert) {
             toRevert = $('.passage-card.hide').toArray();
@@ -266,12 +271,14 @@
         if (!dontClear) {
             // by default, undo previous filters before making new ones
             resetFilters();
+            // additive filters will likely not ever be useful, but we'll leave the option in
         }
         var toHide = filter(poof.passages, prop, test);
+        // this DOM operation could take a bit; may be worth it to use a loader here
         $(getElements(toHide)).each( function () {
             $(this).addClass('hide');
         });
-        return toHide;
+        return toHide; // return the passages we filtered out
     }
 
     var filterMethods = {
@@ -288,7 +295,124 @@
 
     window.poof.filter = filterMethods;
 
+    // main calls: `poof.filter.run('tags', userString);` - `poof.filter.clear();`
+
 }());
 
-// todo: sorting methods (by name, pid, source length)
-// will require completely rerendering #main
+/***
+        SORTING
+***/
+
+(function () {
+    'use strict';
+
+    // our sorter detaches, rearranges, and re-attaches the passage elements; no state is altered
+
+    var thingMap = {
+        // map possible sort properties to attribute values
+        '-name' : 'name',
+        'name' : 'name',
+        '-pid' : 'data-pid',
+        'pid' : 'data-pid',
+        '-length' : 'data-lt',
+        'length' : 'data-lt'
+    };
+
+    function detachPassages () {
+        // remove and return all passages
+        return $('#main').children('.passage-card').detach();
+    }
+
+    function reattach (passages) {
+        // reattach a (probably sorted) array of passages 
+        $('#main').append(passages);
+    }
+
+    function sortByThing (thing) {
+        // main method
+        if (!Object.keys(thingMap).includes(thing)) {
+            // invalid sort call
+            console.error('Invalid sorting property or attribute!');
+            return;
+        }
+
+        if (window.poof.sortState === thing) {
+            // if we're already sorted in the requested manner, bail
+            return;
+        }
+
+        // loader? (sorting operations are slow, the data is complicated, and we're doing DOM manipulation)
+
+        var passages = detachPassages();
+        var reverse = false;
+        var property = '';
+
+        var compare = function (a, b, prop, r) {
+            var aTest = poof.filter.normalize($(a).attr(prop)),
+                bTest = poof.filter.normalize($(b).attr(prop));
+
+            if (prop === 'name') {
+                // name must be compared via codepoints
+                var ret;
+
+                if (aTest < bTest) {
+                    ret = -1;
+                } else if (bTest < aTest) {
+                    ret = 1;
+                } else {
+                    ret = 0;
+                }
+                if (ret && r) {
+                    ret *= -1;
+                }
+                return ret;
+            }
+
+            // make the pids/lengths numbers
+            aTest = Number(aTest);
+            bTest = Number(bTest);
+
+            if (r) {
+                return bTest - aTest ;
+            } else {
+                return aTest - bTest ;
+            }
+        };
+
+        var sort = function (arr, prop, rev) {
+            // simplify the call
+            arr.sort( function (a, b) {
+                return compare(a, b, prop, rev);
+            });
+        };
+
+        if (thing.includes('-')) {
+            // the '-' before a sort request arg indicates to reverse the normal order
+            reverse = true;
+        }
+        property = thingMap[thing];
+
+        if (property === 'data-lt') {
+            // by default, long passages should sort higher
+            reverse = !reverse;
+        }
+
+        sort(passages, property, reverse);
+        reattach(passages);
+
+        // set the sortState to prevent re-sorts using the same params
+        window.poof.sortState = thing;
+
+        // end loader?
+    }
+
+    window.poof.filter.sorting = {
+        // export as a child of the filter methods
+        run : sortByThing,
+        detach : detachPassages,
+        attach : reattach
+    };
+
+    // main call: `poof.filter.sorting.run('-name');`
+
+}());
