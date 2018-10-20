@@ -76,12 +76,14 @@
     function passageToHtml (passage) {
         // this creates the DOM structure for each "passage card"
         var tagsClass = !!passage.tags.trim() ? '' : 'hide';
-        return html('div', { 'data-id' : passage.id, classes : 'passage-card' })
+        var $el = html('div', { 'data-id' : passage.id, classes : 'passage-card' })
             .append( html('h2', { classes : 'passage-title' }, passage.name))
             .append( html('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
                 .addClass(tagsClass) )
             .append( html('p', { classes : 'passage-source' })
                 .append( html('pre', {}, passage.source.trim())) );
+        passage.$el = $el;
+        return $el;
     }
 
     function dataToTwee (story) {
@@ -157,6 +159,7 @@
         html : createHtmlOutput,
         twee : createTweeSource,
         data : story,
+        passages : passages,
         scripts : userScripts,
         styles : userStyles,
         $scripts : userScriptsToHtml(),

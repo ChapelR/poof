@@ -3,14 +3,19 @@
 
     function createPDF (name) {
         // uses html2pdf to create a pdf doc from our DOM output
-
         // we need to un-collapse all the source code to prevent cutoffs
         var collapsedState = $('#main').hasClass('collapse');
         var $target = $('#main').removeClass('collapse');
+        // show filtered out passages
+        var toRevert = poof.filter.clear();
         html2pdf($target[0], { filename : name, margin : 2 }).then( function () {
             if (collapsedState) {
                 // if the source was collapsed, make it so again
                 $target.addClass('collapse');
+                // revert filtering display if necessary
+                if (toRevert && Array.isArray(toRevert) && toRevert.length) {
+                    poof.filter.revert(toRevert);
+                }
             }
         });
     }

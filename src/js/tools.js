@@ -192,4 +192,103 @@
 
         /*** INPUTS ***/
 
+        // todo: will use purecss forms
+
 }());
+
+/***
+        FILTERS
+***/
+
+(function () {
+    'use strict';
+
+    function handleStrings (str) {
+        // normalize strings
+        return str.trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    function breakTags (str) {
+        // break multi-word strings into single words (for tags)
+        str = handleStrings(str);
+        return str.split(' ');
+    }
+
+    function filter (arr, prop, test) {
+        return arr.filter( function (member) {
+            if (prop === 'tags') {
+                if (!member.tags || !member.tags.trim()) {
+                    return true;
+                }
+                var tags, needle;
+                // handle tag tests (most complicated)
+                needle = breakTags(test);
+                tags = handleStrings(member.tags);
+                return needle.every( function (testTag) {
+                    // every tag must be assigned to the passage
+                    return !tags.includes(testTag);
+                });
+            } else {
+                // does the normalized content contain the normalized text string?
+                return !handleStrings(member[prop]).includes(handleStrings(test));
+            }
+        });
+    }
+
+    function hidePassage (passage) {
+        passage.$el.addClass('hide');
+    }
+
+    function showPassage (passage) {
+        passage.$el.removeClass('hide');
+    }
+
+    function resetFilters () {
+        var toRevert = [];
+        if (revert) {
+            toRevert = $('.passage-card.hide').toArray();
+        }
+        $('.passage-card').removeClass('hide');
+        return toRevert; // for pdf doc writing
+    }
+
+    function revert (arr) {
+        $(arr).addClass('hide');
+    }
+
+    function getElements (arr) {
+        return arr.map( function (i) {
+            return i.$el;
+        });
+    }
+
+    function filterPassages (prop, test, dontClear) {
+        if (!dontClear) {
+            // by default, undo previous filters before making new ones
+            resetFilters();
+        }
+        var toHide = filter(poof.passages, prop, test);
+        $(getElements(toHide)).each( function () {
+            $(this).addClass('hide');
+        });
+        return toHide;
+    }
+
+    var filterMethods = {
+        normalize : handleStrings,
+        run : filterPassages,
+        clear : resetFilters,
+        revert : revert,
+        passage : {
+            show : showPassage,
+            hide : hidePassage,
+            to$ : getElements
+        }
+    };
+
+    window.poof.filter = filterMethods;
+
+}());
+
+// todo: sorting methods (by name, pid, source length)
+// will require completely rerendering #main
