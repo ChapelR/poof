@@ -10,6 +10,21 @@
         </style>
     </head>
     <body>
+
+        <!-- Modal -->
+        <div class="modale" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-header">
+              <h2 id="modal-title">Title</h2>
+              <a href="javascript:void(0)" class="btn-close closemodale" aria-hidden="true">&times;</a>
+            </div>
+            <div id="modal-body" class="modal-body">Body</div>
+            <div id="modal-footer" class="modal-footer">Footer</div>
+          </div>
+        </div>
+        <!-- /Modal -->
+
+        <!-- Menu -->
         <div class="pure-menu pure-menu-horizontal">
             <ul class="pure-menu-list">
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
@@ -45,6 +60,8 @@
                 </li>
             </ul>
         </div>
+        <!-- /Menu -->
+
         <div id="content">Loading...</div>
         {{STORY_DATA}}
         <script type="text/javascript">

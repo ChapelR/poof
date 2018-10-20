@@ -91,7 +91,11 @@
             $('#story-stylesheet').removeClass('hide');
             $('#story-javascript').addClass('hide');
         }).attr('title', 'View your stylesheet.');
-    });
 
+        // modal controls
+        $('#modal-overlay').on('click', function () {
+            poof.modal.dismiss();
+        });
+    });
 
 }());

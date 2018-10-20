@@ -153,6 +153,7 @@
 
     // this data will all be exported to the global scope
     var output = {
+        el : html,
         html : createHtmlOutput,
         twee : createTweeSource,
         data : story,
@@ -161,7 +162,6 @@
         $scripts : userScriptsToHtml(),
         $styles : userStylesToHtml()
     };
-
     $(document).ready( function () {
         // attach the DOM structure, and the overlay and view-switching elements, to the #content element
         $('#content').empty().append(output.html())
