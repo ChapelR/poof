@@ -29,7 +29,7 @@
             download(poof.twee(), fileName, 'text/plain;charset=utf-8');
         } else if (fileExt === 'html') {
             // download this single page web app
-            download($(document.documentElement)[0].outerHTML, fileName, 'text/html;charset=utf-8');
+            download(document.documentElement.outerHTML, fileName, 'text/html;charset=utf-8');
         } else {
             // download a pdf for printing and sharing
             createPDF(fileName);

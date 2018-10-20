@@ -9,7 +9,7 @@ A Twine 2 proofing format. In a prerelease state, currently.
 
 Features:  
 - Simple and readable, but more manageable than Paperthin.  
-- Review you stylesheet and JavaScript code in addition to your passages.  
+- Review your stylesheet and JavaScript code in addition to your passages.  
 - Export your source code to PDF, plain text (in twee notation), html, or (planned) RTF.  
 - Sortable, filterable, and searchable passage list (planned).
 
