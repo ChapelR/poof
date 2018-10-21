@@ -166,13 +166,14 @@ div#content.simple p.passage-source {
     background: #fefefe;
     border: #333333 solid 0px;
     border-radius: 5px;
-    margin-left: -200px;
+    margin: auto;
+    padding: 1em;
     text-align:center;
     position: fixed;
-    left: 50%;
+    left: 20%;
     top: -100%;
     z-index: 11;
-    width: 360px;
+    width: 60%;
     box-shadow:0 5px 10px rgba(0,0,0,0.3);
     -webkit-transform: translate(0, -500%);
     -ms-transform: translate(0, -500%);
@@ -186,16 +187,7 @@ div#content.simple p.passage-source {
     padding: 20px;
     overflow: auto;
     max-height: 10em;
-    text-align: left;
-}
-.modal-body input{
-    width:200px;
-    padding:8px;
-    border:1px solid #ddd;
-    color:#888;
-    outline:0;
-    font-size:14px;
-    font-weight:bold
+    text-align: center;
 }
 .modal-header, .modal-footer {
     padding: 10px 20px;
@@ -205,4 +197,21 @@ div#content.simple p.passage-source {
 }
 .modal-header h2 {
     font-size: 20px;
+}
+
+.modal-footer {
+    border-top: 1px solid #ccc;
+}
+
+.confirm-btn {
+    float: left;
+}
+.cancel-btn {
+    float: right;
+}
+.left-align {
+    text-align: left;
+}
+.pure-form select {
+    padding: 0;
 }

@@ -192,7 +192,60 @@
 
         /*** INPUTS ***/
 
-        // todo: will use purecss forms for filtering, dropdown and checkbox for sorts (check box to reverse)
+    function textbox (id, label, placeholder, note) {
+        return poof.el('div', { classes : 'pure-control-group' }, [
+                poof.el('label', { for : id }, label),
+                poof.el('input', { 
+                    id : id, 
+                    type : 'text', 
+                    placeholder : placeholder || '' 
+                }),
+                poof.el('span', { classes : 'pure-form-message-inline' }, note || '')
+            ]);
+    }
+
+    function checkbox (id, label) {
+        return poof.el('div', { class : 'pure-controls' }, 
+                poof.el('label', { for : id }, [ 
+                    poof.el('input', { id : id, type : 'checkbox'}),
+                    label
+                ])
+            );
+    }
+
+    function dropdown (id, label, opts) {
+        if (!opts || !Array.isArray(opts) || !opts.length) {
+            return;
+        }
+        return poof.el('div', { class : 'pure-controls' }, [
+            poof.el('label', { for : id }, label),
+            poof.el('select', { id : id }, opts.map( function (opt) {
+                return poof.el('option', {}, opt);
+            }))
+        ]);
+    }
+
+    function form (elements) {
+        return poof.el('form', { classes : 'pure-form pure-form-aligned left-align' }, 
+            poof.el('fieldset', {}, elements) );
+    }
+
+    function confirm (text, fn) {
+        return primaryBtn(text, fn).addClass('confirm-btn');
+    }
+
+    function cancel (text, fn) {
+        return normalBtn(text, fn).addClass('cancel-btn');
+    }
+
+    window.poof.forms = {
+        form : form,
+        text : textbox,
+        check : checkbox,
+        select : dropdown,
+        confirm : confirm,
+        cancel : cancel
+    };
 
 }());
 
@@ -228,9 +281,9 @@
                 // handle tag tests (most complicated)
                 needle = breakTags(test);
                 tags = handleStrings(member.tags);
-                return needle.every( function (testTag) {
+                return !needle.every( function (testTag) {
                     // every tag must be assigned to the passage
-                    return !tags.includes(testTag);
+                    return tags.includes(testTag);
                 });
             } else {
                 // does the normalized content contain the normalized text string?
@@ -414,5 +467,119 @@
     };
 
     // main call: `poof.filter.sorting.run('-name');`
+
+}());
+
+/***
+        USER INTERFACE
+***/
+
+(function () {
+    'use strict';
+
+    var sortLookup = {
+        'Passage Titles' : 'name',
+        'Passage IDs' : 'pid',
+        'Source Code Length' : 'length'
+    };
+
+    function valueExists (str) {
+        return !!(str && typeof str === 'string' && str.trim());
+    }
+
+    function filter () {
+        var $title = poof.forms.text('title-filter', 'Passage Title: ', 'title...'),
+            $tags  = poof.forms.text('tags-filter', 'Passage Tags: ', 'tags...', 'Seperate tags with spaces.'),
+            $source  = poof.forms.text('source-filter', 'Passage Text: ', 'source...');
+
+        var $form = poof.forms.form([$title, $tags, $source]);
+
+        var $explanation = poof.el('p', { classes : 'form-expanation'}, 'Show only the passages that meet the following criteria.');
+
+        var $confirm = poof.forms.confirm('Filter', function () {
+
+            poof.modal.close();
+
+            $(document).trigger(':filter-start');
+
+            poof.filter.clear();
+
+            var title = $('#title-filter').val(),
+                tags = $('#tags-filter').val(),
+                source = $('#source-filter').val();
+            if (valueExists(title)) {
+                poof.filter.run('name', title);
+            }
+            if (valueExists(tags)) {
+                poof.filter.run('tags', tags);
+            }
+            if (valueExists(source)) {
+                poof.filter.run('source', source);
+            }
+
+            $(document).trigger(':filter-complete');
+
+        });
+
+        var $cancel = poof.forms.cancel('Clear', function () {
+
+            poof.modal.close();
+
+            $(document).trigger(':filter-start');
+
+            poof.filter.clear();
+
+            $(document).trigger(':filter-complete');
+            
+        });
+
+        poof.modal.write('Filter Passages', [$explanation, $form], [$confirm, $cancel]);
+    }
+
+    function sort () {
+        var $drop = poof.forms.select('sort-param', 'Select the property to sort by: ', ['Passage Titles', 'Passage IDs', 'Source Code Length']);
+        var $check = poof.forms.check('sort-reverse', 'Descending order.');
+
+        var $explanation = poof.el('p', { classes : 'form-expanation'}, 'Sort the passage list using one of the following criteria.');
+
+        var $form = poof.el('form', { classes : 'pure-form' }, poof.el('fieldset', {}, [$drop, '<br />', $check]));
+
+        var $confirm = poof.forms.confirm('Sort', function () {
+            poof.modal.close();
+
+            $(document).trigger(':sort-start');
+
+            var checked = $('#sort-reverse').prop('checked');
+
+            var param = sortLookup[$('#sort-param').val()];
+
+            console.log(param);
+
+            if (checked) {
+                param = '-' + param;
+            }
+
+            poof.filter.sorting.run(param);
+
+            $(document).trigger(':sort-complete');
+        });
+
+        var $cancel = poof.forms.cancel('Restore Default', function () {
+            poof.modal.close();
+
+            $(document).trigger(':sort-start');
+
+            poof.filter.sorting.run('pid');
+
+            $(document).trigger(':sort-complete');
+        });
+
+        poof.modal.write('Sort Passages', [$explanation, $form], [$confirm, $cancel]);
+    }
+
+    window.poof.tools = {
+        filter : filter,
+        sort : sort
+    };
 
 }());

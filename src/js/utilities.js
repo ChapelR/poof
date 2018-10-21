@@ -52,6 +52,8 @@
         $('#main').removeClass('smallify');
     }
 
+        /*** MENUS ***/
+
     $(document).ready(function () {
         /*
             here we'll handle all of our menu options
@@ -97,10 +99,13 @@
             $('#story-javascript').addClass('hide');
         }).attr('title', 'View your stylesheet.');
 
-        // modal controls
-        $('#modal-overlay').on('click', function () {
-            poof.modal.dismiss();
-        });
+        // tools menu
+        $('#tools-filter').on('click', function () {
+            poof.tools.filter();
+        }).attr('title', 'Filter the displayed passages.');
+        $('#tools-sort').on('click', function () {
+            poof.tools.sort();
+        }).attr('title', 'Sort the displayed passages.');
     });
 
 }());
