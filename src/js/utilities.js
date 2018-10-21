@@ -6,17 +6,19 @@
         // we need to un-collapse all the source code to prevent cutoffs
         var collapsedState = $('#main').hasClass('collapse');
         var $target = $('#main').removeClass('collapse');
+        $('.passage-footer').addClass('hide');
         // show filtered out passages
         var toRevert = poof.filter.clear();
         html2pdf($target[0], { filename : name, margin : 2 }).then( function () {
             if (collapsedState) {
                 // if the source was collapsed, make it so again
                 $target.addClass('collapse');
-                // revert filtering display if necessary
-                if (toRevert && Array.isArray(toRevert) && toRevert.length) {
-                    poof.filter.revert(toRevert);
-                }
             }
+            // revert filtering display if necessary
+            if (toRevert && Array.isArray(toRevert) && toRevert.length) {
+                poof.filter.revert(toRevert);
+            }
+            $('.passage-footer').removeClass('hide');
         });
     }
 

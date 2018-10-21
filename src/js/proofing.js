@@ -82,6 +82,16 @@
                 .addClass(tagsClass) )
             .append( html('p', { classes : 'passage-source' })
                 .append( html('pre', {}, passage.source.trim())) )
+            .append( html('div', { classes : 'passage-footer closed' }, [html('button', { 
+                classes : 'comment-open pure-button pure-button-primary'
+            }, '&#128172;').on('click', function () {
+                var $self = $(this).toggleClass('pure-button-primary');
+                $self.parent('.passage-footer').toggleClass('closed');
+                $(document).trigger({
+                    type : ':comment-open',
+                    passage : passage
+                });
+            }), html('div', { classes : 'comment-wrapper' })]))
             .attr({
                 name : passage.name,
                 'data-pid' : passage.id,

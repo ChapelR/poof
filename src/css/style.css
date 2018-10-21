@@ -186,7 +186,7 @@ div#content.simple p.passage-source {
 .modal-body {
     padding: 20px;
     overflow: auto;
-    max-height: 10em;
+    max-height: 15em;
     text-align: center;
 }
 .modal-header, .modal-footer {
@@ -214,4 +214,100 @@ div#content.simple p.passage-source {
 }
 .pure-form select {
     padding: 0;
+}
+
+/* comment sections */
+
+div.passage-footer {
+    text-align: center;
+    border: 1px solid #111;
+    transition: 300ms all;
+    overflow: hidden;
+}
+
+div.passage-footer.closed {
+    border: 0;
+}
+
+div.passage-footer button.comment-open {
+    min-width: 100%;
+    transition: 300ms all;
+    font-size: 1rem;
+}
+
+div.passage-footer.closed button.comment-open {
+    min-width: 10%;
+    font-size: 1.2rem;
+}
+
+div.passage-footer button.comment-open::after {
+    float: right;
+    content: "\00d7";
+}
+
+div.passage-footer.closed button.comment-open::after {
+    content: none;
+}
+
+div.comment-wrapper {
+    margin: 1em;
+    overflow: auto;
+    max-height: 20em;
+}
+
+div.passage-footer.closed div.comment-wrapper {
+    display: none;
+}
+
+div.empty-comment.add-comment {
+    text-align: center;
+    color: #888;
+    cursor: pointer;
+}
+
+div.empty-comment.add-comment:hover, div.empty-comment.add-comment:active {
+    color: #111;
+}
+
+.comment-wrapper table thead {
+    display: none;
+}
+
+.comment-wrapper table {
+    width: 100%;
+}
+
+div.comment-readout div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+    padding: 1em;
+    display: inline-block;
+}
+
+div.comment-readout:nth-child(odd) {
+    background: #eee;
+}
+
+div.comment-readout div.number {
+    max-width: 1em;
+    float: left;
+    
+}
+div.comment-readout div.title {
+    max-width: 7em;
+    float: left;
+    font-weight: bold;
+}
+div.comment-readout div.content {
+    max-width: 72%;
+}
+
+input#comment-title, textarea#comment-content {
+    width: 100%;
+    margin: 0;
+}
+
+textarea#comment-content {
+    height: 10em;
 }
