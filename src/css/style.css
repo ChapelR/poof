@@ -283,6 +283,10 @@ div.comment-readout div {
     display: inline-block;
 }
 
+div.comment-readout:hover div {
+    text-decoration: underline;
+}
+
 div.comment-readout:nth-child(odd) {
     background: #eee;
 }
