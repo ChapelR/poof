@@ -34,7 +34,7 @@
 
     // comments
 
-    function escapeHtml(unsafe) { // from: https://stackoverflow.com/a/6234804
+    function escape(unsafe) { // from: https://stackoverflow.com/a/6234804
         return unsafe
              .replace(/&/g, "&amp;")
              .replace(/</g, "&lt;")
@@ -43,12 +43,19 @@
              .replace(/'/g, "&#039;");
      }
 
+     function unescape(safe) {
+        var e = document.createElement('div');
+        e.innerHTML = safe;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+     }
+
     function commentToHtml (comment, idx, passage) {
         var el = poof.el;
         return el('div', { classes : 'comment-readout' }, [
             el('div', { classes : 'number' }, idx + 1),
-            el('div', { classes : 'title' }, escapeHtml(comment.title)),
-            el('div', { classes : 'content' }, escapeHtml(comment.body))
+            el('div', { classes : 'title' }, escape(comment.title)),
+            el('div', { classes : 'content' }, escape(comment.body))
         ]).attr({
             role : 'button',
             title : comment.title
@@ -97,20 +104,30 @@
                 poof.modal.close();
             }
         });
-        poof.modal.write(comment.title, comment.body, [$confirm, $cancel]);
+        poof.modal.write(comment.title, poof.el('p', { classes : 'comment-content-out' }, escape(comment.body)), [$confirm, $cancel]);
     }
 
     function commentEdit (passage, idx) {
         poof.state.comments[passage.name] = poof.state.comments[passage.name] || [];
         var comments = poof.state.comments[passage.name];
         var thisIsAnEdit = (typeof idx === 'number' && comments[idx]);
+        var thisIsAPsgComment = (typeof idx === 'boolean' && idx);
 
         var $title = poof.forms.text('comment-title', '', 'Title...');
-        var $content = poof.el('textarea', { id : 'comment-content', placeholder : 'Write a comment...' });
+        var $content = poof.el('textarea', { 
+            id : 'comment-content', 
+            placeholder : 'Write a comment...',
+            spellcheck : 'true',
+            contenteditable : 'true'
+        });
 
         if (thisIsAnEdit) {
+            console.log(comments[idx], comments[idx].body);
             $title.find('#comment-title').val(comments[idx].title);
             $content.val(comments[idx].body);
+        } else if (thisIsAPsgComment) {
+            $title.find('#comment-title').val(passage.name);
+            $content.val(unescape(passage.source));
         }
 
         var $form = poof.el('form', { classes : 'pure-form' }, 
@@ -167,7 +184,9 @@
             if (thisIsAnEdit) {
                 $(document).trigger({
                     type : ':view-comment',
-                    comment : newComment
+                    comment : comments[idx],
+                    passage : passage,
+                    idx : idx
                 });
             } else {
                 poof.modal.close();
@@ -244,6 +263,10 @@
 
     $(document).on(':new-comment', function (ev) {
         commentEdit(ev.passage);
+    });
+
+    $(document).on(':comment-from-passage-text', function (ev) {
+        commentEdit(ev.passage, true);
     });
 
     $(document).on(':view-comment', function (ev) {

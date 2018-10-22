@@ -303,6 +303,12 @@ div.comment-readout div.title {
 }
 div.comment-readout div.content {
     max-width: 72%;
+    max-height: 1em;
+}
+
+.modal-body .comment-content-out {
+    white-space: pre-wrap;
+    text-align: left;
 }
 
 input#comment-title, textarea#comment-content {
@@ -316,4 +322,28 @@ textarea#comment-content {
 
 ul#credits {
     list-style: none;
+}
+
+.passage-card .edit {
+    float: right;
+    content: "\270e";
+    margin: 0;
+    padding: 0.5em;
+    display: none;
+    z-index: 2;
+    cursor: pointer;
+    background: #ccc;
+    border-radius: 50%;
+    transition: 300ms all;
+}
+
+.passage-card:hover .edit {
+    display: inline-block;
+}
+
+.passage-card:hover .edit:hover, .passage-card:hover .edit:active {
+    display: inline-block;
+    padding: 1em;
+    background: #eee;
+    border: 1px solid #ccc;
 }

@@ -77,13 +77,24 @@
         // this creates the DOM structure for each "passage card"
         var tagsClass = !!passage.tags.trim() ? '' : 'hide';
         var $el = html('div', { 'data-id' : passage.id, classes : 'passage-card' })
+            .append( html('div', { 
+                classes : 'edit', 
+                role : 'button',
+                title : "Create a comment using this passage's text."
+            }, '&#9998;').on('click', function () {
+                $(document).trigger({
+                    type : ':comment-from-passage-text',
+                    passage : passage
+                });
+            }))
             .append( html('h2', { classes : 'passage-title' }, passage.name))
             .append( html('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
                 .addClass(tagsClass) )
             .append( html('p', { classes : 'passage-source' })
                 .append( html('pre', {}, passage.source.trim())) )
             .append( html('div', { classes : 'passage-footer closed' }, [html('button', { 
-                classes : 'comment-open pure-button pure-button-primary'
+                classes : 'comment-open pure-button pure-button-primary',
+                title : "View this passage's comments."
             }, '&#128172;').on('click', function () {
                 var $self = $(this).toggleClass('pure-button-primary');
                 $self.parent('.passage-footer').toggleClass('closed');

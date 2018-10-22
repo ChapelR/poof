@@ -1,0 +1,24 @@
+Version 0.3.0 (next version plans)
+- Added comment importing.
+- Added comment-only export doc.
+
+Version 0.2.1 (current internal version)
+- Passage code to comment conversion feature.
+- Enabled browser spellcheck if available.
+- Fixed a number of display bugs regarding source code in comments.
+- Improved about menu and added in-app credits, etc.
+
+Version 0.2.0
+- Added comments menu, export options.
+- Added find tool.
+- Updated styles and layout.
+- Internal improvements.
+- Improved docs.
+
+Version 0.1.0
+- Added filters and search tools.
+- Added comments system, with local storage backing.
+- Several internal improvements.
+- Export option for Twine 2 archives.
+
+Version 0.0.1: Initial Beta Release (current release version)

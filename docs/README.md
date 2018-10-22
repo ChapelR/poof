@@ -26,6 +26,8 @@ For other compilers, you need to make the compiler aware of the format. How you 
 
 Older versions of poof can be found in the [`use` directory of the repo](https://github.com/ChapelR/poof/tree/master/docs/use); they're named after their version numbers.
 
+[Changelog](http://twinelab.net/poof/changelog.txt)
+
 ## Credits 
 
 Open source software used:
