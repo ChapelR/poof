@@ -225,6 +225,18 @@
         ]);
     }
 
+    function textlist (id, label, placeholder, opts) {
+        var listID = id + '-list';
+        return poof.el('form', { classes : 'pure-form' }, 
+            poof.el('fieldset', {}, [
+                poof.el('label', {}, [ label, 
+                    poof.el('input', { 'list': listID, id : id, placeholder : placeholder })]),
+                poof.el('datalist', { id : listID }, opts.map( function (opt) {
+                    return poof.el('option', { value : opt });
+                }))
+        ]));
+    }
+
     function form (elements) {
         return poof.el('form', { classes : 'pure-form pure-form-aligned left-align' }, 
             poof.el('fieldset', {}, elements) );
@@ -241,6 +253,7 @@
     window.poof.forms = {
         form : form,
         text : textbox,
+        textlist : textlist,
         check : checkbox,
         select : dropdown,
         confirm : confirm,
@@ -471,11 +484,28 @@
 }());
 
 /***
+        FIND
+***/
+
+(function () {
+    'use strict';
+
+    
+
+    window.poof.filter.find = find;
+
+}());
+
+/***
         USER INTERFACE
 ***/
 
 (function () {
     'use strict';
+
+    var passageNames = poof.passages.map( function (p) {
+        return p.name;
+    });
 
     var sortLookup = {
         'Passage Titles' : 'name',
@@ -577,9 +607,40 @@
         poof.modal.write('Sort Passages', [$explanation, $form], [$confirm, $cancel]);
     }
 
+    function find () {
+        var $finder = poof.forms.textlist('find-passage', 'Enter a passage title to look for: ', 'passage...', passageNames);
+        var $error = poof.el('div', { id : 'find-error' });
+        var $confirm = poof.forms.confirm('Find', function () {
+            var value = $('#find-passage').val();
+            var $card = $('.passage-card[name="' + value + '"]');
+            if ($card[0]) {
+                $(document).trigger(':find-start');
+                // make sure the passage is visible if filtered
+                $card.removeClass('hide');
+                // smooth scroll to the passage card
+                poof.modal.close();
+                $('html,body').animate({
+                   scrollTop : $card.offset().top - 37 // arrived at by 16px font * 2 (margin) * 1.15 (line-height)
+                }, function () {
+                    $(document).trigger(':find-complete');
+                });
+            } else {
+                // no such passage
+                $error.empty().append('<br/><br/>Cannot find a passage titled "' + value + '".');
+            }
+        });
+        var $cancel = poof.forms.cancel('Cancel', function () {
+            // nothing complex, for once, just close me out
+            poof.modal.close();
+        });
+
+        poof.modal.write('Find', [$finder, $error], [$confirm, $cancel]);
+    }
+
     window.poof.tools = {
         filter : filter,
-        sort : sort
+        sort : sort,
+        find : find
     };
 
 }());

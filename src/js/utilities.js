@@ -1,45 +1,81 @@
 (function () {
     'use strict';
 
+    function handleNotLoadedScript (name) {
+        // do something here
+        console.error('Script: "' + name + '" is not loaded...');
+        return false;
+    }
+
+    function hasScript (gl) {
+        if (!window[gl]) {
+            // an external script is missing or not loaded
+            return handleNotLoadedScript(gl);
+        }
+        return true;
+    }
+
+    function twArchive () {
+        return $(document.createDocumentFragment())
+            .append(document.createTextNode($('tw-storydata')[0].outerHTML)).text();
+    }
+
     function createPDF (name) {
-        // uses html2pdf to create a pdf doc from our DOM output
-        // we need to un-collapse all the source code to prevent cutoffs
-        var collapsedState = $('#main').hasClass('collapse');
-        var $target = $('#main').removeClass('collapse');
-        $('.passage-footer').addClass('hide');
-        // show filtered out passages
-        var toRevert = poof.filter.clear();
-        html2pdf($target[0], { filename : name, margin : 2 }).then( function () {
-            if (collapsedState) {
-                // if the source was collapsed, make it so again
-                $target.addClass('collapse');
-            }
-            // revert filtering display if necessary
-            if (toRevert && Array.isArray(toRevert) && toRevert.length) {
-                poof.filter.revert(toRevert);
-            }
-            $('.passage-footer').removeClass('hide');
-        });
+        var loaded = hasScript('html2pdf');
+        if (loaded) {
+            // uses html2pdf to create a pdf doc from our DOM output
+            // we need to un-collapse all the source code to prevent cutoffs
+            var collapsedState = $('#main').hasClass('collapse');
+            var $target = $('#main').removeClass('collapse');
+            $('.passage-footer').addClass('hide');
+            // show filtered out passages
+            var toRevert = poof.filter.clear();
+            html2pdf($target[0], { filename : name, margin : 2 }).then( function () {
+                if (collapsedState) {
+                    // if the source was collapsed, make it so again
+                    $target.addClass('collapse');
+                }
+                // revert filtering display if necessary
+                if (toRevert && Array.isArray(toRevert) && toRevert.length) {
+                    poof.filter.revert(toRevert);
+                }
+                $('.passage-footer').removeClass('hide');
+            });
+        }
+    }
+
+    function safeName (str) {
+        return str.toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '')
+            .replace(/\-\-+/g, '-')
+            .trim();
     }
 
     function createDownload (fileExt) {
-        // creates downloads for user exports
-        if (!window.poof) {
-            // if we can't access poof, something went horribly wrong
-            console.error('Cannot find generated content output!');
-            return;
-        }
-        var fileName = poof.data.name + '.' + fileExt;
+        var loaded = hasScript('download');
+        if (loaded) {
+            // creates downloads for user exports
+            if (!window.poof) {
+                // if we can't access poof, something went horribly wrong
+                console.error('Cannot find generated content output!');
+                return;
+            }
+            var fileName = safeName(poof.data.name) + '.' + fileExt;
 
-        if (fileExt === 'txt') {
-            // download the plain text twee format
-            download(poof.twee(), fileName, 'text/plain;charset=utf-8');
-        } else if (fileExt === 'html') {
-            // download this single page web app
-            download(document.documentElement.outerHTML, fileName, 'text/html;charset=utf-8');
-        } else {
-            // download a pdf for printing and sharing
-            createPDF(fileName);
+            if (fileExt === 'txt') {
+                // download the plain text twee format
+                download(poof.twee(), fileName, 'text/plain;charset=utf-8');
+            } else if (fileExt === 'html') {
+                // download this single page web app
+                download(document.documentElement.outerHTML, fileName, 'text/html;charset=utf-8');
+            } else if (fileExt === 'pdf') {
+                // download a pdf for printing and sharing
+                createPDF(fileName);
+            } else { // 'archive'
+                fileName = fileName + '.html';
+                download(twArchive(), fileName, 'text/html;charset=utf-8');
+            }
         }
     }
 
@@ -72,6 +108,9 @@
         $('#pdf-export').on('click', function () {
             createDownload('pdf');
         }).attr('title', 'Export to PDF format for printing or sharing.');
+        $('#archive-export').on('click', function () {
+            createDownload('archive');
+        }).attr('title', 'Export to a Twine 2 archive HTML file.');
 
         // view menu
         $('#simple').on('click', function () {
@@ -108,6 +147,18 @@
         $('#tools-sort').on('click', function () {
             poof.tools.sort();
         }).attr('title', 'Sort the displayed passages.');
+        $('#tools-find').on('click', function () {
+            poof.tools.find();
+        }).attr('title', 'Find a specific passage by title.');
+
+        // comments menu
+        $('#comments-export').on('click', function () {
+            poof.comments.export();
+        }).attr('title', 'Export comments to file.');
+        $('#comments-import').on('click', function () {
+            // TODO: open a modal, accept file input, load
+        }).attr('title', 'Import comments from a file.');
+
     });
 
 }());

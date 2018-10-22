@@ -32,20 +32,23 @@
 
     window.poof.store = store(); // storage methods, if possible
 
-    // comments are not loaded until requested by a `comments...` button
-    // comments are then listed, expanding the passage card
-    // comments may have a title and text (textbox and text area)
-    // comments may be added, deleted, or edited
-    // comments may be exported separately; no story export system exports them
-    // comments may be imported from file, shared, etc
-    // comments are exported to html format only
+    // comments
+
+    function escapeHtml(unsafe) { // from: https://stackoverflow.com/a/6234804
+        return unsafe
+             .replace(/&/g, "&amp;")
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#039;");
+     }
 
     function commentToHtml (comment, idx, passage) {
         var el = poof.el;
         return el('div', { classes : 'comment-readout' }, [
             el('div', { classes : 'number' }, idx + 1),
-            el('div', { classes : 'title' }, comment.title),
-            el('div', { classes : 'content' }, comment.body)
+            el('div', { classes : 'title' }, escapeHtml(comment.title)),
+            el('div', { classes : 'content' }, escapeHtml(comment.body))
         ]).attr({
             role : 'button',
             title : comment.title
@@ -73,7 +76,16 @@
     }
 
     function deleteComment (passage, idx) {
-        return poof.state.comments[passage.name].splice(idx, 1);
+        if (confirm('Are you sure you want to permanently delete this comment?')) {
+
+            poof.state.comments[passage.name].splice(idx, 1);
+
+            $(document).trigger({
+                type : ':refresh-comments',
+                passage : passage
+            });
+            return true;
+        }
     }
 
     function viewComment (comment, idx, passage) {
@@ -81,12 +93,9 @@
             commentEdit(passage, idx);
         });
         var $cancel = poof.forms.cancel('Delete', function () {
-            deleteComment(passage, idx);
-            poof.modal.close();
-            $(document).trigger({
-                type : ':refresh-comments',
-                passage : passage
-            });
+            if(deleteComment(passage, idx)) {
+                poof.modal.close();
+            }
         });
         poof.modal.write(comment.title, comment.body, [$confirm, $cancel]);
     }
@@ -113,6 +122,25 @@
                 title : $('#comment-title').val(),
                 body : $('#comment-content').val()
             };
+
+            if (!newComment.title && !newComment.body) {
+                // handle blank comments
+                poof.modal.write('Hmmm', 'Your comment is totally blank! Are you trying to delete it?', [
+                    poof.forms.confirm('No!', function () {
+                        commentEdit(passage, idx);
+                    }),
+                    poof.forms.cancel('Yes, delete it.', function () {
+                        if (typeof idx === 'number') {
+                            if (!deleteComment(passage, idx)) {
+                                commentEdit(passage, idx);
+                                return;
+                            }
+                        }
+                        poof.modal.close();
+                    })
+                ]);
+                return;
+            }
 
             if (thisIsAnEdit) {
                 comments[idx] = newComment;
@@ -152,9 +180,11 @@
 
     function commentSave () {
         window.poof.store.save(window.poof.state);
+        console.log('State saved!');
     }
 
     $(document).on(':refresh-comments', function (ev) {
+        commentSave(); // comments are refreshed on delete / new / edit; good time to save
         var comments = poof.state.comments[ev.passage.name];
         var $footer = ev.passage.$el.children('.passage-footer');
         var $output = $footer.children('.comment-wrapper');
@@ -214,7 +244,6 @@
 
     $(document).on(':new-comment', function (ev) {
         commentEdit(ev.passage);
-        commentSave();
     });
 
     $(document).on(':view-comment', function (ev) {
@@ -246,7 +275,7 @@
             .replace(/\s+/g, '-')           // Replace spaces with -
             .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
             .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-            .trim() + 'comments.poof';
+            .trim() + '.comments.poof';
         try {
             data = btoa(JSON.stringify(data));
         } catch (err) {
