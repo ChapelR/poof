@@ -32,11 +32,6 @@
 
     window.poof.store = store(); // storage methods, if possible
 
-    window.poof.state = poof.store.load() || {
-        ifid : poof.data.ifid, // used to test if this story can use this data
-        comments : {} // array of comments indexed by passage name
-    };
-
     // comments are not loaded until requested by a `comments...` button
     // comments are then listed, expanding the passage card
     // comments may have a title and text (textbox and text area)
@@ -77,14 +72,19 @@
         return $list;
     }
 
+    function deleteComment (passage, idx) {
+        return poof.state.comments[passage.name].splice(idx, 1);
+    }
+
     function viewComment (comment, idx, passage) {
         var $confirm = poof.forms.confirm('Edit', function () {
             commentEdit(passage, idx);
         });
         var $cancel = poof.forms.cancel('Delete', function () {
+            deleteComment(passage, idx);
             poof.modal.close();
             $(document).trigger({
-                type : ':comment-open',
+                type : ':refresh-comments',
                 passage : passage
             });
         });
@@ -114,8 +114,6 @@
                 body : $('#comment-content').val()
             };
 
-            console.log(newComment, poof.state.comments);
-
             if (thisIsAnEdit) {
                 comments[idx] = newComment;
                 $(document).trigger({
@@ -123,12 +121,16 @@
                     comment : newComment
                 });
                 $(document).trigger({
-                    type : ':comment-open',
+                    type : ':refresh-comments',
                     passage : passage
                 });
             } else {
                 comments.push(newComment);
                 poof.modal.close();
+                $(document).trigger({
+                    type : ':refresh-comments',
+                    passage : passage
+                });
             }
         });
 
@@ -147,6 +149,32 @@
 
         poof.modal.write('Edit Comment', $form, [$confirm, $cancel]);
     }
+
+    function commentSave () {
+        window.poof.store.save(window.poof.state);
+    }
+
+    $(document).on(':refresh-comments', function (ev) {
+        var comments = poof.state.comments[ev.passage.name];
+        var $footer = ev.passage.$el.children('.passage-footer');
+        var $output = $footer.children('.comment-wrapper');
+
+        if ($footer.hasClass('closed')) {
+            return; // do nothing
+        }
+
+        var $new = poof.btn.primary('New Comment', function () {
+            $(document).trigger({
+                type : ':new-comment',
+                passage : ev.passage
+            });
+        });
+
+        var $list = commentsToDiv(comments, ev.passage);
+
+        $output.empty().append($list, $new);
+
+    });
 
     $(document).on(':comment-open', function (ev) {
         var comments = poof.state.comments[ev.passage.name];
@@ -186,12 +214,136 @@
 
     $(document).on(':new-comment', function (ev) {
         commentEdit(ev.passage);
+        commentSave();
     });
 
     $(document).on(':view-comment', function (ev) {
         viewComment(ev.comment, ev.idx, ev.passage);
     });
 
-    // todo: save, load, and export comments
+    // load up comments on startup, but after DOM, and report what happened
+
+    $(document).ready( function () {
+        var loaded = poof.store.load();
+        var loadMe = function () {
+            if (loaded) {
+                console.log('Poof state loaded from local storage for story "' + poof.data.ifid + '".');
+                return loaded;
+            }
+            console.log('Poof state generated for story "' + poof.data.ifid + '".');
+            return false;
+        };
+        window.poof.state = loadMe() || {
+            ifid : poof.data.ifid, // used to test if this story can use this data
+            comments : {} // array of comments indexed by passage name
+        };
+    });
+
+    function createCommentExport () {
+        // this utility function exports the state, with comments; a seperate function handles imports
+        var data = window.poof.state;
+        var filename = poof.data.name.toLowerCase()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .trim() + 'comments.poof';
+        try {
+            data = btoa(JSON.stringify(data));
+        } catch (err) {
+            console.warn(err);
+            alert('Something went wrong. Error code: "camel". Please report this bug at: https://github.com/ChapelR/poof/issues/new');
+            return;
+        }
+        download(data, filename, 'text/plain;charset=utf-8');
+    }
+
+    function readCommentExport (data) {
+        var read, warnings = [], fix = {};
+
+        // get the data
+        try {
+            read = atob(JSON.parse(data));
+        } catch (err) {
+            console.warn(err);
+            alert('This file could not be opened. It may be corrupted.');
+            return;
+        }
+
+        // check for any weirdness
+        if (!read.ifid || typeof read.ifid !== 'string') {
+            warnings.push('This file is missing some of its metadata.');
+            fix.ifid = poof.data.ifid;
+        } else if (read.ifid.trim().toLowerCase() !== poof.data.ifid.trim().toLowerCase()) {
+            warnings.push('This file has a differend IFID than the loaded story.');
+            fix.ifid = poof.data.ifid;
+        }
+        if (!read.comments || typeof read.comments !== 'object') {
+            warngings.push('The comments in this file may be corrupted or missing.');
+            fix.comments = {};
+        } else if (!Object.keys(read.comments).length) {
+            warngings.push('There appear to be no comments in this file.');
+        }
+
+        // report warnings
+        if (warnings.length) {
+            var message = 'There ' + (warnings.length > 1 ? 'are multiple ' : 'is a ') + 'problem with this comment file: \n\n' +
+                warnings.join('\n') + '\n\nWould you like to try to load it anyway?';
+            var loadAnyway = confirm(message);
+            if (loadAnyway) {
+                console.log('Attempting to fix malformed comment data: ', read, fix);
+                Object.assign(read, fix);
+                console.log('Fix restults: ', read);
+            } else {
+                return; // don't load
+            }
+        }
+
+        // merge comments
+        $('.passage-footer').addClass('closed'); // hide the work
+        warnings = [];
+        check = function (item) {
+            return (item && Array.isArray(item) && item.length);
+        };
+
+        Object.keys(read.comments).forEach( function (passage) {
+            if (poof.passages.findIndex( function (psg) {
+                return passage === psg.name;
+            }) === -1) {
+                warnings.push('Cannot find passage "' + passage + '", ignoring comments.');
+            } else {
+                if (read.comments[passage] && check(read.comments[passage])) {
+                    if (poof.state.comments[passage] && check(poof.state.comments[passage])) {
+                        // possiblity one - both arrays have data: merge
+                        poof.state.comments[passage] = poof.state.comments[passage].concat(read.comments[passage]);
+                        return;
+                    } else {
+                        // possiblity two - only the newData has data: overwrite
+                        poof.state.comments[passage] = read.comments[passage];
+                    }
+                } else {
+                    // possibility three: the new data is not an array, empty, etc
+                    return; // do nothing
+                }
+            }
+        });
+
+        // report and further oddities
+        if (warnings.length) {
+            console.warn(warnings.join('\n'));
+            alert('Some comments may not have been imported, check the console for more information.');
+        }
+
+        // update the storage state
+        console.log('File import complete; updating state.');
+        commentSave();
+
+    }
+
+    window.poof.comments = {
+        // export the API
+        store : commentSave,
+        export : createCommentExport,
+        import : readCommentExport
+    };
 
 }());

@@ -269,12 +269,9 @@ div.empty-comment.add-comment:hover, div.empty-comment.add-comment:active {
     color: #111;
 }
 
-.comment-wrapper table thead {
-    display: none;
-}
-
-.comment-wrapper table {
-    width: 100%;
+div.comment-wrapper div.comment-readout:last-child {
+    margin-bottom: 1em;
+    border-bottom: 1px solid #eee;
 }
 
 div.comment-readout div {
