@@ -90,13 +90,44 @@
         $('#main').removeClass('smallify');
     }
 
+    function creditLink (text, site, license) {
+        return poof.el('li', { classes : 'credit-link' }, [
+            poof.el('a', { href : site, target : '_blank' }, text),
+            ' (' + license + ') '
+        ]);
+    }
+
+    function generateCredits () {
+        var a = creditLink;
+        return poof.el('ul', { id : 'credits' }, [
+            a('twinejs', 'http://twinery.org/', 'GPL-3.0'),
+            a('html2pdf', 'https://github.com/eKoopmans/html2pdf', 'MIT'),
+            a('download.js', 'http://danml.com/download.html', 'CC-BY-4.0'),
+            a('jQuery', 'https://jquery.com/', 'MIT'),
+            a('normalize.css', 'https://necolas.github.io/normalize.css/', 'MIT'),
+            a('pure.css', 'https://purecss.io/', 'BSD')
+        ]);
+    }
+
         /*** MENUS ***/
 
     $(document).ready(function () {
         /*
             here we'll handle all of our menu options
-            the about menu is already handled via hrefs
+            the about menu is mostly already handled via hrefs
         */
+
+        // about 
+        $('#about').on('click', function () {
+            var $byline = poof.el('p', {}, $('body').attr('data-byline') + '.');
+            var $version = poof.el('p', {}, 'Version: ' + $('body').attr('data-version'));
+            var $creditsP = poof.el('p', {}, 'Open Source Software Credits: ');
+            var $credits = generateCredits();
+            var $cancel = poof.btn.normal('Dismiss', function () {
+                poof.modal.close();
+            });
+            poof.modal.write('About poof', [$byline, $version, $creditsP, $credits], $cancel);
+        }).attr('title', 'About this story format.');
 
         // export menu
         $('#twee-export').on('click', function () {
@@ -158,7 +189,7 @@
         $('#comments-import').on('click', function () {
             // TODO: open a modal, accept file input, load
         }).attr('title', 'Import comments from a file.');
-
+        
     });
 
 }());

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- /% byline %/ -->
+        <!-- /% byline %/; v/% version %/ -->
         <title>Poof: {{STORY_NAME}}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,22 +10,22 @@
         /% stylesheet %/
         </style>
     </head>
-    <body>
+    <body data-version="/% version %/" data-byline="/% byline %/">
 
-        <!-- Modal -->
+        <!--! Modal -->
         <div class="modale" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-header">
-              <h2 id="modal-title">Title</h2>
-              <a href="javascript:void(0)" class="btn-close closemodale" aria-hidden="true">&times;</a>
+                <h2 id="modal-title">Title</h2>
+                <a href="javascript:void(0)" class="btn-close closemodale" aria-hidden="true">&times;</a>
             </div>
             <div id="modal-body" class="modal-body">Body</div>
             <div id="modal-footer" class="modal-footer">Footer</div>
           </div>
         </div>
-        <!-- /Modal -->
+        <!--! /Modal -->
 
-        <!-- Menu -->
+        <!--! Menu -->
         <div class="pure-menu pure-menu-horizontal">
             <ul class="pure-menu-list">
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
@@ -65,13 +65,14 @@
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                     <a href="javascript:void(0)" id="menuLink5" class="pure-menu-link">About</a>
                     <ul class="pure-menu-children">
-                        <li class="pure-menu-item"><a id="about" target="_blank" href="https://twinelab.net/poof" class="pure-menu-link">About</a></li>
+                        <li class="pure-menu-item"><a id="website" target="_blank" href="https://twinelab.net/poof" class="pure-menu-link">Website</a></li>
                         <li class="pure-menu-item"><a id="bugs" target="_blank" href="https://github.com/ChapelR/poof/issues/new" class="pure-menu-link">Report Bugs</a></li>
+                        <li class="pure-menu-item"><a id="about" href="javascript:void(0)" class="pure-menu-link">About</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
-        <!-- /Menu -->
+        <!--! /Menu -->
 
         <div id="content">Loading...</div>
         {{STORY_DATA}}

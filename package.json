@@ -1,6 +1,6 @@
 {
   "name": "poof",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Twine 2 proofing format.",
   "main": "gulpfile.js",
   "dependencies": {
@@ -16,7 +16,8 @@
     "jshint": "^2.9.6"
   },
   "devDependencies": {
-    "gulp": "github:gulpjs/gulp#4.0"
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-htmlmin": "^5.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

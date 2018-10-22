@@ -151,7 +151,7 @@ div#content.simple p.passage-source {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 10;
+    z-index: 200;
 }
 .opened:before {
     display: block;
@@ -160,7 +160,7 @@ div#content.simple p.passage-source {
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     transform: translate(0, 0);
-    top: 20%;
+    top: 10%;
 }
 .modal-dialog {
     background: #fefefe;
@@ -172,7 +172,7 @@ div#content.simple p.passage-source {
     position: fixed;
     left: 20%;
     top: -100%;
-    z-index: 11;
+    z-index: 210;
     width: 60%;
     box-shadow:0 5px 10px rgba(0,0,0,0.3);
     -webkit-transform: translate(0, -500%);
@@ -308,4 +308,8 @@ input#comment-title, textarea#comment-content {
 
 textarea#comment-content {
     height: 10em;
+}
+
+ul#credits {
+    list-style: none;
 }

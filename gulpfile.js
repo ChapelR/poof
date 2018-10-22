@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     autoprefix = require('gulp-autoprefixer'),
     jshint = require('gulp-jshint'),
     escape = require('gulp-js-escape'),
-    fs = require('fs');
+    fs = require('fs'),
+    version = require('./package.json').version;
 
 function processScripts (dir, out, name) {
     return gulp.src(dir)
@@ -50,9 +51,12 @@ function buildStyles () {
 
 function makeTemplate () {
     return gulp.src('./src/template.html')
+        .pipe(replace(/<!--!.*?-->/g, ''))
         .pipe(replace('/% byline %/', fs.readFileSync('./src/byline.txt', 'utf8')))
+        .pipe(replace('/% version %/', version))
         .pipe(replace('/% stylesheet %/', fs.readFileSync('./dist/poof.min.css', 'utf8')))
         .pipe(replace('/% scripts %/', fs.readFileSync('./dist/poof.min.js', 'utf8')))
+        .pipe(replace(/\s+/g, ' '))
         .pipe(escape())
         .pipe(rename('template.js'))
         .pipe(gulp.dest('./dist'));
@@ -60,6 +64,7 @@ function makeTemplate () {
 
 function makeFormat () {
     return gulp.src('./src/format.js')
+        .pipe(replace('/% version %/', version))
         .pipe(replace('/% code %/', fs.readFileSync('./dist/template.js')))
         .pipe(rename('format.js'))
         .pipe(gulp.dest('./dist/format'));
