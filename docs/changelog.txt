@@ -1,5 +1,6 @@
 Version 0.3.0 (next version plans)
 - Added comment importing.
+- Added comment count.
 - Added comment-only export doc.
 - Added loading spinners.
 

@@ -201,11 +201,28 @@
         console.log('State saved!');
     }
 
+    function displayCommentNumbers () {
+        var comments = poof.state.comments;
+        Object.keys(comments).forEach( function (psg) {
+            var readout = comments[psg].length;
+            if (!readout) {
+                return;
+            }
+            readout = '&#128172; ' + readout;
+            $('.passage-card[name="' + psg + '"]')
+                .find('button.comment-open')
+                .empty()
+                .append(readout);
+        });
+    }
+
     $(document).on(':refresh-comments', function (ev) {
         commentSave(); // comments are refreshed on delete / new / edit; good time to save
         var comments = poof.state.comments[ev.passage.name];
         var $footer = ev.passage.$el.children('.passage-footer');
         var $output = $footer.children('.comment-wrapper');
+
+        $footer.find('button.comment-open').empty().append('&#128172; ' + comments.length);
 
         if ($footer.hasClass('closed')) {
             return; // do nothing
@@ -288,6 +305,7 @@
             ifid : poof.data.ifid, // used to test if this story can use this data
             comments : {} // array of comments indexed by passage name
         };
+        displayCommentNumbers();
     });
 
     function createCommentExport () {
@@ -387,7 +405,7 @@
         // update the storage state
         console.log('File import complete; updating state.');
         commentSave();
-
+        displayCommentNumbers();
     }
 
     window.poof.comments = {
