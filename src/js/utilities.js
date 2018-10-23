@@ -79,6 +79,47 @@
         }
     }
 
+    function createImporter (id) {
+        return poof.el('label', { for : id }, [
+
+            poof.el('a', {
+                classes : 'pure-button pure-button-primary'
+            }, 'Import a File'),
+
+            poof.el('input', { id : id, type : 'file' }).on('change', function (ev) {
+                $(document).trigger(':load-open');
+                poof.modal.close();
+                var file = ev.target.files[0];
+                var reader = new FileReader();
+
+                $(reader).on('load', function (ev) {
+                    var target = ev.currentTarget;
+
+                    if (!target.result) {
+                        return;
+                    }
+
+                    try {
+                        poof.comments.import(target.result);
+                    } catch (err) {
+                        console.warn(err);
+                        alert('Something went wrong. Error code: "raven". Please report this bug at: https://github.com/ChapelR/poof/issues/new');
+                        return;
+                    } finally {
+                        $(document).trigger(':load-close');
+                    }
+                });
+
+                reader.readAsText(file);
+            })
+        ]);
+    }
+
+    function importComments () {
+        poof.modal.write('Import Comments', createImporter('comment-file-importer'), 
+            poof.btn.normal('Cancel', poof.modal.close));
+    }
+
     function showOverlay () {
         // show the overlay and shrink the output element
         $('#overlay').removeClass('hide');
@@ -108,6 +149,26 @@
             a('pure.css', 'https://purecss.io/', 'BSD')
         ]);
     }
+
+        /*** LOADER ***/
+
+    $(document).on(':load-open', function () {
+        showOverlay();
+        $('#story-stylesheet #story-javascript').addClass('hide');
+        $('#overlay').find('.loader').removeClass('hide');
+    });
+
+    $(document).on(':load-close', function () {
+        hideOverlay();
+        $('#overlay').find('.loader').addClass('hide');
+    });
+
+    $(document).on(':find-start :sort-start :filter-start', function () {
+        $(document).trigger(':load-open');
+    });
+    $(document).on(':find-complete :sort-complete :filter-complete', function () {
+        $(document).trigger(':load-close');
+    });
 
         /*** MENUS ***/
 
@@ -187,7 +248,7 @@
             poof.comments.export();
         }).attr('title', 'Export comments to file.');
         $('#comments-import').on('click', function () {
-            // TODO: open a modal, accept file input, load
+            importComments();
         }).attr('title', 'Import comments from a file.');
         
     });

@@ -122,7 +122,6 @@
         });
 
         if (thisIsAnEdit) {
-            console.log(comments[idx], comments[idx].body);
             $title.find('#comment-title').val(comments[idx].title);
             $content.val(comments[idx].body);
         } else if (thisIsAPsgComment) {
@@ -314,7 +313,7 @@
 
         // get the data
         try {
-            read = atob(JSON.parse(data));
+            read = JSON.parse(atob(data));
         } catch (err) {
             console.warn(err);
             alert('This file could not be opened. It may be corrupted.');
@@ -353,7 +352,7 @@
         // merge comments
         $('.passage-footer').addClass('closed'); // hide the work
         warnings = [];
-        check = function (item) {
+        var check = function (item) {
             return (item && Array.isArray(item) && item.length);
         };
 

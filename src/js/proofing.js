@@ -194,9 +194,9 @@
     };
     $(document).ready( function () {
         // attach the DOM structure, and the overlay and view-switching elements, to the #content element
-        $('#content').empty().append(output.html())
-            .append( html('div', { id : 'overlay' }, [output.$scripts.addClass('hide'), output.$styles.addClass('hide')] )
-                .addClass('hide'));
+        $('#content').append(output.html());
+        $('#overlay').append(output.$scripts.addClass('hide'), output.$styles.addClass('hide'));
+        $(document).trigger(':load-close');
     });
 
     // export all our vital data to the global `poof` variable
