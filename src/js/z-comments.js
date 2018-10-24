@@ -18,7 +18,7 @@
             },
             load : function () {
                 try {
-                    return JSON.parse(localStorage.getItem(key) || '{}');
+                    return JSON.parse(localStorage.getItem(key) || '{ "hasData" : "hasData" }');
                 } catch (err) {
                     console.warn(err);
                     return false;
@@ -293,17 +293,17 @@
 
     $(document).ready( function () {
         var loaded = poof.store.load();
-        var loadMe = function () {
+        var loadMe = (function () {
             if (loaded) {
                 console.log('Poof state loaded from local storage for story "' + poof.data.ifid + '".');
                 return loaded;
             }
             console.log('Poof state generated for story "' + poof.data.ifid + '".');
             return false;
-        };
-        window.poof.state = loadMe() || {
+        }());
+        window.poof.state = {
             ifid : poof.data.ifid, // used to test if this story can use this data
-            comments : {} // array of comments indexed by passage name
+            comments : (loadMe && loadMe.comments) || {} // array of comments indexed by passage name
         };
         displayCommentNumbers();
     });
