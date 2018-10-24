@@ -462,3 +462,27 @@ html.night div.empty-comment.add-comment:active,
 html.night div.empty-comment.add-comment:hover {
     color: #eee;
 }
+
+html.night div#content.simple {
+    background-color: #333;
+}
+
+html.night div#content.simple div#story-data, 
+html.night div#content.simple div.passage-card, 
+html.night div#content.simple p.passage-tags {
+    padding: 1em;
+    box-shadow: none;
+    background-color: #454545;
+    border: 0;
+}
+
+html.night div#content.simple div.passage-source {
+    border: 0;
+    padding: 1em;
+    background-color: #333;
+    min-height: unset;
+}
+
+html.night div#content.simple div#main {
+    background: #454545;
+}

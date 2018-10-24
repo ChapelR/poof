@@ -1,6 +1,6 @@
 {
   "name": "poof",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A Twine 2 proofing format.",
   "main": "gulpfile.js",
   "dependencies": {

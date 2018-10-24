@@ -1,12 +1,18 @@
-Version 0.3.0 (current released version)
+Version 0.3.1
+- Fixed a bug with night mode and simplified view.
+- Fixed a bug in the error reporting of comment imports.
+- Other small improvements.
+
+Version 0.3.0
+- Removed the ability to save the HTML view, as this broke comments.
 - Added comment importing.
 - Added comment count.
 - Added loading spinners.
 - Added night mode.
 - Added config passage support.
 - Added ignore tag.
-- Filter by poof comments.
-- Invert filters.
+- Filter by presence of comments.
+- Improved filtering code and added invert option.
 
 Version 0.2.1
 - Passage code to comment conversion feature.
