@@ -1,9 +1,9 @@
 # Introduction
 
 Demos:  
-- [Example HTML output](http://twinelab.net/poof/demo/)  
-- [Example PDF output](http://twinelab.net/poof/demo/poof.pdf)  
-- [Example plain text output](http://twinelab.net/poof/demo/poof.txt)
+- [Example HTML output](https://twinelab.net/poof/demo/)  
+- [Example PDF output](https://twinelab.net/poof/demo/poof.pdf)  
+- [Example plain text output](https://twinelab.net/poof/demo/poof.txt)
 
 A Twine 2 proofing format. In a prerelease state, currently.
 
@@ -26,7 +26,7 @@ For other compilers, you need to make the compiler aware of the format. How you 
 
 Older versions of poof can be found in the [`use` directory of the repo](https://github.com/ChapelR/poof/tree/master/docs/use); they're named after their version numbers. There's also a development version: `dev.js` that you should almost certainly not use.
 
-[Changelog](http://twinelab.net/poof/changelog.txt)
+[Changelog](https://twinelab.net/poof/changelog.txt)
 
 ## Credits 
 
