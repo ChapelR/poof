@@ -343,14 +343,14 @@
             warnings.push('This file is missing some of its metadata.');
             fix.ifid = poof.data.ifid;
         } else if (read.ifid.trim().toLowerCase() !== poof.data.ifid.trim().toLowerCase()) {
-            warnings.push('This file has a differend IFID than the loaded story.');
+            warnings.push('This file has a different IFID than the loaded story.');
             fix.ifid = poof.data.ifid;
         }
         if (!read.comments || typeof read.comments !== 'object') {
-            warngings.push('The comments in this file may be corrupted or missing.');
+            warnings.push('The comments in this file may be corrupted or missing.');
             fix.comments = {};
         } else if (!Object.keys(read.comments).length) {
-            warngings.push('There appear to be no comments in this file.');
+            warnings.push('There appear to be no comments in this file.');
         }
 
         // report warnings

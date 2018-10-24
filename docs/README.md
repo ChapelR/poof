@@ -12,7 +12,7 @@ If you have any ideas for features, please [open an issue on the github repo](ht
 Features:  
 - Simple and readable, but more manageable than Paperthin.  
 - Review your stylesheet and JavaScript code in addition to your passages.  
-- Export your passages to PDF, plain text (in twee notation), an html file, or a Twine 2 archive file.  
+- Export your passages to PDF, plain text (in twee notation), or a Twine 2 archive file.  
 - Sortable, filterable, and search-able passage list.  
 - Create comments and notes that can be exported, imported, and shared with others.
 
@@ -79,15 +79,11 @@ If you have a lot of passages, you'll likely want a way to sort, filter, and fin
 
 ## Exporting Your Story
 
-Poof comes with a few options for exporting your story to help you get the most out of your proofreading time. Note that when you export your story to any of the following formats, the comments you make won't go with it.
+Poof comes with a few options for exporting your story to help you get the most out of your proofreading time. Note that when you export your story to any of the following formats, the comments you've made won't go with it.
 
 ### Twee
 
 The first way you can export is to [Twee notation](https://twinery.org/cookbook/terms/terms_twee.html), in a plain text format. This is useful both for editing, and for transitioning your story to a different compiler, like Twee2 or Tweego.
-
-### HTML
-
- Poof can also export to HTML; this saves a copy of poof's output (what you see when you click `View Proofing Copy`) to your hard drive for later use, sharing, emailing, etc. Note, however, that any comments aren't sent with this export, so you'll need to export and re-import the comments if you want them on this new copy. Read [the section about comments below for more](#comments).
 
 ### PDF
 
