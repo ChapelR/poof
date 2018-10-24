@@ -282,6 +282,7 @@ div.comment-readout div {
     white-space: pre;
     padding: 1em;
     display: inline-block;
+    height: 1em;
 }
 
 div.comment-readout:hover div {
@@ -304,7 +305,6 @@ div.comment-readout div.title {
 }
 div.comment-readout div.content {
     max-width: 72%;
-    max-height: 1em;
 }
 
 .modal-body .comment-content-out {
