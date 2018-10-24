@@ -282,25 +282,35 @@
         return str.split(' ');
     }
 
-    function filter (arr, prop, test) {
+    function filter (arr, prop, test, shouldInvert) {
+        var ret;
         return arr.filter( function (member) {
             // because we're filtering out the passages we *don't* want to hide, 
             // this filter function needs to return the opposite of what you may expect
             if (prop === 'tags') {
                 if (!member.tags || !member.tags.trim()) {
-                    return true;
+                    return shouldInvert ? true : false;
                 }
                 var tags, needle;
                 // handle tag tests (most complicated)
                 needle = breakTags(test);
                 tags = handleStrings(member.tags);
-                return !needle.every( function (testTag) {
+                ret = needle.every( function (testTag) {
                     // every tag must be assigned to the passage
                     return tags.includes(testTag);
                 });
+                return shouldInvert ? !ret : ret;
+            } else if (prop === 'comments') {
+                ret = (poof.state && poof.state.comments &&
+                    poof.state.comments[member.name] &&
+                    Array.isArray(poof.state.comments[member.name]) &&
+                    poof.state.comments[member.name].length);
+
+                return shouldInvert ? !ret : ret;
             } else {
                 // does the normalized content contain the normalized text string?
-                return !handleStrings(member[prop]).includes(handleStrings(test));
+                ret = handleStrings(member[prop]).includes(handleStrings(test));
+                return shouldInvert ? !ret : ret;
             }
         });
     }
@@ -333,13 +343,13 @@
         });
     }
 
-    function filterPassages (prop, test, dontClear) {
+    function filterPassages (prop, test, invert, dontClear) {
         if (!dontClear) {
             // by default, undo previous filters before making new ones
             resetFilters();
             // additive filters will likely not ever be useful, but we'll leave the option in
         }
-        var toHide = filter(poof.passages, prop, test);
+        var toHide = filter(poof.passages, prop, test, !invert);
         // this DOM operation could take a bit; may be worth it to use a loader here
         $(getElements(toHide)).each( function () {
             $(this).addClass('hide');
@@ -484,19 +494,6 @@
 }());
 
 /***
-        FIND
-***/
-
-(function () {
-    'use strict';
-
-    
-
-    window.poof.filter.find = find;
-
-}());
-
-/***
         USER INTERFACE
 ***/
 
@@ -520,9 +517,13 @@
     function filter () {
         var $title = poof.forms.text('title-filter', 'Passage Title: ', 'title...'),
             $tags  = poof.forms.text('tags-filter', 'Passage Tags: ', 'tags...', 'Seperate tags with spaces.'),
-            $source  = poof.forms.text('source-filter', 'Passage Text: ', 'source...');
+            $source  = poof.forms.text('source-filter', 'Passage Text: ', 'source...'),
+            $comments = poof.forms.check('comment-filter', 'Passage has comments.')
+                .attr('title', 'Show only passages with poof comments.'),
+            $invert = poof.forms.check('invert-filter', 'Invert.')
+                .attr('title', 'Check to instead hide the passages that meet these criteria.');
 
-        var $form = poof.forms.form([$title, $tags, $source]);
+        var $form = poof.forms.form([$title, $tags, $source, $comments, $invert]);
 
         var $explanation = poof.el('p', { classes : 'form-expanation'}, 'Show only the passages that meet the following criteria.');
 
@@ -536,15 +537,20 @@
 
             var title = $('#title-filter').val(),
                 tags = $('#tags-filter').val(),
-                source = $('#source-filter').val();
+                source = $('#source-filter').val(),
+                comments = $('#comment-filter').prop('checked'),
+                invert = $('#invert-filter').prop('checked');
             if (valueExists(title)) {
-                poof.filter.run('name', title);
+                poof.filter.run('name', title, invert);
             }
             if (valueExists(tags)) {
-                poof.filter.run('tags', tags);
+                poof.filter.run('tags', tags, invert);
             }
             if (valueExists(source)) {
-                poof.filter.run('source', source);
+                poof.filter.run('source', source, invert);
+            }
+            if (comments) {
+                poof.filter.run('comments', null, invert);
             }
 
             $(document).trigger(':filter-complete');
@@ -568,7 +574,8 @@
 
     function sort () {
         var $drop = poof.forms.select('sort-param', 'Select the property to sort by: ', ['Passage Titles', 'Passage IDs', 'Source Code Length']);
-        var $check = poof.forms.check('sort-reverse', 'Descending order.');
+        var $check = poof.forms.check('sort-reverse', 'Reverse.')
+            .attr('title', 'Reverse the sorting order.');
 
         var $explanation = poof.el('p', { classes : 'form-expanation'}, 'Sort the passage list using one of the following criteria.');
 

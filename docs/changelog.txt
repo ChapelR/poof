@@ -1,10 +1,14 @@
-Version 0.3.0 (next version plans)
+Version 0.3.0 (current released version)
 - Added comment importing.
 - Added comment count.
-- Added comment-only export doc.
 - Added loading spinners.
+- Added night mode.
+- Added config passage support.
+- Added ignore tag.
+- Filter by poof comments.
+- Invert filters.
 
-Version 0.2.1 (current internal version)
+Version 0.2.1
 - Passage code to comment conversion feature.
 - Enabled browser spellcheck if available.
 - Fixed a number of display bugs regarding source code in comments.
@@ -23,4 +27,4 @@ Version 0.1.0
 - Several internal improvements.
 - Export option for Twine 2 archives.
 
-Version 0.0.1: Initial Beta Release (current release version)
+Version 0.0.1: Initial Beta Release 

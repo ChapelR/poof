@@ -18,7 +18,7 @@
             },
             load : function () {
                 try {
-                    return JSON.parse(localStorage.getItem(key) || '');
+                    return JSON.parse(localStorage.getItem(key) || '{}');
                 } catch (err) {
                     console.warn(err);
                     return false;
@@ -222,7 +222,7 @@
         var $footer = ev.passage.$el.children('.passage-footer');
         var $output = $footer.children('.comment-wrapper');
 
-        $footer.find('button.comment-open').empty().append('&#128172; ' + comments.length);
+        $footer.find('button.comment-open').empty().append('&#128172; ' + (comments.length || ''));
 
         if ($footer.hasClass('closed')) {
             return; // do nothing

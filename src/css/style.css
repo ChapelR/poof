@@ -58,14 +58,15 @@ p.passage-tags {
     padding: 0.3em;
 }
 
-p.passage-source {
+div.passage-source {
     border: 1px solid #111;
     padding: 1em;
+    margin: 1em;
     background-color: #f8f8f8;
     overflow: auto;
 }
 
-p.passage-source pre {
+div.passage-source pre {
     font-family: Consolas, monaco, monospace;
     white-space: pre-wrap;
     line-height: 1.5em;
@@ -92,7 +93,7 @@ div#overlay {
     overflow: hidden;
 }
 
-#main.collapse p.passage-source {
+#main.collapse div.passage-source {
     max-height: 20em;
 }
 
@@ -107,7 +108,7 @@ div#content.simple div#story-data, div#content.simple div.passage-card, div#cont
     border: 0;
 }
 
-div#content.simple p.passage-source {
+div#content.simple div.passage-source {
     border: 0;
     padding: 1em;
     background-color: #eee;
@@ -124,7 +125,7 @@ div#content.simple p.passage-source {
     div.passage-card {
         margin: 1em 0;
     }
-    p.passage-source {
+    div.passage-source {
         margin: 0;
     }
 }
@@ -326,7 +327,6 @@ ul#credits {
 
 .passage-card .edit {
     float: right;
-    content: "\270e";
     margin: 0;
     padding: 0.5em;
     display: none;
@@ -393,4 +393,72 @@ input[type="file"] {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+/* night mode */
+
+html.night body {
+    background: #333;
+    color: #eee;
+}
+
+html.night div#story-data, html.night div.passage-card {
+    background-color: #454545;
+    box-shadow: 0 0 3px #000;
+}
+
+html.night div.passage-source {
+    background-color: #333;
+}
+
+html.night .passage-card .edit {
+    color: #111;
+}
+
+html.night div.comment-readout:nth-child(odd) {
+    background: #333;
+}
+
+html.night div.comment-wrapper div.comment-readout:last-child {
+    border-bottom: 1px solid #333;
+}
+
+html.night .pure-menu.pure-menu-horizontal {
+    border-bottom: 1px solid #555;
+}
+
+.pure-menu-children {
+    border: 1px solid #555;
+    border-top: 0;
+}
+
+html.night .modal-dialog {
+    background: #333;
+    border: 1px solid #444;
+}
+
+html.night .modal-dialog input, 
+html.night .modal-dialog textarea,
+html.night .modal-dialog select {
+    color: #111;
+}
+
+html.night .pure-form-message-inline {
+    color: #aaa;
+}
+
+html.night .loader {
+    border-top: 1.1em solid #666;
+    border-right: 1.1em solid #666;
+    border-bottom: 1.1em solid #666;
+    border-left: 1.1em solid #eee;
+}
+
+html.night div#overlay {
+    background: #333;
+}
+
+html.night div.empty-comment.add-comment:active, 
+html.night div.empty-comment.add-comment:hover {
+    color: #eee;
 }

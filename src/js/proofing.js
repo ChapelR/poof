@@ -5,9 +5,46 @@
 
     var dataChunk = $('tw-storydata');
 
+    // parse config passage
+
+    var configPassageName = 'poof.config';
+
+    var $configPassage = dataChunk.find('tw-passagedata[name="' + configPassageName + '"]');
+
+    var config = (function () {
+        var settings = {
+            ignoreTag : 'poof.ignore',
+            simplified : false,
+            codeHeightLimit : true,
+            nightMode : false,
+            fonts : {
+                main : '',
+                code : ''
+            }
+        };
+        var data = $configPassage.text() || '{ "noConfig" : true }';
+        try {
+            data = JSON.parse(data);
+            Object.assign(settings, data);
+        } catch (err) {
+            console.warn('Config passage was not parsed:', err);
+            alert("Poof couldn't parse your config passage, check the console for more information.");
+        } finally {
+            console.log('Poof Settings Loaded', settings);
+            return settings;
+        }
+    }());
+
+    // remove the config passage
+    $configPassage.remove();
+
+    // get the passage data
     dataChunk.children('tw-passagedata').each( function () {
         // grab each passage's data and ad it to the array
         var $self = $(this);
+        if ($self.attr('tags').toLowerCase().includes(config.ignoreTag)) {
+            return; // ignore passage
+        }
         passages.push({
             name : $self.attr('name'),
             id : Number($self.attr('pid')),
@@ -90,8 +127,8 @@
             .append( html('h2', { classes : 'passage-title' }, passage.name))
             .append( html('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
                 .addClass(tagsClass) )
-            .append( html('p', { classes : 'passage-source' })
-                .append( html('pre', {}, passage.source.trim())) )
+            .append( html('div', { classes : 'passage-source' },
+                html('pre', {}, passage.source.trim())) )
             .append( html('div', { classes : 'passage-footer closed' }, [html('button', { 
                 classes : 'comment-open pure-button pure-button-primary',
                 title : "View this passage's comments."
@@ -191,11 +228,36 @@
         $scripts : userScriptsToHtml(),
         $styles : userStylesToHtml(),
         sortState : 'pid', // 'name', 'length', '-pid', '-name', '-length'
+        config : config
     };
     $(document).ready( function () {
         // attach the DOM structure, and the overlay and view-switching elements, to the #content element
         $('#content').append(output.html());
         $('#overlay').append(output.$scripts.addClass('hide'), output.$styles.addClass('hide'));
+
+        // configs
+        if (config.simplified) {
+            $('#content').addClass('simple');
+        }
+        if (!config.codeHeightLimit) {
+            $('#main').removeClass('collapse');
+        }
+        if (config.nightMode) {
+            $(document.documentElement).addClass('night');
+        }
+        if (config.fonts && typeof config.fonts === 'object') {
+            // custom fonts
+            if (config.fonts.main && typeof config.fonts.main === 'string') {
+                var $body = $(document.body);
+                $body.css('font-family', config.fonts.main);
+            }
+            if (config.fonts.code && typeof config.fonts.code === 'string') {
+                var $pre = $('p.passage-source pre');
+                $pre.css('font-family', config.fonts.code);
+            }
+        }
+
+        // dismiss loading screen
         $(document).trigger(':load-close');
     });
 

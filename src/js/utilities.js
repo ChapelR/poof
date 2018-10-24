@@ -25,15 +25,23 @@
         if (loaded) {
             // uses html2pdf to create a pdf doc from our DOM output
             // we need to un-collapse all the source code to prevent cutoffs
+            var $html = $(document.documentElement);
             var collapsedState = $('#main').hasClass('collapse');
+            var nightState = $html.hasClass('night');
             var $target = $('#main').removeClass('collapse');
             $('.passage-footer').addClass('hide');
+            $(document.documentElement).removeClass('night');
             // show filtered out passages
             var toRevert = poof.filter.clear();
+            // do the thing
             html2pdf($target[0], { filename : name, margin : 2 }).then( function () {
                 if (collapsedState) {
                     // if the source was collapsed, make it so again
                     $target.addClass('collapse');
+                }
+                if (nightState) {
+                    // re-add night mode state
+                    $html.addClass('night');
                 }
                 // revert filtering display if necessary
                 if (toRevert && Array.isArray(toRevert) && toRevert.length) {
@@ -154,12 +162,14 @@
 
     $(document).on(':load-open', function () {
         showOverlay();
+        $('.pure-menu').addClass('hide');
         $('#story-stylesheet #story-javascript').addClass('hide');
         $('#overlay').find('.loader').removeClass('hide');
     });
 
     $(document).on(':load-close', function () {
         hideOverlay();
+        $('.pure-menu').removeClass('hide');
         $('#overlay').find('.loader').addClass('hide');
     });
 
@@ -205,6 +215,10 @@
         }).attr('title', 'Export to a Twine 2 archive HTML file.');
 
         // view menu
+        $('#night').on('click', function () {
+            // toggle night mode (light text on dark)
+            $(document.documentElement).toggleClass('night');
+        }).attr('title', 'Toggle night mode.');
         $('#simple').on('click', function () {
             // toggle the simplified view (default is a more material-inspired view)
             $('#content').toggleClass('simple');
