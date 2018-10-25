@@ -1,3 +1,7 @@
+Version 0.3.3
+- Fixed code font config bug.
+- Added links to format data for Twine 2 app output.
+
 Version 0.3.2
 - Fixed find tool bug with loadscreen.
 - Fixed bug with JavaScript/CSS display.

@@ -252,7 +252,7 @@
                 $body.css('font-family', config.fonts.main);
             }
             if (config.fonts.code && typeof config.fonts.code === 'string') {
-                var $pre = $('p.passage-source pre');
+                var $pre = $('div.passage-source pre');
                 $pre.css('font-family', config.fonts.code);
             }
         }
