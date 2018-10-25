@@ -173,10 +173,10 @@
         $('#overlay').find('.loader').addClass('hide');
     });
 
-    $(document).on(':find-start :sort-start :filter-start', function () {
+    $(document).on(':sort-start :filter-start', function () {
         $(document).trigger(':load-open');
     });
-    $(document).on(':find-complete :sort-complete :filter-complete', function () {
+    $(document).on(':sort-complete :filter-complete', function () {
         $(document).trigger(':load-close');
     });
 

@@ -1,3 +1,7 @@
+Version 0.3.2
+- Fixed find tool bug with loadscreen.
+- Fixed bug with JavaScript/CSS display.
+
 Version 0.3.1
 - Fixed a bug with night mode and simplified view.
 - Fixed a bug in the error reporting of comment imports.

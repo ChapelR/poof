@@ -172,7 +172,7 @@
         // mostly like a passage card, but with some minor style changes
         return html('div', { id : 'story-javascript', classes : 'passage-card' })
             .append( html ('h2', {classes : 'passage-title' }, 'Story JavaScript'))
-            .append( html('p', {classes : 'passage-source' })
+            .append( html('div', {classes : 'passage-source' })
                 .append( html('pre', { classes : 'story-code' }, userScripts )));
     }
 
@@ -188,7 +188,7 @@
         // as with the user scripts
         return html('div', { id : 'story-stylesheet', classes : 'passage-card' })
             .append( html ('h2', {classes : 'passage-title' }, 'Story StyleSheet'))
-            .append( html('p', {classes : 'passage-source' })
+            .append( html('div', {classes : 'passage-source' })
                 .append( html('pre', { classes : 'story-code' }, userStyles )));
     }
 
