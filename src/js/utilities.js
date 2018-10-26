@@ -152,6 +152,9 @@
             a('twinejs', 'http://twinery.org/', 'GPL-3.0'),
             a('html2pdf', 'https://github.com/eKoopmans/html2pdf', 'MIT'),
             a('download.js', 'http://danml.com/download.html', 'CC-BY-4.0'),
+            a('jshint', 'https://jshint.com/', 'MIT'),
+            a('highlight.js', 'https://highlightjs.org/', 
+                "<a href='https://github.com/highlightjs/highlight.js/blob/master/LICENSE' target='_blank'>License</a>"),
             a('jQuery', 'https://jquery.com/', 'MIT'),
             a('normalize.css', 'https://necolas.github.io/normalize.css/', 'MIT'),
             a('pure.css', 'https://purecss.io/', 'BSD')
@@ -238,6 +241,9 @@
             showOverlay();
             $('#story-stylesheet').addClass('hide');
             $('#story-javascript').removeClass('hide');
+            if (JSHINT) {
+                $('#lint').removeClass('pure-button-disabled');
+            }
         }).attr('title', 'View your JavaScript code.');
         $('#stylesheet').on('click', function () {
             // view the story stylesheet

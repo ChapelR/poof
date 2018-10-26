@@ -641,7 +641,7 @@
             poof.modal.close();
         });
 
-        poof.modal.write('Find', [$finder, $error], [$confirm, $cancel]);
+        poof.modal.write('Find Passages', [$finder, $error], [$confirm, $cancel]);
     }
 
     window.poof.tools = {

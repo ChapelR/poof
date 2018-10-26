@@ -352,6 +352,26 @@ input[type="file"] {
     display: none;
 }
 
+/* errors */
+
+div.lint-btn-wrapper {
+    text-align: center;
+}
+
+div.errors {
+    text-align: left;
+}
+
+p.error-p {
+    padding-left: 1em;
+    text-indent: -2em;
+}
+
+span.error-msg {
+    padding-left: 1em;
+    text-indent: 1em;
+}
+
 /* spinner */
 .loader,
 .loader:after {

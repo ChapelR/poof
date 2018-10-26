@@ -35,6 +35,8 @@ Open source software used:
 - [twinejs](http://twinery.org/) (GPL-3.0)  
 - [html2pdf](https://github.com/eKoopmans/html2pdf) (MIT)  
 - [download.js](http://danml.com/download.html) (CC-BY-4.0)  
+- [jshint](https://jshint.com/) (MIT)  
+- [highlight.js](https://highlightjs.org/) ([License](https://github.com/highlightjs/highlight.js/blob/master/LICENSE))  
 - [jQuery](https://jquery.com/) (MIT)  
 - [normalize.css](https://necolas.github.io/normalize.css/) (MIT)  
 - [pure.css](https://purecss.io/) (BSD)

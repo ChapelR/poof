@@ -173,7 +173,28 @@
         return html('div', { id : 'story-javascript', classes : 'passage-card' })
             .append( html ('h2', { classes : 'passage-title' }, 'Story JavaScript'))
             .append( html('div', { classes : 'passage-source' })
-                .append( html('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )));
+                .append( html('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )))
+            .append( html('div', { classes : 'lint-btn-wrapper' }, 
+                html('button', { classes : 'lint-btn pure-button pure-button-disabled', id : 'lint' }, 'Lint')
+                    .on('click', function () {
+                        if (JSHINT) {
+                            JSHINT(userScripts);
+                            var $output;
+                            console.log(JSHINT.errors);
+                            if (JSHINT.errors && Array.isArray(JSHINT.errors) && JSHINT.errors.length) {
+                                $output = html('div', { classes : 'errors js-errors' }, JSHINT.errors.map( function (err) {
+                                    return html('p', { classes : 'error-p' })
+                                        .append( html('span', { classes : 'error-line' }, err.line),
+                                            html('span', { classes : 'error-msg' }, err.reason));
+                                }));
+                            } else {
+                                $output = html('div', { classes : 'errors js-errors no-errors' }, 'No errors found');
+                            }
+                            poof.modal.write('Linting Report', $output, html('button', { classes : 'pure-button' }, 'Close')
+                                .on('click', poof.modal.close));
+                        }
+                    }))
+                );
     }
 
     function userStylesToTwee () {

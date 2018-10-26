@@ -1,5 +1,7 @@
 Version 0.4.0 (in progress)
-- Added syntax highlighting for JS & CSS
+- Added syntax highlighting for JS & CSS.
+- Added JSHint JavaScript linting (requires connection).
+- Added JSHint and highlight.js to credits.
 
 Version 0.3.3
 - Fixed code font config bug.
