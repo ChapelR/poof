@@ -171,9 +171,9 @@
     function userScriptsToHtml () {
         // mostly like a passage card, but with some minor style changes
         return html('div', { id : 'story-javascript', classes : 'passage-card' })
-            .append( html ('h2', {classes : 'passage-title' }, 'Story JavaScript'))
-            .append( html('div', {classes : 'passage-source' })
-                .append( html('pre', { classes : 'story-code' }, userScripts )));
+            .append( html ('h2', { classes : 'passage-title' }, 'Story JavaScript'))
+            .append( html('div', { classes : 'passage-source' })
+                .append( html('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )));
     }
 
     function userStylesToTwee () {
@@ -187,9 +187,9 @@
     function userStylesToHtml () {
         // as with the user scripts
         return html('div', { id : 'story-stylesheet', classes : 'passage-card' })
-            .append( html ('h2', {classes : 'passage-title' }, 'Story StyleSheet'))
-            .append( html('div', {classes : 'passage-source' })
-                .append( html('pre', { classes : 'story-code' }, userStyles )));
+            .append( html ('h2', { classes : 'passage-title' }, 'Story StyleSheet'))
+            .append( html('div', { classes : 'passage-source' })
+                .append( html('pre', { 'data-language' : 'css', classes : 'story-code css' }, userStyles )));
     }
 
     function passageToTwee (passage) {
@@ -259,6 +259,9 @@
 
         // dismiss loading screen
         $(document).trigger(':load-close');
+        $('pre.story-code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
     });
 
     // export all our vital data to the global `poof` variable
