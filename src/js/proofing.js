@@ -176,6 +176,7 @@
                 .append( html('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )))
             .append( html('div', { classes : 'lint-btn-wrapper' }, 
                 html('button', { classes : 'lint-btn pure-button pure-button-disabled', id : 'lint' }, 'Lint')
+                    .attr('title', 'Requires an Internet connection...')
                     .on('click', function () {
                         if (JSHINT) {
                             JSHINT(userScripts);

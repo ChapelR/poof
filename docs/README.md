@@ -12,6 +12,7 @@ If you have any ideas for features, please [open an issue on the github repo](ht
 Features:  
 - Simple and readable, but more manageable than Paperthin.  
 - Review your stylesheet and JavaScript code in addition to your passages.  
+- Lint your JavaScript code to find errors.  
 - Export your passages to PDF, plain text (in twee notation), or a Twine 2 archive file.  
 - Sortable, filterable, and search-able passage list.  
 - Create comments and notes that can be exported, imported, and shared with others.
@@ -78,6 +79,16 @@ If you have a lot of passages, you'll likely want a way to sort, filter, and fin
 - `Filter`: This option allows you do determine what passages you want to see. For example, you can set poof to only show you `widget`-tagged passages, only passages with `castle` in the name, or even only show passages with [comments](#comments). You can also filter by the text of your passages, but be aware that this is somewhat slow to resolve based on the number of passages and their length. You can use the `Invert` check-box to instead filter **out** the passages that meet the specified criteria. To get all your passages back again, come back here and click the `Clear` button.  
 - `Sort`: You can sort your passages based on a few different metrics, and can get those results in ascending or descending order by using the `Reverse` check-box. You can sort by passage name (alphanumeric), the length of the passage's text, or by *Passage ID*. Passage IDs are numbers that start at 0 and count up as you create passages, meaning their order is largely the same as the order in which you created your passages (though this ordering isn't guaranteed, necessarily), and is poof's default order.  
 - `Find`: Finally, you can come here to find a specific passage by name. The text input also functions as a drop down list, and will make suggestions as you type. If you try to find a passage that you've previously filtered out, it will magically pop back into existence none the worse for wear.
+
+### Syntax Highlighting 
+
+Poof provides syntax highlighting for the JavaScript and CSS code views, but *not* for passage source code.
+
+### Linting
+
+Poof can also [*lint* your JavaScript code](https://en.wikipedia.org/wiki/Lint_%28software%29). Linting helps you find errors, inconsistencies, and weirdness in your code. Using the linter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the button still doesn't work, try waiting a little while and trying again.
+
+Poof uses [JSHint](https://jshint.com/) for linting.
 
 ## Exporting Your Story
 

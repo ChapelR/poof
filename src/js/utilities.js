@@ -242,7 +242,9 @@
             $('#story-stylesheet').addClass('hide');
             $('#story-javascript').removeClass('hide');
             if (JSHINT) {
-                $('#lint').removeClass('pure-button-disabled');
+                $('#lint')
+                    .removeClass('pure-button-disabled')
+                    .attr('title', 'Check your JavaScript code for errors.');
             }
         }).attr('title', 'View your JavaScript code.');
         $('#stylesheet').on('click', function () {

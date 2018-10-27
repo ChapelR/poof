@@ -61,10 +61,10 @@ function makeTemplate () {
 }
 
 function makeFormat () {
+    // removed minification step for Tweego compatibility
     return gulp.src('./src/format.js')
         .pipe(replace('/% version %/', version))
         .pipe(replace('/% code %/', fs.readFileSync('./dist/template.js')))
-        .pipe(uglify().on('error', function(e){ console.log(e); }))
         .pipe(rename('format.js'))
         .pipe(gulp.dest('./dist/format'));
 }

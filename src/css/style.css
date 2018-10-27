@@ -115,6 +115,10 @@ div#content.simple div.passage-source {
     min-height: unset;
 }
 
+div#content.simple pre.hljs {
+    background-color: #eee;
+}
+
 @media only screen and (max-width: 800px) {
     body {
         font-size: 14px;
