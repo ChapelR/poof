@@ -32,3 +32,7 @@ html.night .hljs-name,
 html.night .hljs-attribute {
   color: #4444f4;
 }
+
+html.night td.hljs-ln-numbers {
+    color: #555;
+}

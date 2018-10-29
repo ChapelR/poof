@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    window.poof = window.poof || {};
+
     var passages = [];
 
     var dataChunk = $('tw-storydata');
@@ -15,6 +17,7 @@
         var settings = {
             ignoreTag : 'poof.ignore',
             simplified : false,
+            lineNumbers : true,
             codeHeightLimit : true,
             nightMode : false,
             fonts : {
@@ -67,32 +70,6 @@
         ifid : dataChunk.attr('ifid')
     };
 
-    function html (type, opts, content) {
-        // a small utility function to create elements
-        var classes = '';
-        if (opts.classes) {
-            if (Array.isArray(opts.classes)) {
-                classes = opts.classes.join(' ');
-            }
-            if (typeof opts.classes === 'string') {
-                classes = opts.classes;
-            }
-            delete opts.classes;
-        }
-        var $el = $(document.createElement(type))
-            .attr(opts);
-
-        if (classes) {
-            $el.addClass(classes);
-        }
-
-        if (content) {
-            $el.append(content);
-        }
-
-        return $el;
-    }
-
     // here we make sure to grab the user scripts and styles
     var userScripts = dataChunk.children('*[type="text/twine-javascript"]').toArray().map( function (el) {
         return $(el).html();
@@ -104,17 +81,17 @@
 
     function dataToHtml (story) {
         // this creates the DOM structure for the story header
-        return html('div', { id : 'story-data' })
-            .append( html('h1', { id : 'title' }, 'Story: ' + story.name))
-            .append( html('p', { id : 'ifid' }, 'IFID: ' + story.ifid))
-            .append( html('p', { id : 'compile' }, 'Made with: ' + story.compiler + ' ' + story.compilerVersion));
+        return poof.el('div', { id : 'story-data' })
+            .append( poof.el('h1', { id : 'title' }, 'Story: ' + story.name))
+            .append( poof.el('p', { id : 'ifid' }, 'IFID: ' + story.ifid))
+            .append( poof.el('p', { id : 'compile' }, 'Made with: ' + story.compiler + ' ' + story.compilerVersion));
     }
 
     function passageToHtml (passage) {
         // this creates the DOM structure for each "passage card"
         var tagsClass = !!passage.tags.trim() ? '' : 'hide';
-        var $el = html('div', { 'data-id' : passage.id, classes : 'passage-card' })
-            .append( html('div', { 
+        var $el = poof.el('div', { 'data-id' : passage.id, classes : 'passage-card' })
+            .append( poof.el('div', { 
                 classes : 'edit', 
                 role : 'button',
                 title : "Create a comment using this passage's text."
@@ -124,12 +101,12 @@
                     passage : passage
                 });
             }))
-            .append( html('h2', { classes : 'passage-title' }, passage.name))
-            .append( html('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
+            .append( poof.el('h2', { classes : 'passage-title' }, passage.name))
+            .append( poof.el('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
                 .addClass(tagsClass) )
-            .append( html('div', { classes : 'passage-source' },
-                html('pre', {}, passage.source.trim())) )
-            .append( html('div', { classes : 'passage-footer closed' }, [html('button', { 
+            .append( poof.el('div', { classes : 'passage-source' },
+                poof.el('pre', {}, passage.source.trim())) )
+            .append( poof.el('div', { classes : 'passage-footer closed' }, [poof.el('button', { 
                 classes : 'comment-open pure-button pure-button-primary',
                 title : "View this passage's comments."
             }, '&#128172;').on('click', function () {
@@ -139,7 +116,7 @@
                     type : ':comment-open',
                     passage : passage
                 });
-            }), html('div', { classes : 'comment-wrapper' })]))
+            }), poof.el('div', { classes : 'comment-wrapper' })]))
             .attr({
                 name : passage.name,
                 'data-pid' : passage.id,
@@ -170,12 +147,12 @@
 
     function userScriptsToHtml () {
         // mostly like a passage card, but with some minor style changes
-        return html('div', { id : 'story-javascript', classes : 'passage-card' })
-            .append( html ('h2', { classes : 'passage-title' }, 'Story JavaScript'))
-            .append( html('div', { classes : 'passage-source' })
-                .append( html('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )))
-            .append( html('div', { classes : 'lint-btn-wrapper' }, 
-                html('button', { classes : 'lint-btn pure-button pure-button-disabled', id : 'lint' }, 'Lint')
+        return poof.el('div', { id : 'story-javascript', classes : 'passage-card' })
+            .append( poof.el('h2', { classes : 'passage-title' }, 'Story JavaScript'))
+            .append( poof.el('div', { classes : 'passage-source' })
+                .append( poof.el('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )))
+            .append( poof.el('div', { classes : 'lint-btn-wrapper' }, 
+                poof.el('button', { classes : 'lint-btn pure-button pure-button-disabled', id : 'lint' }, 'Lint')
                     .attr('title', 'Requires an Internet connection...')
                     .on('click', function () {
                         if (JSHINT) {
@@ -183,15 +160,15 @@
                             var $output;
                             console.log(JSHINT.errors);
                             if (JSHINT.errors && Array.isArray(JSHINT.errors) && JSHINT.errors.length) {
-                                $output = html('div', { classes : 'errors js-errors' }, JSHINT.errors.map( function (err) {
-                                    return html('p', { classes : 'error-p' })
-                                        .append( html('span', { classes : 'error-line' }, err.line),
-                                            html('span', { classes : 'error-msg' }, err.reason));
+                                $output = poof.el('div', { classes : 'errors js-errors' }, JSHINT.errors.map( function (err) {
+                                    return poof.el('p', { classes : 'error-p' })
+                                        .append( poof.el('span', { classes : 'error-line' }, err.line),
+                                            poof.el('span', { classes : 'error-msg' }, err.reason));
                                 }));
                             } else {
-                                $output = html('div', { classes : 'errors js-errors no-errors' }, 'No errors found');
+                                $output = poof.el('div', { classes : 'errors js-errors no-errors' }, 'No errors found');
                             }
-                            poof.modal.write('Linting Report', $output, html('button', { classes : 'pure-button' }, 'Close')
+                            poof.modal.write('Linting Report', $output, poof.el('button', { classes : 'pure-button' }, 'Close')
                                 .on('click', poof.modal.close));
                         }
                     }))
@@ -208,10 +185,10 @@
 
     function userStylesToHtml () {
         // as with the user scripts
-        return html('div', { id : 'story-stylesheet', classes : 'passage-card' })
-            .append( html ('h2', { classes : 'passage-title' }, 'Story StyleSheet'))
-            .append( html('div', { classes : 'passage-source' })
-                .append( html('pre', { 'data-language' : 'css', classes : 'story-code css' }, userStyles )));
+        return poof.el('div', { id : 'story-stylesheet', classes : 'passage-card' })
+            .append( poof.el('h2', { classes : 'passage-title' }, 'Story StyleSheet'))
+            .append( poof.el('div', { classes : 'passage-source' })
+                .append( poof.el('pre', { 'data-language' : 'css', classes : 'story-code css' }, userStyles )));
     }
 
     function passageToTwee (passage) {
@@ -235,12 +212,11 @@
         var htmlPassages = passages.map( function (psg) {
             return passageToHtml(psg);
         });
-        return html('div', { id : 'main', classes : 'collapse' }, dataToHtml(story)).append(htmlPassages);
+        return poof.el('div', { id : 'main', classes : 'collapse' }, dataToHtml(story)).append(htmlPassages);
     }
 
     // this data will all be exported to the global scope
     var output = {
-        el : html,
         html : createHtmlOutput,
         twee : createTweeSource,
         data : story,
@@ -252,41 +228,16 @@
         sortState : 'pid', // 'name', 'length', '-pid', '-name', '-length'
         config : config
     };
-    $(document).ready( function () {
+    function proofingInit () {
         // attach the DOM structure, and the overlay and view-switching elements, to the #content element
         $('#content').append(output.html());
         $('#overlay').append(output.$scripts.addClass('hide'), output.$styles.addClass('hide'));
-
-        // configs
-        if (config.simplified) {
-            $('#content').addClass('simple');
-        }
-        if (!config.codeHeightLimit) {
-            $('#main').removeClass('collapse');
-        }
-        if (config.nightMode) {
-            $(document.documentElement).addClass('night');
-        }
-        if (config.fonts && typeof config.fonts === 'object') {
-            // custom fonts
-            if (config.fonts.main && typeof config.fonts.main === 'string') {
-                var $body = $(document.body);
-                $body.css('font-family', config.fonts.main);
-            }
-            if (config.fonts.code && typeof config.fonts.code === 'string') {
-                var $pre = $('div.passage-source pre');
-                $pre.css('font-family', config.fonts.code);
-            }
-        }
-
-        // dismiss loading screen
-        $(document).trigger(':load-close');
-        $('pre.story-code').each(function(i, block) {
-            hljs.highlightBlock(block);
-        });
-    });
+    }
 
     // export all our vital data to the global `poof` variable
-    window.poof = output;
+    Object.assign(poof, output);
+
+    window.poof.init = { proofing : proofingInit };
+    window.poof.config = config;
 
 }());

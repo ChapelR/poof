@@ -38,6 +38,7 @@ Open source software used:
 - [download.js](http://danml.com/download.html) (CC-BY-4.0)  
 - [jshint](https://jshint.com/) (MIT)  
 - [highlight.js](https://highlightjs.org/) ([License](https://github.com/highlightjs/highlight.js/blob/master/LICENSE))  
+- [highlightjs-line-numbers.js](https://wcoder.github.io/highlightjs-line-numbers.js/) (MIT)  
 - [jQuery](https://jquery.com/) (MIT)  
 - [normalize.css](https://necolas.github.io/normalize.css/) (MIT)  
 - [pure.css](https://purecss.io/) (BSD)
@@ -67,6 +68,7 @@ You'll likely immediately notice your story's vital information on display, incl
 
 - `Night Mode`: This option toggles the page between the standard light-on-dark theme and a dark-on-light theme that may be easier on some eyeballs.
 - `Simplified View`: This option removes some of the boxes, borders, and shadows that separate passages and other elements. You may prefer reading without my dead-sexy CSS skills getting all up in your eyes. I promise I'm not offended. Click to toggle.  
+- `Line Numbers`: You can use this option to toggle the display of line numbers in your source code.  
 - `Code Text Height`: I'm open to a better name for this option. To keep things somewhat sane when dealing with massive passages, poof will by default limit the height of code boxes and slap scrollbars on them after about 15 or so lines. If you'd rather not have that happen, you can toggle this option to see everything.  
 - `View Passages`: This is the default view; click it to see your story data and all your passages and their code and tags.  
 - `View JavaScript`: This view shows your Story JavaScript area or equivalent.  
@@ -150,6 +152,7 @@ The following options can be used:
 
 - `nightMode`: Set this option to `true` or `false`. If true, poof will default to night mode. The default setting is `false`.  
 - `simplified`: Set this option to `true` or `false`. If true, poof will default to the simplified view mode. The default setting is `false`.  
+- `lineNumbers`: Set this option to `true` or `false`. If true, line numbers will be shown in source code by default. The default setting is `true`.
 - `codeHeightLimit`: Set this option to `true` or `false`. If true, poof will default to showing about 15 lines of code before using scrollbars. The default setting is `true`.  
 - `ignoreTag`: Set this option to a string that represents a valid Twine tag (i.e. no spaces). Passages with this tag will not be imported by poof. The default is `poof.ignore`.  
 - `fonts`: A sub-object with two properties, `main` and `code`. You can set custom fonts / font stacks for poof using this option. Note that if your browser doesn't support the indicated font(s), the browser will use its (ugly) default font. The default font stacks are `Verdana, Geneva, sans-serif` for `main` and `Consolas, monaco, monospace` for `code`.  

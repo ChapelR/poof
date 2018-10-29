@@ -28,7 +28,7 @@ function processStyles (dir, out, name) {
 
 // linting 
 function lint () {
-    return gulp.src('./src')
+    return gulp.src('./src/*.js') // only non-vendor scripts
         .pipe(jshint())
         .pipe(jshint.reporter('default', { beep : true }));
 }
@@ -40,11 +40,46 @@ function rimraf () {
 
 // build functions
 function buildScripts () {
-    return processScripts('./src/js/**/*.js', './dist', 'poof.min.js');
+    var path = './src/js/';
+    var scriptArray = [
+        // vendor scripts
+        'vendor/jquery.js',
+        'vendor/doc.js',
+        'vendor/highlight.pack.js',
+        'vendor/download.js',
+        // scripts
+        'util.js',
+        'modal.js',
+        'buttons.js',
+        'forms.js',
+        'proofing.js',
+        'state.js',
+        'tools.js',
+        'export.js',
+        'comments.js',
+        'comment-import.js',
+        'menu.js',
+        'init.js'
+    ].map( function (file) {
+        return path + file;
+    });
+    return processScripts(scriptArray, './dist', 'poof.min.js');
 }
 
 function buildStyles () {
-    return processStyles('./src/**/*.css', './dist', 'poof.min.css');
+    var path = './src/css/';
+    var styleArray = [
+        // vendor styles
+        'vendor/normal.css',
+        'vendor/pure.css',
+        'vendor/r-github.css',
+        // styles
+        'r-github-night.css',
+        'style.css'
+    ].map( function (file) {
+        return path + file;
+    });
+    return processStyles(styleArray, './dist', 'poof.min.css');
 }
 
 function makeTemplate () {

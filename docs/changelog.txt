@@ -1,3 +1,7 @@
+Version 0.4.1
+- Fixed minor display bug in night mode.
+- Added optional line numbers, toggleable via View menu or poof.config.
+
 Version 0.4.0 
 - Added syntax highlighting for JS & CSS.
 - Added JSHint JavaScript linting (requires connection).
