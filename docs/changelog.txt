@@ -1,6 +1,12 @@
+Version 0.5.0
+- Added optional line numbers, toggleable via View menu or poof.config.
+- Complete source code refactor and a cleaned up build process.
+- Added developer docs for people who want to play around with the source.
+- Lots of internal improvements.
+- Poof is considered feature-complete as of this build.
+
 Version 0.4.1
 - Fixed minor display bug in night mode.
-- Added optional line numbers, toggleable via View menu or poof.config.
 
 Version 0.4.0 
 - Added syntax highlighting for JS & CSS.

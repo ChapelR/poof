@@ -34,8 +34,11 @@ function lint () {
 }
 
 // clean
-function rimraf () {
+function cleanDist () {
     return del('./dist/**/*');
+}
+function cleanStaging () {
+    return del('./staging');
 }
 
 // build functions
@@ -63,7 +66,7 @@ function buildScripts () {
     ].map( function (file) {
         return path + file;
     });
-    return processScripts(scriptArray, './dist', 'poof.min.js');
+    return processScripts(scriptArray, './staging', 'poof.min.js');
 }
 
 function buildStyles () {
@@ -85,7 +88,7 @@ function buildStyles () {
     ].map( function (file) {
         return path + file;
     });
-    return processStyles(styleArray, './dist', 'poof.min.css');
+    return processStyles(styleArray, './staging', 'poof.min.css');
 }
 
 function makeTemplate () {
@@ -93,29 +96,31 @@ function makeTemplate () {
         .pipe(replace(/<!--!.*?-->/g, ''))
         .pipe(replace('/% byline %/', fs.readFileSync('./src/byline.txt', 'utf8')))
         .pipe(replace('/% version %/', version))
-        .pipe(replace('/% stylesheet %/', fs.readFileSync('./dist/poof.min.css', 'utf8')))
-        .pipe(replace('/% scripts %/', fs.readFileSync('./dist/poof.min.js', 'utf8')))
+        .pipe(replace('/% stylesheet %/', fs.readFileSync('./staging/poof.min.css', 'utf8')))
+        .pipe(replace('/% scripts %/', fs.readFileSync('./staging/poof.min.js', 'utf8')))
         .pipe(replace(/\s+/g, ' '))
         .pipe(escape())
         .pipe(rename('template.js'))
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./staging'));
 }
 
 function makeFormat () {
     // removed minification step for Tweego compatibility
     return gulp.src('./src/format.js')
         .pipe(replace('/% version %/', version))
-        .pipe(replace('/% code %/', fs.readFileSync('./dist/template.js')))
+        .pipe(replace('/% code %/', fs.readFileSync('./staging/template.js')))
         .pipe(rename('format.js'))
-        .pipe(gulp.dest('./dist/format'));
+        .pipe(gulp.dest('./dist'));
 }
 
 // tasks
-gulp.task('clean', rimraf);
+gulp.task('clean', cleanDist);
+gulp.task('restage', cleanStaging);
 gulp.task('scripts', buildScripts);
 gulp.task('styles', buildStyles);
 gulp.task('templ', makeTemplate);
 gulp.task('format', makeFormat);
+gulp.task('rimraf', gulp.parallel('clean', 'restage'));
 gulp.task('files', gulp.parallel('scripts', 'styles'));
-gulp.task('build', gulp.series('clean', 'files', 'templ', 'format'));
+gulp.task('build', gulp.series('rimraf', 'files', 'templ', 'format', 'restage'));
 gulp.task('lint', lint);
