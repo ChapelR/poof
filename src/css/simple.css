@@ -1,0 +1,25 @@
+#main.collapse div.passage-source {
+    max-height: 20em;
+}
+
+div#content.simple {
+    background-color: #fff;
+}
+
+div#content.simple div#story-data, div#content.simple div.passage-card, div#content.simple p.passage-tags {
+    padding: 1em;
+    box-shadow: none;
+    background-color: #fff;
+    border: 0;
+}
+
+div#content.simple div.passage-source {
+    border: 0;
+    padding: 1em;
+    background-color: #eee;
+    min-height: unset;
+}
+
+div#content.simple pre.hljs {
+    background-color: #eee;
+}

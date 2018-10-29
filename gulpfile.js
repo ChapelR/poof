@@ -73,9 +73,15 @@ function buildStyles () {
         'vendor/normal.css',
         'vendor/pure.css',
         'vendor/r-github.css',
+        'vendor/loader.css',
         // styles
-        'r-github-night.css',
-        'style.css'
+        'base.css',
+        'passages.css',
+        'simple.css',
+        'modal.css',
+        'comments.css',
+        'linter.css',
+        'night.css'
     ].map( function (file) {
         return path + file;
     });

@@ -1,0 +1,90 @@
+body {
+    background-color: #eee;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 16px;
+}
+
+.pure-menu.pure-menu-horizontal {
+    background-color: #111;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+.pure-menu-link {
+    color: #fafafa;
+}
+
+.pure-menu-active>.pure-menu-link, .pure-menu-link:focus, .pure-menu-link:hover {
+    background-color: #333;
+}
+
+.pure-menu-children {
+    background-color: #555;
+}
+
+.pure-menu-horizontal .pure-menu-children {
+    min-width: 100%;
+}
+
+div#content {
+    margin: 4em 2em;
+}
+
+div#story-data {
+    background-color: #fff;
+    padding: 1em;
+    box-shadow: 0 0 3px #888;
+}
+
+p {
+    margin: 1em 2em;
+}
+
+p#ifid {
+    font-style: italic;
+}
+
+div#overlay {
+    background: #eee;
+    padding: 4em 2em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+.hide {
+    display: none;
+}
+
+.smallify {
+    height: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
+ul#credits {
+    list-style: none;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+@media only screen and (max-width: 800px) {
+    body {
+        font-size: 14px;
+    }
+    div#content {
+        margin: 3em 1em 1em 1em;
+    }
+    div.passage-card {
+        margin: 1em 0;
+    }
+    div.passage-source {
+        margin: 0;
+    }
+}
