@@ -1,5 +1,6 @@
 Version 0.5.0
 - Added optional line numbers, toggleable via View menu or poof.config.
+- Linter is now format-aware, and will report errors tailored to your selected story format.
 - Complete source code refactor and a cleaned up build process.
 - Added developer docs for people who want to play around with the source.
 - Lots of internal improvements.

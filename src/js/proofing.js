@@ -15,7 +15,9 @@
 
     var config = (function () {
         var settings = {
+            // meta options
             ignoreTag : 'poof.ignore',
+            // appearance and view options
             simplified : false,
             lineNumbers : true,
             codeHeightLimit : true,
@@ -23,7 +25,9 @@
             fonts : {
                 main : '',
                 code : ''
-            }
+            },
+            // linter options
+            globals : []
         };
         var data = $configPassage.text() || '{ "noConfig" : true }';
         try {
@@ -83,6 +87,7 @@
         // this creates the DOM structure for the story header
         return poof.el('div', { id : 'story-data' })
             .append( poof.el('h1', { id : 'title' }, 'Story: ' + story.name))
+            .append( poof.el('p', { id : 'format' }, poof.format.sexy + ' v' + poof.format.version))
             .append( poof.el('p', { id : 'ifid' }, 'IFID: ' + story.ifid))
             .append( poof.el('p', { id : 'compile' }, 'Made with: ' + story.compiler + ' ' + story.compilerVersion));
     }
@@ -152,13 +157,15 @@
             .append( poof.el('div', { classes : 'passage-source' })
                 .append( poof.el('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )))
             .append( poof.el('div', { classes : 'lint-btn-wrapper' }, 
+                // LINTING
                 poof.el('button', { classes : 'lint-btn pure-button pure-button-disabled', id : 'lint' }, 'Lint')
                     .attr('title', 'Requires an Internet connection...')
                     .on('click', function () {
                         if (JSHINT) {
-                            JSHINT(userScripts);
+                            var opts = (poof.lint) ? poof.lint.options || {} : {};
+                            var globals = (poof.lint) ? poof.lint.globals || {} : {};
+                            JSHINT(userScripts, opts, globals);
                             var $output;
-                            console.log(JSHINT.errors);
                             if (JSHINT.errors && Array.isArray(JSHINT.errors) && JSHINT.errors.length) {
                                 $output = poof.el('div', { classes : 'errors js-errors' }, JSHINT.errors.map( function (err) {
                                     return poof.el('p', { classes : 'error-p' })

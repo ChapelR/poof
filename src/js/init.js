@@ -35,6 +35,9 @@
                 $pre.css('font-family', poof.config.fonts.code);
             }
         }
+        if (poof.config.globals && Array.isArray(poof.config.globals) && poof.config.globals.length) {
+            Object.assign(poof.lint.globals, poof.lint.objectify(poof.config.globals));
+        }
 
         // syntax highlighting
         $('pre.story-code').each(function(i, block) {

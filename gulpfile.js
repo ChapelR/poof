@@ -55,6 +55,7 @@ function buildScripts () {
         'modal.js',
         'buttons.js',
         'forms.js',
+        'lint.js',
         'proofing.js',
         'state.js',
         'tools.js',

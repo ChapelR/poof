@@ -29,8 +29,6 @@
         return $el;
     }
 
-    
-
     // export
     poof.el = el;
 
