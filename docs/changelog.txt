@@ -1,10 +1,11 @@
 Version 0.5.0
 - Added optional line numbers, toggleable via View menu or poof.config.
 - Linter is now format-aware, and will report errors tailored to your selected story format.
-- Complete source code refactor and a cleaned up build process.
-- Added developer docs for people who want to play around with the source.
+- Added poof.config options for declaring additional globals and setting a preferred story format. 
+- Complete source code refactor and cleaned up build process.
+- Added some mild developer documentation.
 - Lots of internal improvements.
-- Poof is considered feature-complete as of this build.
+- Poof is considered feature-complete as of this build; the next version should hopefully be 1.0.0!
 
 Version 0.4.1
 - Fixed minor display bug in night mode.

@@ -7,49 +7,11 @@
 
     var dataChunk = $('tw-storydata');
 
-    // parse config passage
-
-    var configPassageName = 'poof.config';
-
-    var $configPassage = dataChunk.find('tw-passagedata[name="' + configPassageName + '"]');
-
-    var config = (function () {
-        var settings = {
-            // meta options
-            ignoreTag : 'poof.ignore',
-            // appearance and view options
-            simplified : false,
-            lineNumbers : true,
-            codeHeightLimit : true,
-            nightMode : false,
-            fonts : {
-                main : '',
-                code : ''
-            },
-            // linter options
-            globals : []
-        };
-        var data = $configPassage.text() || '{ "noConfig" : true }';
-        try {
-            data = JSON.parse(data);
-            Object.assign(settings, data);
-        } catch (err) {
-            console.warn('Config passage was not parsed:', err);
-            alert("Poof couldn't parse your config passage, check the console for more information.");
-        } finally {
-            console.log('Poof Settings Loaded', settings);
-            return settings;
-        }
-    }());
-
-    // remove the config passage
-    $configPassage.remove();
-
     // get the passage data
     dataChunk.children('tw-passagedata').each( function () {
         // grab each passage's data and ad it to the array
         var $self = $(this);
-        if ($self.attr('tags').toLowerCase().includes(config.ignoreTag)) {
+        if ($self.attr('tags').toLowerCase().includes(poof.config.ignoreTag)) {
             return; // ignore passage
         }
         passages.push({
@@ -232,8 +194,7 @@
         styles : userStyles,
         $scripts : userScriptsToHtml(),
         $styles : userStylesToHtml(),
-        sortState : 'pid', // 'name', 'length', '-pid', '-name', '-length'
-        config : config
+        sortState : 'pid' // 'name', 'length', '-pid', '-name', '-length'
     };
     function proofingInit () {
         // attach the DOM structure, and the overlay and view-switching elements, to the #content element
@@ -245,6 +206,5 @@
     Object.assign(poof, output);
 
     window.poof.init = { proofing : proofingInit };
-    window.poof.config = config;
 
 }());

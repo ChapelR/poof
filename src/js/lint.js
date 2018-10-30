@@ -3,11 +3,37 @@
 
     window.poof = window.poof || {};
 
+    var configFormat = '';
+    var configFormatVersion = '';
+
+    // handle config format settings, which will override the internal data pull
+    if (poof.config.format && typeof poof.config.format === 'object') {
+        if (poof.config.format.name && typeof poof.config.format.name === 'string') {
+            configFormat = poof.config.format.name
+                .toLowerCase()
+                .trim();
+        }
+        if (poof.config.format.version && typeof poof.config.format.version === 'string') {
+            configFormatVersion = poof.config.format.version
+                .toLowerCase()
+                .trim();
+        } else {
+            if (configFormat === 'sugarcube' || configFormat === 'harlowe') {
+                // default to major version 2:
+                configFormatVersion = '2.x';
+            } else {
+                // default to major version 1:
+                configFormatVersion = '1.x';
+            }
+        }
+    }
+
+    // get format data
     function getFormat () {
-        var format = ($('tw-storydata').attr('format'))
+        var format = configFormat || ($('tw-storydata').attr('format'))
             .toLowerCase()
             .trim();
-        var version = ($('tw-storydata').attr('format-version'))
+        var version = configFormatVersion || ($('tw-storydata').attr('format-version'))
             .toLowerCase()
             .trim();
         var major = version.split('.')[0];
@@ -142,10 +168,10 @@
 
     var format = getFormat();
 
-    function objectify (arr) {
+    function objectify (arr) { // lol
         var ret = {};
         arr.forEach( function (el) {
-            ret[el] = false; // global is not read only
+            ret[el] = false;
         });
         return ret;
     }
