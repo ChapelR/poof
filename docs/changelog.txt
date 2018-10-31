@@ -1,3 +1,6 @@
+Version 0.5.1
+- Fixed a bug that prevented the tools menu from working.
+
 Version 0.5.0
 - Added optional line numbers, toggleable via View menu or poof.config.
 - Linter is now format-aware, and will report errors tailored to your selected story format.

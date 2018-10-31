@@ -54,11 +54,11 @@
     }
 
     function confirm (text, fn) {
-        return primaryBtn(text, fn).addClass('confirm-btn');
+        return poof.btn.primary(text, fn).addClass('confirm-btn');
     }
 
     function cancel (text, fn) {
-        return normalBtn(text, fn).addClass('cancel-btn');
+        return poof.btn.normal(text, fn).addClass('cancel-btn');
     }
 
     window.poof.forms = {
