@@ -12,12 +12,17 @@
             configFormat = poof.config.format.name
                 .toLowerCase()
                 .trim();
+            if (configFormat === 'harlow') {
+                // in my experience, people often forget the 'e'
+                configFormat = 'harlowe';
+            }
         }
         if (poof.config.format.version && typeof poof.config.format.version === 'string') {
             configFormatVersion = poof.config.format.version
                 .toLowerCase()
                 .trim();
-        } else {
+        } else if (configFormat) {
+            // got a format override but no version, so default to something
             if (configFormat === 'sugarcube' || configFormat === 'harlowe') {
                 // default to major version 2:
                 configFormatVersion = '2.x';
