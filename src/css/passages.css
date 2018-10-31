@@ -1,0 +1,49 @@
+div.passage-card {
+    background-color: #fff;
+    margin: 1em;
+    padding: 1em;
+    box-shadow: 0 0 2px #888;
+}
+
+p.passage-tags {
+    font-style: italic;
+    border: 1px solid #111;
+    padding: 0.3em;
+}
+
+div.passage-source {
+    border: 1px solid #111;
+    padding: 1em;
+    margin: 1em;
+    background-color: #f8f8f8;
+    overflow: auto;
+}
+
+div.passage-source pre {
+    font-family: Consolas, monaco, monospace;
+    white-space: pre-wrap;
+    line-height: 1.5em;
+}
+
+.passage-card .edit {
+    float: right;
+    margin: 0;
+    padding: 0.5em;
+    display: none;
+    z-index: 2;
+    cursor: pointer;
+    background: #ccc;
+    border-radius: 50%;
+    transition: 300ms all;
+}
+
+.passage-card:hover .edit {
+    display: inline-block;
+}
+
+.passage-card:hover .edit:hover, .passage-card:hover .edit:active {
+    display: inline-block;
+    padding: 1em;
+    background: #eee;
+    border: 1px solid #ccc;
+}

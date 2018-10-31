@@ -38,6 +38,7 @@ Open source software used:
 - [download.js](http://danml.com/download.html) (CC-BY-4.0)  
 - [jshint](https://jshint.com/) (MIT)  
 - [highlight.js](https://highlightjs.org/) ([License](https://github.com/highlightjs/highlight.js/blob/master/LICENSE))  
+- [highlightjs-line-numbers.js](https://wcoder.github.io/highlightjs-line-numbers.js/) (MIT)  
 - [jQuery](https://jquery.com/) (MIT)  
 - [normalize.css](https://necolas.github.io/normalize.css/) (MIT)  
 - [pure.css](https://purecss.io/) (BSD)
@@ -67,6 +68,7 @@ You'll likely immediately notice your story's vital information on display, incl
 
 - `Night Mode`: This option toggles the page between the standard light-on-dark theme and a dark-on-light theme that may be easier on some eyeballs.
 - `Simplified View`: This option removes some of the boxes, borders, and shadows that separate passages and other elements. You may prefer reading without my dead-sexy CSS skills getting all up in your eyes. I promise I'm not offended. Click to toggle.  
+- `Line Numbers`: You can use this option to toggle the display of line numbers in your source code.  
 - `Code Text Height`: I'm open to a better name for this option. To keep things somewhat sane when dealing with massive passages, poof will by default limit the height of code boxes and slap scrollbars on them after about 15 or so lines. If you'd rather not have that happen, you can toggle this option to see everything.  
 - `View Passages`: This is the default view; click it to see your story data and all your passages and their code and tags.  
 - `View JavaScript`: This view shows your Story JavaScript area or equivalent.  
@@ -150,11 +152,12 @@ The following options can be used:
 
 - `nightMode`: Set this option to `true` or `false`. If true, poof will default to night mode. The default setting is `false`.  
 - `simplified`: Set this option to `true` or `false`. If true, poof will default to the simplified view mode. The default setting is `false`.  
+- `lineNumbers`: Set this option to `true` or `false`. If true, line numbers will be shown in source code by default. The default setting is `true`.
 - `codeHeightLimit`: Set this option to `true` or `false`. If true, poof will default to showing about 15 lines of code before using scrollbars. The default setting is `true`.  
 - `ignoreTag`: Set this option to a string that represents a valid Twine tag (i.e. no spaces). Passages with this tag will not be imported by poof. The default is `poof.ignore`.  
 - `fonts`: A sub-object with two properties, `main` and `code`. You can set custom fonts / font stacks for poof using this option. Note that if your browser doesn't support the indicated font(s), the browser will use its (ugly) default font. The default font stacks are `Verdana, Geneva, sans-serif` for `main` and `Consolas, monaco, monospace` for `code`.  
-
-*(Note: More configuration options will likely be made available in the future as poof's feature set stabilizes.)*
+- `format`: A sub-object with two properties, `name` and `version` (which should be a string, like `"1.0.1"`). In Twine 2, poof will automatically detect which story format you have selected and tune the linter and some other features to match that information if it's a *major* format (i.e. Harlowe, SugarCube, Snowman, or Chapbook). In CLI compilers like Tweego, this isn't possible, and the automatically detected format will be poof, which isn't helpful. Set this option to a valid version of the format you want to use to either override what poof detects from Twine 2 or to set the format for the CLI compilers.  
+- `globals`: This option should be set to an array of strings. Each string represents the name of a global variable that your JavaScript has access to, such as from an external JavaScript library. Poof will automatically register the *documented* globals of the core Twine 2 story formats, so you only need to use this to tune the linter when using undocumented features, third-party formats, or external JavaScript (and only if the warnings about undefined variables bother you when using the linter).
 
 Writing valid JSON can be a bit tricky. Here's a validator to help you: https://jsonlint.com/. Plug your JSON in there, and the validator will tell you what, if anything, is wrong with it.
 

@@ -7,9 +7,13 @@ Poof Test
 :: Twine_UserStylesheet [stylesheet]
 p { font-weight: normal }
 
+em { color: violet }
+
 :: Twine_UserScript [script]
 function blah () { 
-	return 'hi'; 
+	State.variables.blah = 'hello';
+	console.log('blue');
+	Something.whatever();
 }
 
 :: Start
@@ -97,3 +101,7 @@ Dem Vater grauset's; er reitet geschwind,
 Er hält in Armen das ächzende Kind,
 Erreicht den Hof mit Mühe und Not;
 In seinen Armen das Kind war tot.
+
+:: html el test
+<span style='color:green;'>Hello</span>
+<script>console.log('uh oh')</script>

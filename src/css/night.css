@@ -1,0 +1,127 @@
+/* night mode styles */
+
+html.night .hljs {
+  color: #eee;
+  background: #333;
+}
+
+html.night .hljs-keyword,
+html.night .hljs-selector-tag,
+html.night .hljs-subst {
+  color: #fff;
+}
+
+html.night .hljs-title,
+html.night .hljs-section,
+html.night .hljs-selector-id {
+  color: #f22;
+}
+
+html.night .hljs-type,
+html.night .hljs-class .hljs-title {
+  color: #2cc;
+}
+
+html.night .hljs-tag,
+html.night .hljs-name,
+html.night .hljs-attribute {
+  color: #4444f4;
+}
+
+html.night td.hljs-ln-numbers {
+    color: #555;
+}
+
+html.night body {
+    background: #333;
+    color: #eee;
+}
+
+html.night div#story-data, html.night div.passage-card {
+    background-color: #454545;
+    box-shadow: 0 0 3px #000;
+}
+
+html.night div.passage-source {
+    background-color: #333;
+}
+
+html.night .passage-card .edit {
+    color: #111;
+}
+
+html.night div.comment-readout:nth-child(odd) {
+    background: #333;
+}
+
+html.night div.comment-wrapper div.comment-readout:last-child {
+    border-bottom: 1px solid #333;
+}
+
+html.night .pure-menu.pure-menu-horizontal {
+    border-bottom: 1px solid #555;
+}
+
+html.night .pure-menu-children {
+    border: 1px solid #555;
+    border-top: 0;
+}
+
+html.night .modal-dialog {
+    background: #333;
+    border: 1px solid #444;
+}
+
+html.night .modal-dialog input, 
+html.night .modal-dialog textarea,
+html.night .modal-dialog select {
+    color: #111;
+}
+
+html.night .pure-form-message-inline {
+    color: #aaa;
+}
+
+html.night .loader {
+    border-top: 1.1em solid #666;
+    border-right: 1.1em solid #666;
+    border-bottom: 1.1em solid #666;
+    border-left: 1.1em solid #eee;
+}
+
+html.night div#overlay {
+    background: #333;
+}
+
+html.night div.empty-comment.add-comment:active, 
+html.night div.empty-comment.add-comment:hover {
+    color: #eee;
+}
+
+html.night div#content.simple {
+    background-color: #333;
+}
+
+html.night div#content.simple div#story-data, 
+html.night div#content.simple div.passage-card, 
+html.night div#content.simple p.passage-tags {
+    padding: 1em;
+    box-shadow: none;
+    background-color: #454545;
+    border: 0;
+}
+
+html.night div#content.simple div.passage-source {
+    border: 0;
+    padding: 1em;
+    background-color: #333;
+    min-height: unset;
+}
+
+html.night div#content.simple div#main {
+    background: #454545;
+}
+
+html.night div#content.simple pre.hljs {
+    background-color: #333;
+}
