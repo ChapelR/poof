@@ -19,7 +19,7 @@ Features:
 
 ## Installation
 
-You can install poof using this URL: `https://twinelab.net/poof/use/format.js`. Copy and paste that URL into Twine 2 by clicking on `Formats` then `Add New Format` in the story list view (where all your stories are visible). Then go over to `Proofing Formats` and select poof. To use the proofing format, choose the `View Proofing Copy` option from the menu when editing a story. It's right above the `Publish to File` option.
+You can install poof using this URL: `https://cdn.jsdelivr.net/gh/chapelr/poof/docs/use/format.js`. Copy and paste that URL into Twine 2 by clicking on `Formats` then `Add New Format` in the story list view (where all your stories are visible). Then go over to `Proofing Formats` and select poof. To use the proofing format, choose the `View Proofing Copy` option from the menu when editing a story. It's right above the `Publish to File` option.
 
 For other compilers, you need to make the compiler aware of the format. How you do that will depend on the compiler, so refer to your compiler's docs. Note that poof is only compatible with Twine 2-style compilers.
 

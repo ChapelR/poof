@@ -1,3 +1,7 @@
+Version 1.0.0
+- Release version!
+- Hosting for release version moved to CDN.
+
 Version 0.5.1
 - Fixed a bug that prevented the tools menu from working.
 
