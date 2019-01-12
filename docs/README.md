@@ -5,7 +5,7 @@ Demos:
 - [Example PDF output](https://twinelab.net/poof/demo/poof.pdf)  
 - [Example plain text output](https://twinelab.net/poof/demo/poof.txt)
 
-A Twine 2 proofing format. In a prerelease state, currently.
+A Twine 2 proofing format.
 
 If you have any ideas for features, please [open an issue on the github repo](https://github.com/ChapelR/poof/issues/new). Do the same if you've found a bug!
 
@@ -18,6 +18,10 @@ Features:
 - Create comments and notes that can be exported, imported, and shared with others.
 
 ## Installation
+
+The online version of poof is currently hosted via the [jsDelivr CDN](https://www.jsdelivr.com/). 
+
+![](https://data.jsdelivr.com/v1/package/gh/chapelr/poof/badge)
 
 You can install poof using this URL: `https://cdn.jsdelivr.net/gh/chapelr/poof/docs/use/format.js`. Copy and paste that URL into Twine 2 by clicking on `Formats` then `Add New Format` in the story list view (where all your stories are visible). Then go over to `Proofing Formats` and select poof. To use the proofing format, choose the `View Proofing Copy` option from the menu when editing a story. It's right above the `Publish to File` option.
 
