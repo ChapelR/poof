@@ -64,18 +64,20 @@
             var passage = poof.passages.find(function (p) { 
                 return Number($(psg).attr('data-pid')) === p.id; 
             });
-            console.log(passage);
             if (passage && typeof passage === 'object') {
                 content.push({ text : '\n\n' + passage.name, style : 'title' });
                 if (passage.tags) {
                     content.push({ text : "\n\nTags: " + passage.tags, style : 'tags' });
                 }
-                content.push({ text : '\n\n' + poof.esc.unescape(passage.source) + '\n\n', style : 'content' }); 
+                content.push({ 
+                    text : '\n\n' + poof.esc.unescape(passage.source) + '\n\n', 
+                    style : 'content', 
+                    preserveLeadingSpaces : true
+                }); 
             }
         });
         var def = PDFStyles;
         def.content = content;
-        console.log(def, def.content);
         pdfMake.createPdf(def).download(name);
     }
 
@@ -93,7 +95,7 @@
         });
         content = content.join('\n\n');
         return poof.esc.unescape(poof.data2tw() + content);
-    };
+    }
 
     function safeName (str) {
         return str.toLowerCase()
