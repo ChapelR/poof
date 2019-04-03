@@ -22,36 +22,49 @@
             .append(document.createTextNode($('tw-storydata')[0].outerHTML)).text();
     }
 
-    function createPDF (name) {
-        var loaded = hasScript('html2pdf');
-        if (loaded) {
-            // uses html2pdf to create a pdf doc from our DOM output
-            // we need to un-collapse all the source code to prevent cutoffs
-            var $html = $(document.documentElement);
-            var collapsedState = $('#main').hasClass('collapse');
-            var nightState = $html.hasClass('night');
-            var $target = $('#main').removeClass('collapse');
-            $('.passage-footer').addClass('hide');
-            $(document.documentElement).removeClass('night');
-            // show filtered out passages
-            var toRevert = poof.filter.clear();
-            // do the thing
-            html2pdf($target[0], { filename : name, margin : 2 }).then( function () {
-                if (collapsedState) {
-                    // if the source was collapsed, make it so again
-                    $target.addClass('collapse');
-                }
-                if (nightState) {
-                    // re-add night mode state
-                    $html.addClass('night');
-                }
-                // revert filtering display if necessary
-                if (toRevert && Array.isArray(toRevert) && toRevert.length) {
-                    poof.filter.revert(toRevert);
-                }
-                $('.passage-footer').removeClass('hide');
-            });
+    var PDFStyles = {
+        styles : {
+            title : {
+                fontSize : 16,
+                bold : true,
+                alignment : 'center'
+            },
+            tags : {
+                fontSize : 12,
+                italics : true
+            },
+            content : {
+                fontSize : 12
+            }
         }
+    };
+
+    function createPDF (name) {
+        if (!pdfMake) {
+            alert('Creating a PDF requires an Internet connection.');
+        }
+        var passages = $('div.passage-card').toArray();
+        var content = [];
+        passages.forEach( function (psg) {
+            if ($(psg).hasClass('hide')) {
+                return;
+            }
+            var passage = poof.passages.find(function (p) { 
+                return Number($(psg).attr('data-pid')) === p.id; 
+            });
+            console.log(passage);
+            if (passage && typeof passage === 'object') {
+                content.push({ text : '\n\n' + passage.name, style : 'title' });
+                if (passage.tags) {
+                    content.push({ text : "\n\nTags: " + passage.tags, style : 'tags' });
+                }
+                content.push({ text : '\n\n' + poof.esc.unescape(passage.source) + '\n\n', style : 'content' }); 
+            }
+        });
+        var def = PDFStyles;
+        def.content = content;
+        console.log(def, def.content);
+        pdfMake.createPdf(def).download(name);
     }
 
     function safeName (str) {

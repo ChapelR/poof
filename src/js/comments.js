@@ -20,6 +20,8 @@
         return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
      }
 
+     poof.esc = { escape : escape, unescape : unescape };
+
     function commentToHtml (comment, idx, passage) {
         var el = poof.el;
         return el('div', { classes : 'comment-readout' }, [
