@@ -187,6 +187,10 @@
     // this data will all be exported to the global scope
     var output = {
         html : createHtmlOutput,
+        p2tw : passageToTwee,
+        data2tw : function () {
+            return dataToTwee(story) + userStylesToTwee() + userScriptsToTwee();
+        },
         twee : createTweeSource,
         data : story,
         passages : passages,

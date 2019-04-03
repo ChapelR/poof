@@ -24,6 +24,15 @@
 
     var PDFStyles = {
         styles : {
+            storyTitle : {
+                fontSize : 22,
+                bold : true,
+                alignment : 'center'
+            },
+            ifid : {
+                fontSize : 14,
+                alignment : 'center'
+            },
             title : {
                 fontSize : 16,
                 bold : true,
@@ -44,7 +53,10 @@
             alert('Creating a PDF requires an Internet connection.');
         }
         var passages = $('div.passage-card').toArray();
-        var content = [];
+        var content = [ 
+            { text : 'Story: ' + poof.data.name + '\n\n', style : 'storyTitle' }, 
+            { text : 'IFID: ' + poof.data.ifid + '\n\n\n\n', style : 'ifid' } 
+        ];
         passages.forEach( function (psg) {
             if ($(psg).hasClass('hide')) {
                 return;
@@ -67,6 +79,22 @@
         pdfMake.createPdf(def).download(name);
     }
 
+    function createTweeExport () {
+        var passages = $('div.passage-card').toArray();
+        var content = [];
+        passages.forEach( function (psg) {
+            if ($(psg).hasClass('hide')) {
+                return;
+            }
+            var passage = poof.passages.find(function (p) { 
+                return Number($(psg).attr('data-pid')) === p.id; 
+            });
+            content.push(poof.p2tw(passage));
+        });
+        content = content.join('\n\n');
+        return poof.esc.unescape(poof.data2tw() + content);
+    };
+
     function safeName (str) {
         return str.toLowerCase()
             .replace(/\s+/g, '-')
@@ -88,7 +116,7 @@
 
             if (fileExt === 'txt') {
                 // download the plain text twee format
-                download(poof.twee(), fileName, 'text/plain;charset=utf-8');
+                download(createTweeExport(), fileName, 'text/plain;charset=utf-8');
             } else if (fileExt === 'html') {
                 // download this single page web app
                 download(document.documentElement.outerHTML, fileName, 'text/html;charset=utf-8');
