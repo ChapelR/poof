@@ -47,7 +47,6 @@ function buildScripts () {
     var scriptArray = [
         // vendor scripts
         'vendor/jquery.js',
-        // 'vendor/doc.js',
         'vendor/highlight.pack.js',
         'vendor/download.js',
         // scripts

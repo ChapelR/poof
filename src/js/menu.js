@@ -26,7 +26,7 @@
         var a = creditLink;
         return poof.el('ul', { id : 'credits' }, [
             a('twinejs', 'http://twinery.org/', 'GPL-3.0'),
-            a('html2pdf', 'https://github.com/eKoopmans/html2pdf', 'MIT'),
+            a('pdfmake', 'http://pdfmake.org/', 'MIT'),
             a('download.js', 'http://danml.com/download.html', 'CC-BY-4.0'),
             a('jshint', 'https://jshint.com/', 'MIT'),
             a('highlight.js', 'https://highlightjs.org/', 

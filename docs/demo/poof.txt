@@ -5,11 +5,13 @@ ifid:4D6AB108-B3F7-40BA-BC9D-4200564E22C4
 Poof Test
 
 :: Twine_UserStylesheet [stylesheet]
+/* twine-user-stylesheet #1: "Story Stylesheet" */
 p { font-weight: normal }
 
 em { color: violet }
 
 :: Twine_UserScript [script]
+/* twine-user-script #1: "Story JavaScript" */
 function blah () { 
 	State.variables.blah = 'hello';
 	console.log('blue');
@@ -59,7 +61,6 @@ What's your favorite pie?
 <<for _i, _name range $dwarves>>
     <<print _i + 1>>. _name
 <</for>>
-
 
 :: Next Passage
 Wer reitet so spät durch Nacht und Wind?

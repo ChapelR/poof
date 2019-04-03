@@ -38,7 +38,7 @@ Older versions of poof can be found in the [`use` directory of the repo](https:/
 Open source software used:
 
 - [twinejs](http://twinery.org/) (GPL-3.0)  
-- [html2pdf](https://github.com/eKoopmans/html2pdf) (MIT)  
+- [pdfmake](http://pdfmake.org/) (MIT)  
 - [download.js](http://danml.com/download.html) (CC-BY-4.0)  
 - [jshint](https://jshint.com/) (MIT)  
 - [highlight.js](https://highlightjs.org/) ([License](https://github.com/highlightjs/highlight.js/blob/master/LICENSE))  

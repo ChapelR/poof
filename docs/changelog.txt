@@ -1,3 +1,11 @@
+Version 1.1.0
+- The PDF generator has been rewritten. It should not choke on large story files anymore.
+- The PDF output has been greatly simplified.
+- The scripts for the PDF exporter are now delivered via CDN.
+- The format.js file has been made much smaller (from ~580KB down to ~170KB).
+- The Twee exporter has been rewritten and will now respect sort order and filtering.
+- Other internal imporvements.
+
 Version 1.0.0
 - Release version!
 - Hosting for release version moved to CDN.
