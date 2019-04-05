@@ -105,7 +105,7 @@ Poof provides syntax highlighting for the JavaScript and CSS code views, but *no
 
 ### Linting
 
-?> Using the linter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the linter still doesn't work, wait a little while and trying again.
+?> Using the linter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the linter still doesn't work, wait a little while and try again.
 
 Poof can also [*lint* your JavaScript code](https://en.wikipedia.org/wiki/Lint_%28software%29). Linting helps you find errors, inconsistencies, and weirdness in your code.
 
@@ -125,7 +125,7 @@ The first way you can export is to [Twee notation](https://twinery.org/cookbook/
 
 !> **Warning**: The generated PDF export will not include your `poof.config` passage, or any passages you've currently filtered out. The sort order you have set up will also influence the order of the passages in the PDF file.
 
-?> Using the PDF exporter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the exporter still doesn't work, wait a little while and trying again.
+?> Using the PDF exporter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the exporter still doesn't work, wait a little while and try again.
 
 Exporting to PDF is useful if you want a printable copy of your story, or something very easy to share and send around, regardless of device. This is probably mostly useful for authors working with non-Twine-using editors.
 
