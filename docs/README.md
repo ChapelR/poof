@@ -23,13 +23,22 @@ The online version of poof is currently hosted via the [jsDelivr CDN](https://ww
 
 ![](https://data.jsdelivr.com/v1/package/gh/chapelr/poof/badge)
 
-You can install poof using this URL: `https://cdn.jsdelivr.net/gh/chapelr/poof/docs/use/format.js`. Copy and paste that URL into Twine 2 by clicking on `Formats` then `Add New Format` in the story list view (where all your stories are visible). Then go over to `Proofing Formats` and select poof. To use the proofing format, choose the `View Proofing Copy` option from the menu when editing a story. It's right above the `Publish to File` option.
+You can install poof using this URL: `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/format.js`. Copy and paste that URL into Twine 2 by clicking on `Formats` then `Add New Format` in the story list view (where all your stories are visible). Then go over to `Proofing Formats` and select poof. To use the proofing format, choose the `View Proofing Copy` option from the menu when editing a story. It's right above the `Publish to File` option.
+
+To get a local copy of poof, go to the [releases page on the repo](https://github.com/ChapelR/poof/releases) and find the `poof.zip` file under assets for the version you want and download it.
 
 For other compilers, you need to make the compiler aware of the format. How you do that will depend on the compiler, so refer to your compiler's docs. Note that poof is only compatible with Twine 2-style compilers.
 
 ### Other Versions
 
-Older versions of poof can be found in the [`use` directory of the repo](https://github.com/ChapelR/poof/tree/master/docs/use); they're named after their version numbers. There's also a development version: `dev.js` that you should almost certainly not use.
+Older versions of poof can be accessed by replacing the `@latest` in the URL with `@v[version number]`, e.g. poof 0.5.1 would be `https://cdn.jsdelivr.net/gh/chapelr/poof@0.5.1/docs/use/format.js`. Only valid release versions of poof can be accessed in this manner.  The valid releases are:
+
+- v0.5.1 (beta)  
+- v1.0.0  
+- v1.1.0  
+- v1.2.0 (latest)
+
+You can also access the development version of poof with the URL `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/dev.js`. The development version is never stable, and is not recommended for general use.
 
 [Changelog](https://twinelab.net/poof/changelog.txt)
 
@@ -64,9 +73,13 @@ This is a quick guide to help you get acclimated to poof and some suggestions ab
 
 ## Overview
 
+?> The first time you use poof, it may take several seconds to load. Poof relies on a number of external libraries fetched over the network, though many of its basic features will work without an Internet connection. These external libraries will be cached to your machine for future use, speeding up future load times and allowing poof to be used in all its glory without an Internet connection. Just be aware that the long initial load times (10+ seconds) are normal.
+
 To get started after installing poof, open your story in the Twine 2 app, open the menu (bottom left of the screen, near the story's name, is an up arrow that opens the menu), and click `View Proofing Copy`.  If you're using another compiler, like Tweego, you'll need to set the format option to poof--the CLI compilers treat proofing formats the same as all other formats. For example, `tweego -f poof -o my-poof-story.html src`.
 
 ### View Options
+
+?> You can use the `poof.config` special passage (see [below](#configuration)) to set most of these options for a given story so that you don't have to, say, go turn on the night mode option every time you view your proofing copy.
 
 You'll likely immediately notice your story's vital information on display, including story and passage data. Across the top of the window is several menus, the first of which is `View`. Hover over or click / tap on it to access your viewing options.
 
@@ -92,7 +105,9 @@ Poof provides syntax highlighting for the JavaScript and CSS code views, but *no
 
 ### Linting
 
-Poof can also [*lint* your JavaScript code](https://en.wikipedia.org/wiki/Lint_%28software%29). Linting helps you find errors, inconsistencies, and weirdness in your code. Using the linter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the button still doesn't work, try waiting a little while and trying again.
+?> Using the linter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the linter still doesn't work, wait a little while and trying again.
+
+Poof can also [*lint* your JavaScript code](https://en.wikipedia.org/wiki/Lint_%28software%29). Linting helps you find errors, inconsistencies, and weirdness in your code.
 
 Poof uses [JSHint](https://jshint.com/) for linting.
 
@@ -110,15 +125,17 @@ The first way you can export is to [Twee notation](https://twinery.org/cookbook/
 
 !> **Warning**: The generated PDF export will not include your `poof.config` passage, or any passages you've currently filtered out. The sort order you have set up will also influence the order of the passages in the PDF file.
 
+?> Using the PDF exporter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the exporter still doesn't work, wait a little while and trying again.
+
 Exporting to PDF is useful if you want a printable copy of your story, or something very easy to share and send around, regardless of device. This is probably mostly useful for authors working with non-Twine-using editors.
 
 ### Archive
 
-?> **Note**: Unlike the other exports, the archive option will not respect your filter or sort settings.
+?> Unlike the other exports, the archive option will not respect your filter or sort settings. The `poof.config` special passage will be omitted in the archive.
 
 As you (hopefully) know, you can make a back-up of all of your stories by creating an archive from the story list in Twine 2. You should do this a lot. This option does exactly the same thing, but only creates an archive of the current story. This archive can be used to back-up your story (though really, look into version control) and can also be used with certain compilers like Entwine and Tweego.
 
-**NOTE**: When you import an archive, it usually won't work at first. Try changing your story format and reselecting your start passage to fix this.
+?> When you import an archive, it sometimes won't work at first. Try changing your story format and reselecting your start passage to fix this.
 
 ## Comments
 
@@ -127,6 +144,8 @@ Comments can be added to any passage. The blue comment button under every passag
 A comment must have either a body or a title, or both. After you make a comment, it will appear in a list where `+ Add a comment...` used to be, along with a `New Comment` button. To read, edit, or delete a comment, click on any part of it in the list.
 
 ### Local Storage
+
+?> It is recommended that you periodically make back-ups of your comments via the `Comments > Export` menu option (see [below](#comment-files)). While local storage is a fairly safe place for data, if you stop using poof for a while, it's possible that your browser will allow poof's data to be overwritten. It's also possible that clearing your browing history in certain ways or using certain "free up disk space" tools could delete your comment data.
 
 Poof saves your comments to your browser's local storage anytime they are changed in anyway. This means that some care must be taken to preserve them, just like your Twine stories. Note that each story you open with poof will have it's own little place to hang out in local storage, so don't worry about overwriting one project's comments with another.
 
@@ -149,14 +168,19 @@ A `poof.config` passage may look like this:
 ```
 {
     "nightMode": true,
+    "ignoreTag": "widget",
     "fonts": {
         "main": "Arial",
         "code": "Courier New"
+    },
+    "pdf" : {
+        "lineHeight": 2,
+        "font": "monospace"
     }
 }
 ```
 
-The above settings tell poof that want the proofing copy to default to night mode (saving you a click every time you view the proofing copy) and that you want the main font used by most text to be Arial and the font used for passage text and code to be Courier New.
+The above settings tell poof that want the proofing copy to default to night mode (saving you a click every time you view the proofing copy), that you want to ignore `widget`-tagged passages, that you want the main font used by most text to be Arial and the font used for passage text and code to be Courier New, and that you want the PDF export to be double-spaced and in a monospace font.
 
 The following options can be used:
 
@@ -164,12 +188,13 @@ The following options can be used:
 - `simplified`: Set this option to `true` or `false`. If true, poof will default to the simplified view mode. The default setting is `false`.  
 - `lineNumbers`: Set this option to `true` or `false`. If true, line numbers will be shown in source code by default. The default setting is `true`.
 - `codeHeightLimit`: Set this option to `true` or `false`. If true, poof will default to showing about 15 lines of code before using scrollbars. The default setting is `true`.  
-- `ignoreTag`: Set this option to a string that represents a valid Twine tag (i.e. no spaces). Passages with this tag will not be imported by poof. The default is `poof.ignore`.  
+- `ignoreTag`: Set this option to a string that represents a valid Twine tag (i.e. no spaces). Passages with this tag will not be imported by poof. The default is `"poof.ignore"`.  
 - `fonts`: A sub-object with two properties, `main` and `code`. You can set custom fonts / font stacks for poof using this option. Note that if your browser doesn't support the indicated font(s), the browser will use its (ugly) default font. The default font stacks are `Verdana, Geneva, sans-serif` for `main` and `Consolas, monaco, monospace` for `code`.  
 - `format`: A sub-object with two properties, `name` and `version` (which should be a string, like `"1.0.1"`). In Twine 2, poof will automatically detect which story format you have selected and tune the linter and some other features to match that information if it's a *major* format (i.e. Harlowe, SugarCube, Snowman, or Chapbook). In CLI compilers like Tweego, this isn't possible, and the automatically detected format will be poof, which isn't helpful. Set this option to a valid version of the format you want to use to either override what poof detects from Twine 2 or to set the format for the CLI compilers.  
-- `globals`: This option should be set to an array of strings. Each string represents the name of a global variable that your JavaScript has access to, such as from an external JavaScript library. Poof will automatically register the *documented* globals of the core Twine 2 story formats, so you only need to use this to tune the linter when using undocumented features, third-party formats, or external JavaScript (and only if the warnings about undefined variables bother you when using the linter).
+- `globals`: This option should be set to an array of strings. Each string represents the name of a global variable that your JavaScript has access to, such as from an external JavaScript library. Poof will automatically register the *documented* globals of the core Twine 2 story formats, so you only need to use this to tune the linter when using undocumented features, third-party formats, or external JavaScript (and only if the warnings about undefined variables bother you when using the linter).  
+- `pdf`: This sub-object controls the various styles and features of the PDF export. You can change the `lineHeight` (line spacing) and set it to a number between `1` (single-spaced) and `2` (double-spaced). The default line height is `1.15`. Use the `fontSize` option to change the size of the text in the exported file (the options are `"very small"` [8pt], `"small"` [10pt], `"normal"` [12pt], `"large"` [14pt], and `"very large"` [16pt]). The default is `"normal"` (12pt). The `font` option can be used to set the font to a `"monospace"` (Consolas), `"serif"` (Georgia), or `"san-serif"` (Roboto) font. The default font is `"sans-serif"` (Roboto).
 
-Writing valid JSON can be a bit tricky. Here's a validator to help you: https://jsonlint.com/. Plug your JSON in there, and the validator will tell you what, if anything, is wrong with it.
+?> Writing valid JSON can be a bit tricky. Here's a validator to help you: https://jsonlint.com/. Plug your JSON in there, and the validator will tell you what, if anything, is wrong with it.
 
 ### Ignore Tag
 

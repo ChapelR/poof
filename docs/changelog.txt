@@ -1,3 +1,9 @@
+Version 1.2.0
+- Added a loading spinner to the export process to prevent reclicks and provide user feedback, as it can take several seconds.
+- Created a custom VFS font file served via jsDelivr that loads over the network to provide PDF font options.
+- Added `pdf.lineHeight`, `pdf.font`, and `pdf.fontSize` configuration options to `poof.config` special passage.
+- Other internal improvements.
+
 Version 1.1.0
 - The PDF generator has been rewritten. It should not choke on large story files anymore.
 - The PDF output has been greatly simplified.

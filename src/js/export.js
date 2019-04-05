@@ -22,36 +22,88 @@
             .append(document.createTextNode($('tw-storydata')[0].outerHTML)).text();
     }
 
-    var PDFStyles = {
-        styles : {
-            storyTitle : {
-                fontSize : 22,
-                bold : true,
-                alignment : 'center'
+    function loadFonts () {
+        return {
+            'monospace': {
+                normal : 'monospace.ttf'
             },
-            ifid : {
-                fontSize : 14,
-                alignment : 'center'
+            'serif': {
+                normal : 'serif.ttf'
             },
-            title : {
-                fontSize : 16,
-                bold : true,
-                alignment : 'center'
+            'sans': {
+                normal : 'sans.ttf'
             },
-            tags : {
-                fontSize : 12,
-                italics : true
+            'bold': {
+                normal : 'bold.ttf'
             },
-            content : {
-                fontSize : 12
+            'italic' : {
+                normal : 'italic.ttf'
             }
+       };
+
+    }
+    
+    function PDFStyles (fSize, lHeight, fontFace) {
+        return {
+            styles : {
+                storyTitle : {
+                    fontSize : (((fSize + 10) > 22) ? 22 : fSize + 10),
+                    font : 'sans',
+                    alignment : 'center'
+                },
+                ifid : {
+                    fontSize : fSize + 2,
+                    alignment : 'center',
+                    font : 'monospace'
+                },
+                title : {
+                    fontSize : fSize + 4,
+                    alignment : 'center',
+                    font : 'sans'
+                },
+                tags : {
+                    fontSize : fSize,
+                    font : 'italic'
+                },
+                content : {
+                    fontSize : fSize,
+                    lineHeight : lHeight,
+                    font : fontFace
+                }
+            }
+        };
+    }
+
+    function getFontSize () {
+        if (!poof || !poof.config || !poof.config.pdf || !poof.config.pdf.fontSize) {
+            return 12;
         }
-    };
+        switch (poof.config.pdf.fontSize) {
+            case 'very small':
+                return 8;
+            case 'small':
+                return 10;
+            case 'large':
+                return 14;
+            case 'very large':
+                return 16;
+            default:
+                return 12;
+        }
+    }
+
+    function getFontFace () {
+        if (!poof || !poof.config || !poof.config.pdf || !poof.config.pdf.font) {
+            return 'sans';
+        }
+        return poof.config.pdf.font;
+    }
 
     function createPDF (name) {
         if (!pdfMake) {
-            alert('Creating a PDF requires an Internet connection.');
+            alert('Creating a PDF requires an Internet connection. If you have a connection, please wait for a few seconds and try again.');
         }
+        $(document).trigger(':pdf-export-start');
         var passages = $('div.passage-card').toArray();
         var content = [ 
             { text : 'Story: ' + poof.data.name + '\n\n', style : 'storyTitle' }, 
@@ -76,9 +128,12 @@
                 }); 
             }
         });
-        var def = PDFStyles;
+        var def = PDFStyles(getFontSize(), poof.config.pdf.lineHeight, getFontFace());
         def.content = content;
-        pdfMake.createPdf(def).download(name);
+        console.log(loadFonts());
+        pdfMake.createPdf(def, null, loadFonts(), vfs).download(name, function () {
+            $(document).trigger(':pdf-export-complete');
+        });
     }
 
     function createTweeExport () {

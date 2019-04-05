@@ -53,10 +53,10 @@
         $('#overlay').find('.loader').addClass('hide');
     });
 
-    $(document).on(':sort-start :filter-start', function () {
+    $(document).on(':sort-start :filter-start :pdf-export-start', function () {
         $(document).trigger(':load-open');
     });
-    $(document).on(':sort-complete :filter-complete', function () {
+    $(document).on(':sort-complete :filter-complete :pdf-export-complete', function () {
         $(document).trigger(':load-close');
     });
 
