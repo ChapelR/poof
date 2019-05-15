@@ -355,19 +355,12 @@
         var $error = poof.el('div', { id : 'find-error' });
         var $confirm = poof.forms.confirm('Find', function () {
             var value = $('#find-passage').val();
-            var $card = $('.passage-card[name="' + value + '"]');
-            if ($card[0]) {
+            var worked = poof.utils.scrollTo(value, function () {
                 $(document).trigger(':find-start');
-                // make sure the passage is visible if filtered
-                $card.removeClass('hide');
-                // smooth scroll to the passage card
-                poof.modal.close();
-                $('html,body').animate({
-                   scrollTop : $card.offset().top - 37 // arrived at by 16px font * 2 (margin) * 1.15 (line-height)
-                }, function () {
-                    $(document).trigger(':find-complete');
-                });
-            } else {
+            }, function () {
+                $(document).trigger(':find-complete');
+            });
+            if (!worked) {
                 // no such passage
                 $error.empty().append('<br/><br/>Cannot find a passage titled "' + value + '".');
             }

@@ -57,6 +57,7 @@ function buildScripts () {
         'config.js',
         'lint.js',
         'proofing.js',
+        'parser.js',
         'state.js',
         'tools.js',
         'export.js',

@@ -18,8 +18,10 @@
             name : $self.attr('name'),
             id : Number($self.attr('pid')),
             tags : $self.attr('tags'),
+            pos : $self.attr('position'),
             // $self.text() may be better, but we can always get the unescaped source later
-            source : $self.html()
+            source : $self.html(),
+            links : { to : [], from : [] }
         });
     });
 
@@ -28,12 +30,17 @@
         return a.id - b.id;
     });
 
+    var passageNames = passages.map( function (psg) {
+        return psg.name;
+    });
+
     var story = {
         // pull story data from the data chunk
         name : dataChunk.attr('name'),
         compiler : dataChunk.attr('creator'),
         compilerVersion : dataChunk.attr('creator-version'),
-        ifid : dataChunk.attr('ifid')
+        ifid : dataChunk.attr('ifid'),
+        start : Number(dataChunk.attr('starnode'))
     };
 
     // here we make sure to grab the user scripts and styles
@@ -57,6 +64,7 @@
     function passageToHtml (passage) {
         // this creates the DOM structure for each "passage card"
         var tagsClass = !!passage.tags.trim() ? '' : 'hide';
+        var references = poof.utils.referenceLinks(passage);
         var $el = poof.el('div', { 'data-id' : passage.id, classes : 'passage-card' })
             .append( poof.el('div', { 
                 classes : 'edit', 
@@ -71,6 +79,9 @@
             .append( poof.el('h2', { classes : 'passage-title' }, passage.name))
             .append( poof.el('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
                 .addClass(tagsClass) )
+            .append( (references) ? poof.el('div', { classes : 'passage-references' }, [poof.el('h3', {
+                classes : 'passage-references-title'
+            }, 'References to Other Passages: '), references]) : poof.utils.voidEl() )
             .append( poof.el('div', { classes : 'passage-source' },
                 poof.el('pre', {}, passage.source.trim())) )
             .append( poof.el('div', { classes : 'passage-footer closed' }, [poof.el('button', { 
@@ -162,8 +173,15 @@
 
     function passageToTwee (passage) {
         // create each passage's twee notation
-        return ":: " + passage.name + (!!passage.tags.trim() ? " [" + passage.tags + "]\n" : "\n") + passage.source;
-        // some compilers accept coordinates from the Twine 2 app, but others trip on them, so leave them off
+        var coordinates = passage.pos || '', pos;
+        if (poof.config.twee === 'classic' || !coordinates || typeof coordinates !== 'string' || !coordinates.trim()) {
+            pos = '';
+        } else {
+            if (poof.config.twee === 'twee2') {
+                pos = ' <' + coordinates + '> ';
+            } // else { format according to spec }
+        }
+        return ":: " + passage.name + (!!passage.tags.trim() ? " [" + passage.tags + "]" : "") + (!!pos ? pos + '\n' : '\n') + passage.source;
     }
 
     function createTweeSource () {
@@ -194,6 +212,7 @@
         twee : createTweeSource,
         data : story,
         passages : passages,
+        passageNames : passageNames,
         scripts : userScripts,
         styles : userStyles,
         $scripts : userScriptsToHtml(),

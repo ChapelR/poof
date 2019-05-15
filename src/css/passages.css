@@ -11,6 +11,22 @@ p.passage-tags {
     padding: 0.3em;
 }
 
+div.passage-references {
+    border: 1px solid #111;
+    padding: 1em;
+    margin: 1em;
+}
+
+h3.passage-references-title {
+    font-size: 1.1rem;
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+div.passage-reference-wrapper {
+    font-size: 0.8em;
+}
+
 div.passage-source {
     border: 1px solid #111;
     padding: 1em;

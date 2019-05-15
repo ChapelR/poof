@@ -1,3 +1,8 @@
+Version 1.3.0 (unreleased)
+- Added "passage references", which parses passage source code for links (and macro code, like gotos, includes/displays, etc) and displays them in the passage card as links that scroll to the indicated passages.
+- Added basic support for Twee encoding options, to handle the incoming Twee spec and to be able to export to Twee2 and other nonstandard Twee implementations.
+- Internal improvements, including offloading of some code to the new `poof.utils` object/API.
+
 Version 1.2.0
 - Added a loading spinner to the export process to prevent reclicks and provide user feedback, as it can take several seconds.
 - Created a custom VFS font file served via jsDelivr that loads over the network to provide PDF font options.
