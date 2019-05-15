@@ -13,6 +13,37 @@
     var validFonts = ['serif', 'sans-serif', 'monospace'];
     var validTweeSpec = ['default', 'classic', 'twee2'];
 
+    function enforceBool (bool) {
+        return !!bool;
+    }
+
+    function handleStrings (str, lowerCase) {
+        if (typeof str !== 'string') {
+            str = String(str);
+        }
+        if (lowerCase) {
+            str = str.toLowerCase();
+        }
+        return str.trim();
+    }
+
+    function handleNums (num) {
+        if (typeof num !== 'number') {
+            num = Number(num);
+        }
+        if (Number.isNaN(num)) {
+            num = 0;
+        }
+        return num;
+    }
+
+    function handleArrays (arr) {
+        if (!arr || !Array.isArray(arr)) {
+            arr = [];
+        }
+        return arr;
+    }
+
     /*
         Twee Spec:
             - default: add coordinate data in accordance with the upcoming spec.
@@ -44,27 +75,66 @@
                 fontSize : 'normal',
                 lineHeight : 1.15
             },
-            twee : 'default'
+            twee : 'default',
+            parse : true // whether to parse for passage references
         };
         var data = $configPassage.text() || '{ "noConfig" : true }';
         try {
             data = JSON.parse(data);
             Object.assign(settings, data);
+
+            // enforce boolean properties
+            settings.simplified = enforceBool(settings.simplified);
+            settings.lineNumbers = enforceBool(settings.lineNumbers);
+            settings.codeHeightLimit = enforceBool(settings.codeHeightLimit);
+            settings.nightMode = enforceBool(settings.nightMode);
+            settings.parse = enforceBool(settings.parse);
+
+            // handle strings
+            settings.ignoreTag = handleStrings(settings.ignoreTag);
+            settings.format.name = handleStrings(settings.format.name);
+            settings.format.version = handleStrings(settings.format.version);
+            settings.fonts.main = handleStrings(settings.fonts.main);
+            settings.fonts.code = handleStrings(settings.fonts.code);
+            settings.pdf.font = handleStrings(settings.pdf.font, true);
+            settings.pdf.fontSize = handleStrings(settings.pdf.fontSize, true);
+            settings.twee = handleStrings(settings.twee, true);
+
+            // handle numbers
+            settings.pdf.lineHeight = handleNums(settings.pdf.lineHeight);
+
+            // check for valid options
             if (!validFonts.includes(settings.pdf.font)) {
                 settings.pdf.font = 'sans';
             }
             if (!validFontSizes.includes(settings.pdf.fontSize)) {
                 settings.pdf.fontSize = 'normal';
             }
+            if (!validTweeSpec.includes(settings.twee)) {
+                settings.twee = 'default';
+            }
+
+            // enforce sensible limits
             if (settings.pdf.lineHeight < 1) {
                 settings.pdf.lineHeight = 1;
             }
             if (settings.pdf.lineHeight > 2) {
                 settings.pdf.lineHeight = 2;
             }
-            // no twee spec yet
-            if (settings.twee !== 'default') {
-                settings.twee === 'default';
+
+            // check globals
+            settings.globals = handleArrays(settings.globals);
+            settings.globals = settings.globals.filter( function (gl) {
+                // make sure globals are valid identifiers
+                return typeof gl === 'string' && (/[A-Za-z_$]/).test(gl[0]);
+            }).map( function (gl) {
+                // trim each global
+                return handleStrings(gl);
+            });
+
+            // no twee spec yet, so enforce classic encoding mode
+            if (settings.twee !== 'classic') {
+                settings.twee = 'classic';
             }
         } catch (err) {
             console.warn('Config passage was not parsed:', err);

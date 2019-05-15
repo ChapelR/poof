@@ -232,6 +232,10 @@
         el('span', { classes : 'void' });
     }
 
+    function stringNotEmpty (string) {
+        return string && typeof string === 'string' && string.trim();
+    }
+
     poof.utils = {
         getParsers : setUpParsers,
         parse : parse,
@@ -241,7 +245,8 @@
         scrollTo : scrollToPassage,
         jumpLink : createJumpLink,
         referenceLinks : linksToFrom,
-        voidEl : voidElement
-    }
+        voidEl : voidElement,
+        stringNotEmpty : stringNotEmpty
+    };
 
 }());
