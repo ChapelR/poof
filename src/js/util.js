@@ -32,105 +32,8 @@
     // export
     poof.el = el;
 
-    var linkParsers = {
-
-        generic : [
-            {
-                name : 'generic-pipe',
-                regex : /\[\[(.*)\|(.*)]]/g,
-                group : 2
-            },
-            {
-                name : 'generic-passage',
-                regex : /\[\[(.*)]]/g,
-                group : 1
-            },
-            {
-                name : 'generic-pFirst',
-                regex : /\[\[(.*)<-(.*)]]/g,
-                group : 1
-            },
-            {
-                name : 'generic-pLast',
-                regex : /\[\[(.*)->(.*)]]/g,
-                group : 2
-            }
-        ],
-        sugarcube : [
-            {
-                name : 'linkMacro',
-                regex : /<<(link|button)\s*["'](.*)["']\s*['"](.*)['"]>>/g,
-                group : 3
-            },
-            {
-                name : 'gotoMacro',
-                regex : /<<goto\s*["'](.*)["']>>/g,
-                group : 1
-            },
-            {
-                name : 'includeMacro',
-                regex : /<<(include|display)\s*["'](.*)["']\s*?.*?>>/g,
-                group : 1
-            }
-        ],
-        harlowe : [
-            {
-                name : 'linkMacro',
-                regex : /\((link|click)-?go-?to:\s*?["'](.*?)['"],\s*?['"](.*?)['"]\s*?\)/g,
-                group : 3
-            },
-            {
-                name : 'gotoMacro',
-                regex : /\(go-?to:\s*?["'](.*?)['"]\s*?\)/g,
-                group : 1
-            },
-            {
-                name : 'includeMacro',
-                regex : /\(display:\s*?["'](.*?)['"]\s*?\)/g,
-                group : 1
-            }
-        ]
-    };
-
-    function setUpParsers (format) {
-        if (linkParsers[format] && format !== 'generic') {
-            return linkParsers.generic.concat(linkParsers[format]);
-        } else {
-            return linkParsers.generic;
-        }
-    }
-
-    function parse (passageText, parsers) {
-        if (typeof passageText === 'object' && passageText.source && typeof passageText.source === 'string') {
-            passageText = passageText.source;
-        }
-        if (typeof passageText !== 'string') {
-            console.warn('linkParser -> passage text could not be found.');
-            return;
-        }
-        var passages = [];
-        parsers.forEach( function (parser) {
-            var ret = [];
-            var matches = passageText.match(parser.regex);
-            if (matches) {
-                matches.forEach( function (match) {
-                    var parsed = parser.regex.exec(match);
-                    if (parsed) {
-                        var psg = parsed[parser.group];
-                        if (!ret.includes(psg)) {
-                            ret.push(psg);
-                        }
-                    }
-                });
-            }
-            if (ret.length) {
-                passages = passages.concat(ret);
-            }
-        });
-        return passages;
-    }
-
     function isValidPassage (passageName) {
+        // check if the passage name (or object) passed is in our passage list
         if (typeof passageName === 'object' && passageName.name && typeof passageName.name === 'string') {
             passageName = passageName.name;
         }
@@ -141,6 +44,7 @@
     }
 
     function filterForPassages (list) {
+        // take an array of strings and filter out any that aren't passages
         if (!list || !Array.isArray(list) || !list.length) {
             return [];
         }
@@ -151,6 +55,7 @@
     }
 
     function getStartPassage () {
+        // return the passage object represeting the startnode
         if (!poof.data) {
             return; // can't run yet
         }
@@ -165,27 +70,32 @@
         return start;
     }
 
-    function scrollToPassage (passageName, onStart, callback) {
+    function scrollToPassage (passageName, onStart, onEnd) {
+        // scroll a passage into view via name
         if (typeof passageName === 'object' && passageName.name && typeof passageName.name === 'string') {
             passageName = passageName.name;
         }
         if (typeof passageName !== 'string') {
             return false;
         }
+        // get the passage card
         var $card = $('.passage-card[name="' + passageName + '"]');
-        if ($card[0]) {
+        if ($card[0]) { // make sure the card exists
             if (typeof onStart === 'function') {
+                // run onStart cb
                 onStart.call(null, passageName, $card);
             }
             // make sure the passage is visible if filtered
             $card.removeClass('hide');
             // smooth scroll to the passage card
             poof.modal.close();
+            // smoothly animate the passage card into view
             $('html,body').animate({
                scrollTop : $card.offset().top - 37 // arrived at by 16px font * 2 (margin) * 1.15 (line-height)
             }, function () {
-                if (typeof callback === 'function') {
-                    callback.call(null, passageName, $card);
+                if (typeof onEnd === 'function') {
+                    // run onEnd cb
+                    onEnd.call(null, passageName, $card);
                 }
             });
             return true;
@@ -194,6 +104,7 @@
     }
 
     function createJumpLink (passageName) {
+        // create a link with the name of a passage that, when clicked, scrolls that passage card into view
         return el('a', {
             classes : 'jumpto',
             href : 'javascript:void(0)'
@@ -204,6 +115,7 @@
     }
 
     function linksToFrom (passage) {
+        // construct passage reference linked lists
         var make = false;
         var $wrapper = el('div', { classes : 'passage-reference-wrapper' });
         var $toWrapper = el('div', { title : 'Links and other code in this passage that points to other passages.' }, 'Refers to: ');
@@ -229,16 +141,16 @@
     }
 
     function voidElement () {
+        // creat a void element, as a no-op for jQuery
         el('span', { classes : 'void' });
     }
 
     function stringNotEmpty (string) {
+        // check that a value is a string and is not empty
         return string && typeof string === 'string' && string.trim();
     }
 
     poof.utils = {
-        getParsers : setUpParsers,
-        parse : parse,
         isPassage : isValidPassage,
         filterPassages : filterForPassages,
         getStartingPassage : getStartPassage,
