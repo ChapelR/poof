@@ -1,3 +1,9 @@
+Version 1.3.1 (unreleased)
+- Improved markup-based link parser to handle setters.
+- Markup-based link parser falls back to a replace-based parser when necessary.
+- Improved macro-based parsers.
+- Cleaned up and moved around parser code and utility code to better organize the project.
+
 Version 1.3.0 (unreleased)
 - Added "passage references", which parses passage source code for links (and macro code, like gotos, includes/displays, etc) and displays them in the passage card as links that scroll to the indicated passages.
 - Added basic support for Twee encoding options, to handle the incoming Twee spec and to be able to export to Twee2 and other nonstandard Twee implementations.

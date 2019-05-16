@@ -12,28 +12,10 @@
         generic : [
             // parse generic link markup
             {  
-                // [[link|passage]]
-                name : 'generic-pipe',
-                regex : /\[\[(.*?)\|(.*?)]]/g,
-                group : 2
-            },
-            {
-                // [[passage]]
-                name : 'generic-passage',
-                regex : /\[\[(.*?)]]/g,
+                // normal link markup
+                name : 'markup',
+                regex : /\[{2,}(.*?)](\[.*?])?]{1,}/g,
                 group : 1
-            },
-            {
-                // [[passage<-link]]
-                name : 'generic-pFirst',
-                regex : /\[\[(.*?)<-(.*?)]]/g,
-                group : 1
-            },
-            {
-                // [[link->passage]]
-                name : 'generic-pLast',
-                regex : /\[\[(.*?)->(.*?)]]/g,
-                group : 2
             }
         ],
         sugarcube : [
@@ -54,7 +36,7 @@
                 // <<include 'passage'>> -or- <<display 'passage'>>
                 name : 'includeMacro',
                 regex : /<<(include|display)\s*["'](.*?)["']\s*?.*?>>/g,
-                group : 1
+                group : 2
             }
         ],
         harlowe : [
@@ -85,6 +67,27 @@
         ]
     };
 
+    function handleMarkupLink (string) {
+        if (string[0] === '[' && string[1] === '[') {
+            // trim markup if necessary
+            string = string.substr(2, string.length - 2);
+        }
+        
+        if (string.includes('|')) {
+            // [[link|(passage)]]
+            return string.split('|')[1] || string;
+        }
+        if (string.includes('->')) {
+            // [[link->(passage)]]
+            return string.split('->')[1] || string;
+        }
+        if (string.includes('<-')) {
+            // [[(passage)<-link]]
+            return string.split('<-')[0] || string;
+        }
+        return string;
+    }
+
     function setUpParsers (format) {
         // get the parsers we need based on the format
         if (parserList[format] && format !== 'generic') {
@@ -102,23 +105,33 @@
         }
         if (typeof passageText !== 'string') {
             // if we can't read the source, bail out with an error message in the console, but keep running the app
-            console.warn('parsers -> passage text could not be found.');
+            console.warn('reference parser -> passage text could not be found.');
             return;
         }
         var passages = [];
+        var source = poof.utils.unescape(passageText);
         parsers.forEach( function (parser) {
             var ret = [];
             // find each valid passage reference 
-            var matches = passageText.match(parser.regex);
+            var matches = source.match(parser.regex);
             if (matches) {
                 matches.forEach( function (match) {
-                    // parse each passage reference
-                    var parsed = parser.regex.exec(match);
+                    var parsed = parser.regex.exec(match),
+                        psg;
+                    if (!parsed && parser.name === 'markup') {
+                        match = match.replace(/\[+/g, '[[').replace(/(]\[.*]+|]+)/g, ']]');
+                        // simplified link parser
+                        parsed = (/\[{2,}(.*?)]{2,}/g).exec(match);
+                    }
                     if (parsed) {
-                        // get the passage
-                        var psg = parsed[parser.group];
+                        psg = parsed[parser.group];
+                        if (parser.name === 'markup') {
+                            // handle generic markup links
+                            psg = handleMarkupLink(psg);
+                        }
                         if (!ret.includes(psg)) {
-                            ret.push(psg);
+                            // only one reference needed
+                            ret.push(poof.utils.unescape(psg));
                         }
                     }
                 });
@@ -144,7 +157,10 @@
                     var idx = poof.passages.findIndex( function (passage){
                         return psg === passage.name;
                     });
-                    poof.passages[idx].links.from.push(passage.name);
+                    var passageFrom = poof.passages[idx];
+                    if (passageFrom && !passageFrom.links.from.includes(passage.name)) {
+                        passageFrom.links.from.push(passage.name);
+                    }
                 });
             }
         });

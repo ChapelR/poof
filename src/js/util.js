@@ -32,28 +32,6 @@
     // export
     poof.el = el;
 
-    function isValidPassage (passageName) {
-        // check if the passage name (or object) passed is in our passage list
-        if (typeof passageName === 'object' && passageName.name && typeof passageName.name === 'string') {
-            passageName = passageName.name;
-        }
-        if (poof.passageNames && Array.isArray(poof.passageNames) && typeof passageName === 'string') {
-            return poof.passageNames.includes(passageName);
-        }
-        return false;
-    }
-
-    function filterForPassages (list) {
-        // take an array of strings and filter out any that aren't passages
-        if (!list || !Array.isArray(list) || !list.length) {
-            return [];
-        }
-        var x = list.filter( function (psg) {
-            return isValidPassage(psg);
-        });
-        return x;
-    }
-
     function getStartPassage () {
         // return the passage object represeting the startnode
         if (!poof.data) {
@@ -70,6 +48,10 @@
         return start;
     }
 
+    function escapeQuotes (string) {
+        return string.replace(/"/g, '\\"').replace(/'/g, "\\'");
+    }
+
     function scrollToPassage (passageName, onStart, onEnd) {
         // scroll a passage into view via name
         if (typeof passageName === 'object' && passageName.name && typeof passageName.name === 'string') {
@@ -79,7 +61,7 @@
             return false;
         }
         // get the passage card
-        var $card = $('.passage-card[name="' + passageName + '"]');
+        var $card = $('.passage-card[name="' + escapeQuotes(passageName) + '"]');
         if ($card[0]) { // make sure the card exists
             if (typeof onStart === 'function') {
                 // run onStart cb
@@ -150,6 +132,43 @@
         return string && typeof string === 'string' && string.trim();
     }
 
+    function escape(unsafe) { // from: https://stackoverflow.com/a/6234804
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function unescape(safe) {
+        var e = document.createElement('div');
+        e.innerHTML = safe;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    function isValidPassage (passageName) {
+        // check if the passage name (or object) passed is in our passage list
+        if (typeof passageName === 'object' && passageName.name && typeof passageName.name === 'string') {
+            passageName = passageName.name;
+        }
+        if (poof.passageNames && Array.isArray(poof.passageNames) && typeof passageName === 'string') {
+            return poof.passageNames.includes(passageName);
+        }
+        return false;
+    }
+
+    function filterForPassages (list) {
+        // take an array of strings and filter out any that aren't passages
+        if (!list || !Array.isArray(list) || !list.length) {
+            return [];
+        }
+        return list.filter( function (psg) {
+            return isValidPassage(psg);
+        });
+    }
+
     poof.utils = {
         isPassage : isValidPassage,
         filterPassages : filterForPassages,
@@ -158,7 +177,10 @@
         jumpLink : createJumpLink,
         referenceLinks : linksToFrom,
         voidEl : voidElement,
-        stringNotEmpty : stringNotEmpty
+        stringNotEmpty : stringNotEmpty,
+        unescape : unescape,
+        escape : escape,
+        escapeQuotes : escapeQuotes
     };
 
 }());

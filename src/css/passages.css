@@ -27,6 +27,10 @@ div.passage-reference-wrapper {
     font-size: 0.8rem;
 }
 
+a.jumpto {
+    margin-right: 1em;
+}
+
 div.passage-source {
     border: 1px solid #111;
     padding: 1em;
