@@ -11,7 +11,7 @@
 
     var validFontSizes = ['very small', 'small', 'normal', 'large', 'very large'];
     var validFonts = ['serif', 'sans-serif', 'monospace'];
-    var validTweeSpec = ['default', 'classic', 'twee2'];
+    var validTweeSpec = [1, 2, 3];
 
     function enforceBool (bool) {
         return !!bool;
@@ -75,7 +75,7 @@
                 fontSize : 'normal',
                 lineHeight : 1.15
             },
-            twee : 'default',
+            twee : 1,
             parse : true // whether to parse for passage references
         };
         var data = $configPassage.text() || '{ "noConfig" : true }';
@@ -98,10 +98,10 @@
             settings.fonts.code = handleStrings(settings.fonts.code);
             settings.pdf.font = handleStrings(settings.pdf.font, true);
             settings.pdf.fontSize = handleStrings(settings.pdf.fontSize, true);
-            settings.twee = handleStrings(settings.twee, true);
 
             // handle numbers
             settings.pdf.lineHeight = handleNums(settings.pdf.lineHeight);
+            settings.twee = handleNums(settings.twee);
 
             // check for valid options
             if (!validFonts.includes(settings.pdf.font)) {
@@ -133,8 +133,8 @@
             });
 
             // no twee spec yet, so enforce classic encoding mode
-            if (settings.twee !== 'classic') {
-                settings.twee = 'classic';
+            if (!validTweeSpec.includes(settings.twee)) {
+                return 1;
             }
         } catch (err) {
             console.warn('Config passage was not parsed:', err);

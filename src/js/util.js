@@ -32,6 +32,8 @@
     // export
     poof.el = el;
 
+    var bslash = '\\';
+
     function getStartPassage () {
         // return the passage object represeting the startnode
         if (!poof.data) {
@@ -41,6 +43,11 @@
         var start = poof.passages.find( function (psg) {
             return psg === poof.data.start;
         });
+        if (!start) {
+            start = poof.passages.find( function (psg) {
+                return psg.name === 'Start';
+            });
+        }
         if (!start) {
             // return first passage
             return poof.passages[0];
@@ -170,6 +177,7 @@
     }
 
     poof.utils = {
+        backSlash = bslash,
         isPassage : isValidPassage,
         filterPassages : filterForPassages,
         getStartingPassage : getStartPassage,

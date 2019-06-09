@@ -31,7 +31,7 @@ For other compilers, you need to make the compiler aware of the format. How you 
 
 ### Other Versions
 
-Older versions of poof can be accessed by replacing the `@latest` in the URL with `@v[version number]`, e.g. poof 0.5.1 would be `https://cdn.jsdelivr.net/gh/chapelr/poof@0.5.1/docs/use/format.js`. Only valid release versions of poof can be accessed in this manner.  The valid releases are:
+Older versions of poof can be accessed by replacing the `@latest` in the URL with `@v[version number]`, e.g. poof 0.5.1 would be `https://cdn.jsdelivr.net/gh/chapelr/poof@v0.5.1/docs/use/format.js`. Only valid release versions of poof can be accessed in this manner.  The valid releases are:
 
 - v0.5.1 (beta)  
 - v1.0.0  
@@ -73,13 +73,15 @@ This is a quick guide to help you get acclimated to poof and some suggestions ab
 
 ## Overview
 
-?> The first time you use poof, it may take several seconds to load. Poof relies on a number of external libraries fetched over the network, though many of its basic features will work without an Internet connection. These external libraries will be cached to your machine for future use, speeding up future load times and allowing poof to be used in all its glory without an Internet connection. Just be aware that the long initial load times (10+ seconds) are normal.
+> [!NOTE]
+> The first time you use poof, it may take several seconds to load. Poof relies on a number of external libraries fetched over the network, though many of its basic features will work without an Internet connection. These external libraries will be cached to your machine for future use, speeding up future load times and allowing poof to be used in all its glory without an Internet connection. Just be aware that the long initial load times (10+ seconds) are normal.
 
 To get started after installing poof, open your story in the Twine 2 app, open the menu (bottom left of the screen, near the story's name, is an up arrow that opens the menu), and click `View Proofing Copy`.  If you're using another compiler, like Tweego, you'll need to set the format option to poof--the CLI compilers treat proofing formats the same as all other formats. For example, `tweego -f poof -o my-poof-story.html src`.
 
 ### View Options
 
-?> You can use the `poof.config` special passage (see [below](#configuration)) to set most of these options for a given story so that you don't have to, say, go turn on the night mode option every time you view your proofing copy.
+> [!TIP]
+> You can use the `poof.config` special passage (see [below](#configuration)) to set most of these options for a given story so that you don't have to, say, go turn on the night mode option every time you view your proofing copy.
 
 You'll likely immediately notice your story's vital information on display, including story and passage data. Across the top of the window is several menus, the first of which is `View`. Hover over or click / tap on it to access your viewing options.
 
@@ -105,7 +107,8 @@ Poof provides syntax highlighting for the JavaScript and CSS code views, but *no
 
 ### Linting
 
-?> Using the linter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the linter still doesn't work, wait a little while and try again.
+> [!NOTE]
+> Using the linter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the linter still doesn't work, wait a little while and try again.
 
 Poof can also [*lint* your JavaScript code](https://en.wikipedia.org/wiki/Lint_%28software%29). Linting helps you find errors, inconsistencies, and weirdness in your code.
 
@@ -117,25 +120,30 @@ Poof comes with a few options for exporting your story to help you get the most 
 
 ### Twee
 
-!> **Warning**: The generated Twee export will not include your `poof.config` passage, or any passages you've currently filtered out. The sort order you have set up will also influence the order of the passages in the Twee file.
+> [!WARNING]
+> The generated Twee export will not include your `poof.config` passage, or any passages you've currently filtered out. The sort order you have set up will also influence the order of the passages in the Twee file.
 
 The first way you can export is to [Twee notation](https://twinery.org/cookbook/terms/terms_twee.html), in a plain text format. This is useful both for editing, and for transitioning your story to a different compiler, like Twee2 or Tweego.
 
 ### PDF
 
-!> **Warning**: The generated PDF export will not include your `poof.config` passage, or any passages you've currently filtered out. The sort order you have set up will also influence the order of the passages in the PDF file.
+> [!WARNING]
+> The generated PDF export will not include your `poof.config` passage, or any passages you've currently filtered out. The sort order you have set up will also influence the order of the passages in the PDF file.
 
-?> Using the PDF exporter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the exporter still doesn't work, wait a little while and try again.
+> [!NOTE]
+> Using the PDF exporter requires an Internet connection initially, though the library used will cache to your machine for future use, provided you use poof fairly frequently. If you have a connection and the exporter still doesn't work, wait a little while and try again.
 
 Exporting to PDF is useful if you want a printable copy of your story, or something very easy to share and send around, regardless of device. This is probably mostly useful for authors working with non-Twine-using editors.
 
 ### Archive
 
-?> Unlike the other exports, the archive option will not respect your filter or sort settings. The `poof.config` special passage will be omitted in the archive.
+> [!NOTE]
+> Unlike the other exports, the archive option will not respect your filter or sort settings. The `poof.config` special passage will be omitted in the archive.
 
 As you (hopefully) know, you can make a back-up of all of your stories by creating an archive from the story list in Twine 2. You should do this a lot. This option does exactly the same thing, but only creates an archive of the current story. This archive can be used to back-up your story (though really, look into version control) and can also be used with certain compilers like Entwine and Tweego.
 
-?> When you import an archive, it sometimes won't work at first. Try changing your story format and reselecting your start passage to fix this.
+> [!TIP]
+> When you import an archive, it sometimes won't work at first. Try changing your story format and reselecting your start passage to fix this.
 
 ## Comments
 
@@ -145,7 +153,8 @@ A comment must have either a body or a title, or both. After you make a comment,
 
 ### Local Storage
 
-?> It is recommended that you periodically make back-ups of your comments via the `Comments > Export` menu option (see [below](#comment-files)). While local storage is a fairly safe place for data, if you stop using poof for a while, it's possible that your browser will allow poof's data to be overwritten. It's also possible that clearing your browing history in certain ways or using certain "free up disk space" tools could delete your comment data.
+> [!TIP]
+> It is recommended that you periodically make back-ups of your comments via the `Comments > Export` menu option (see [below](#comment-files)). While local storage is a fairly safe place for data, if you stop using poof for a while, it's possible that your browser will allow poof's data to be overwritten. It's also possible that clearing your browing history in certain ways or using certain "free up disk space" tools could delete your comment data.
 
 Poof saves your comments to your browser's local storage anytime they are changed in anyway. This means that some care must be taken to preserve them, just like your Twine stories. Note that each story you open with poof will have it's own little place to hang out in local storage, so don't worry about overwriting one project's comments with another.
 
@@ -194,7 +203,8 @@ The following options can be used:
 - `globals`: This option should be set to an array of strings. Each string represents the name of a global variable that your JavaScript has access to, such as from an external JavaScript library. Poof will automatically register the *documented* globals of the core Twine 2 story formats, so you only need to use this to tune the linter when using undocumented features, third-party formats, or external JavaScript (and only if the warnings about undefined variables bother you when using the linter).  
 - `pdf`: This sub-object controls the various styles and features of the PDF export. You can change the `lineHeight` (line spacing) and set it to a number between `1` (single-spaced) and `2` (double-spaced). The default line height is `1.15`. Use the `fontSize` option to change the size of the text in the exported file (the options are `"very small"` [8pt], `"small"` [10pt], `"normal"` [12pt], `"large"` [14pt], and `"very large"` [16pt]). The default is `"normal"` (12pt). The `font` option can be used to set the font to a `"monospace"` (Consolas), `"serif"` (Georgia), or `"san-serif"` (Roboto) font. The default font is `"sans-serif"` (Roboto).
 
-?> Writing valid JSON can be a bit tricky. Here's a validator to help you: https://jsonlint.com/. Plug your JSON in there, and the validator will tell you what, if anything, is wrong with it.
+> [!TIP]
+> Writing valid JSON can be a bit tricky. Here's a validator to help you: https://jsonlint.com/. Plug your JSON in there, and the validator will tell you what, if anything, is wrong with it.
 
 ### Ignore Tag
 

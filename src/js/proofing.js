@@ -19,10 +19,18 @@
             id : Number($self.attr('pid')),
             tags : $self.attr('tags'),
             pos : $self.attr('position'),
+            size : $self.attr('size'),
             // $self.text() may be better, but we can always get the unescaped source later
             source : $self.html(),
             links : { to : [], from : [] }
         });
+    });
+
+    var tags = {};
+
+    dataChunk.children('tw-tag').each( function () {
+        var $self = $(this);
+        tags[tag.attr('name')] = tag.attr('color');
     });
 
     passages = passages.sort(function (a, b) {
@@ -40,8 +48,27 @@
         compiler : dataChunk.attr('creator'),
         compilerVersion : dataChunk.attr('creator-version'),
         ifid : dataChunk.attr('ifid'),
-        start : Number(dataChunk.attr('starnode'))
+        start : Number(dataChunk.attr('starnode')),
+        zoom : Number(dataChunk.attr('zoom'))
     };
+
+    function storyMetadata () {
+        try {
+            var ret = JSON.stringify({
+                ifid : story.ifid || '',
+                format : poof.config.format.name || dataChunk.attr('format'),
+                'format-version' : poof.config.format.version || dataChunk.attr('format-version'),
+                start : poof.utils.getStartingPassage().name || passages[0].name,
+                'tag-colors' : tags,
+                zoom : Number.isNaN(story.zoom) ? 1 : story.zoom
+            });
+        } catch (err) {
+            ret = '{}';
+            console.error('Error parsing story metadata.');
+        } finally {
+            return ret;
+        }
+    }
 
     // here we make sure to grab the user scripts and styles
     var userScripts = dataChunk.children('*[type="text/twine-javascript"]').toArray().map( function (el) {
@@ -105,10 +132,16 @@
     }
 
     function dataToTwee (story) {
-        // this creates the twee-notation story data passages
-        return ":: StorySettings\n" +
-            "ifid:" + story.ifid + "\n\n" +
-            ":: StoryTitle\n" + story.name + "\n\n";
+        var data;
+        if (poof.config.twee < 3) {
+            // this creates the twee-notation story data passages
+            data = ":: StorySettings\n" +
+                "ifid:" + story.ifid + "\n\n";
+        } else {
+            data = ':: StoryData\n' +
+                storyMetadata() + '\n\n';
+        }
+        return data + ":: StoryTitle\n" + story.name + "\n\n";
     }
 
     function userScriptsToTwee () {
@@ -173,15 +206,37 @@
 
     function passageToTwee (passage) {
         // create each passage's twee notation
-        var coordinates = passage.pos || '', pos;
-        if (poof.config.twee === 'classic' || !coordinates || typeof coordinates !== 'string' || !coordinates.trim()) {
-            pos = '';
+        var position = passage.pos.trim() || '',
+            sizing = passage.size.trim() || '',
+            meta = '', tags = '';
+        if (poof.config.twee === 1 || (poof.config.twee === 2 && !position) || (poof.config.twee === 3 && !position && !sizing)) {
+            meta = '';
+        } else if (poof.config.twee === 2) {
+            meta = '<' + position + '>';
         } else {
-            if (poof.config.twee === 'twee2') {
-                pos = ' <' + coordinates + '> ';
-            } // else { format according to spec }
+            var obj = {};
+            if (position) {
+                obj.position = position;
+            }
+            if (sizing) {
+                obj.sizing = sizing;
+            }
+            try {
+                meta = JSON.stringify(obj);
+            } catch (err) {
+                console.error('Passage metadata could not be encoded for passage "' + passage.name + '".');
+                // ignore if it throws, in accordance with the spec
+                meta = '';
+            }
         }
-        return ":: " + passage.name + (!!passage.tags.trim() ? " [" + passage.tags + "]" : "") + (!!pos ? pos + '\n' : '\n') + passage.source;
+        if (passage.tags && passages.tags.trim()) {
+            tags = passage.tags.trim();
+            // clean up tags for encoding
+            tags = tags.replace(poof.utils.backSlash, poof.utils.backSlash + poof.utils.backSlash);
+            tags = tags.replace('[', poof.utils.backSlash + '[');
+            tags = tags.replace(']', poof.utils.backSlash + ']');
+        }
+        return ":: " + passage.name + (!!tags ? " [" + tags + "]" : "") + (!!meta ? ' ' + meta + '\n' : '\n') + passage.source;
     }
 
     function createTweeSource () {
@@ -209,6 +264,7 @@
         data2tw : function () {
             return dataToTwee(story) + userStylesToTwee() + userScriptsToTwee();
         },
+        metadata : storyMetadata,
         twee : createTweeSource,
         data : story,
         passages : passages,
