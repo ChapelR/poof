@@ -53,15 +53,16 @@
     };
 
     function storyMetadata () {
+        var ret;
         try {
-            var ret = JSON.stringify({
+            ret = JSON.stringify({
                 ifid : story.ifid || '',
                 format : poof.config.format.name || dataChunk.attr('format'),
                 'format-version' : poof.config.format.version || dataChunk.attr('format-version'),
                 start : poof.utils.getStartingPassage().name || passages[0].name,
                 'tag-colors' : tags,
                 zoom : Number.isNaN(story.zoom) ? 1 : story.zoom
-            });
+            }, null, 4);
         } catch (err) {
             ret = '{}';
             console.error('Error parsing story metadata.');
@@ -132,14 +133,13 @@
     }
 
     function dataToTwee (story) {
-        var data;
+        // this creates the twee-notation story data passages
+        var data = ':: StoryData\n' +
+            storyMetadata() + '\n\n';
         if (poof.config.twee < 3) {
-            // this creates the twee-notation story data passages
-            data = ":: StorySettings\n" +
+            // include legacy `StorySettings` passage
+            data = data + ":: StorySettings\n" +
                 "ifid:" + story.ifid + "\n\n";
-        } else {
-            data = ':: StoryData\n' +
-                storyMetadata() + '\n\n';
         }
         return data + ":: StoryTitle\n" + story.name + "\n\n";
     }
@@ -222,7 +222,7 @@
                 obj.sizing = sizing;
             }
             try {
-                meta = JSON.stringify(obj, null, 4);
+                meta = JSON.stringify(obj);
             } catch (err) {
                 console.error('Passage metadata could not be encoded for passage "' + passage.name + '".');
                 // ignore if it throws, in accordance with the spec

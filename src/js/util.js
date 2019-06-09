@@ -177,7 +177,7 @@
     }
 
     poof.utils = {
-        backSlash = bslash,
+        backSlash : bslash,
         isPassage : isValidPassage,
         filterPassages : filterForPassages,
         getStartingPassage : getStartPassage,

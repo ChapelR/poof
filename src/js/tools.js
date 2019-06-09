@@ -373,10 +373,15 @@
         poof.modal.write('Find Passages', [$finder, $error], [$confirm, $cancel]);
     }
 
+    function starting () {
+        poof.utils.scrollTo(poof.utils.getStartingPassage().name || poof.passages[0].name);
+    }
+
     window.poof.tools = {
         filter : filter,
         sort : sort,
-        find : find
+        find : find,
+        starting : starting
     };
 
 }());

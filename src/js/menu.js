@@ -144,6 +144,9 @@
         $('#tools-find').on('click', function () {
             poof.tools.find();
         }).attr('title', 'Find a specific passage by title.');
+        $('#tools-starting').on('click', function () {
+            poof.tools.starting();
+        }).attr('title', 'Locate the starting passage.');
 
         // comments menu
         $('#comments-export').on('click', function () {
