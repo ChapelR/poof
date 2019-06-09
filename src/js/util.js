@@ -149,11 +149,20 @@
     }
 
     function unescape(safe) {
+        return safe
+            .replace(/&amp;/g, "&")
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">")
+            .replace(/&quot;/g, "\"")
+            .replace(/&#039;/g, "'");
+    }
+
+    /*function unescape(safe) {
         var e = document.createElement('div');
         e.innerHTML = safe;
         // handle case of empty input
         return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-    }
+    }*/
 
     function isValidPassage (passageName) {
         // check if the passage name (or object) passed is in our passage list

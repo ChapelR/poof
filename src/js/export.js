@@ -149,8 +149,10 @@
             content.push(poof.p2tw(passage));
         });
         content = content.join('\n\n');
-        return poof.esc.unescape(poof.data2tw() + content);
+        return poof.data2tw() + content;
     }
+
+    window.poof.createTweeExport = createTweeExport;
 
     function safeName (str) {
         return str.toLowerCase()
@@ -173,7 +175,7 @@
 
             if (fileExt === 'txt') {
                 // download the plain text twee format
-                download(createTweeExport(), fileName, 'text/plain;charset=utf-8');
+                download(poof.utils.unescape(createTweeExport()), fileName, 'text/plain;charset=utf-8');
             } else if (fileExt === 'html') {
                 // download this single page web app
                 download(document.documentElement.outerHTML, fileName, 'text/html;charset=utf-8');

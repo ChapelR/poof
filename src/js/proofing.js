@@ -206,9 +206,21 @@
 
     function passageToTwee (passage) {
         // create each passage's twee notation
-        var position = passage.pos.trim() || '',
-            sizing = passage.size.trim() || '',
+        var position = passage.pos || '',
+            sizing = passage.size || '',
             meta = '', tags = '';
+        // clean up metadata
+        if (typeof position === 'string') {
+            position = position.trim();
+        } else {
+            position = '';
+        }
+        if (typeof sizing === 'string') {
+            sizing = sizing.trim();
+        } else {
+            sizing = '';
+        }
+        // encode metadata
         if (poof.config.twee === 1 || (poof.config.twee === 2 && !position) || (poof.config.twee === 3 && !position && !sizing)) {
             meta = '';
         } else if (poof.config.twee === 2) {
@@ -229,13 +241,15 @@
                 meta = '';
             }
         }
-        if (passage.tags && passages.tags.trim()) {
+        // encode tags
+        if (passage.tags && passage.tags.trim()) {
             tags = passage.tags.trim();
             // clean up tags for encoding
             tags = tags.replace(poof.utils.backSlash, poof.utils.backSlash + poof.utils.backSlash);
             tags = tags.replace('[', poof.utils.backSlash + '[');
             tags = tags.replace(']', poof.utils.backSlash + ']');
         }
+        // return encoded passage
         return ":: " + passage.name + (!!tags ? " [" + tags + "]" : "") + (!!meta ? ' ' + meta + '\n' : '\n') + passage.source;
     }
 
