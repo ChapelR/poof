@@ -146,7 +146,7 @@
     }());
 
     // remove the config passage
-    $configPassage.remove();
+    window.poof.configPassage = $configPassage.remove(); // save a reference for later; for #9
 
     // export the config settings
     window.poof.config = config;

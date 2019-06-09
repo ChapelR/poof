@@ -185,6 +185,28 @@
         });
     }
 
+    function tweeEscape (string) {
+        var spec = 1;
+        if (poof && poof.config) {
+            spec = poof.config.twee || 1;
+        }
+        // all twee specs: escape tags
+        string = string.replace(/\\/g, '\\\\')
+            .replace(/\[/g, '\\[')
+            .replace(/]/g, '\\]');
+        if (spec === 3) {
+            // twee 3: escape metadata wrapper
+            string = string.replace(/{/g, '\\{')
+            .replace(/}/g, '\\}');
+        }
+        if (spec === 2) {
+            // twee 2: escape position wrapper
+            string = string.replace(/</g, '\\<')
+            .replace(/>/g, '\\>');
+        }
+        return string;
+    }
+
     poof.utils = {
         backSlash : bslash,
         isPassage : isValidPassage,
@@ -197,7 +219,8 @@
         stringNotEmpty : stringNotEmpty,
         unescape : unescape,
         escape : escape,
-        escapeQuotes : escapeQuotes
+        escapeQuotes : escapeQuotes,
+        tweeEscape : tweeEscape
     };
 
 }());

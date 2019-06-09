@@ -26,7 +26,7 @@
         });
     });
 
-    var tags = {};
+    var tags = {}; // for tag colors for story metadata
 
     dataChunk.children('tw-tag').each( function () {
         var $self = $(this);
@@ -208,7 +208,7 @@
         // create each passage's twee notation
         var position = passage.pos || '',
             sizing = passage.size || '',
-            meta = '', tags = '';
+            meta = '', tags = '', name;
         // clean up metadata
         if (typeof position === 'string') {
             position = position.trim();
@@ -243,14 +243,13 @@
         }
         // encode tags
         if (passage.tags && passage.tags.trim()) {
-            tags = passage.tags.trim();
-            // clean up tags for encoding
-            tags = tags.replace(poof.utils.backSlash, poof.utils.backSlash + poof.utils.backSlash);
-            tags = tags.replace('[', poof.utils.backSlash + '[');
-            tags = tags.replace(']', poof.utils.backSlash + ']');
+            // clean up for encoding
+            tags = poof.utils.tweeEscape(passage.tags.trim());
         }
+        // clean up name for encoding
+        name = poof.utils.tweeEscape(passage.name);
         // return encoded passage
-        return ":: " + passage.name + (!!tags ? " [" + tags + "]" : "") + (!!meta ? ' ' + meta + '\n' : '\n') + passage.source;
+        return ":: " + name + (!!tags ? " [" + tags + "]" : "") + (!!meta ? ' ' + meta + '\n' : '\n') + passage.source;
     }
 
     function createTweeSource () {

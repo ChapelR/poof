@@ -18,6 +18,7 @@
     }
 
     function twArchive () {
+        // add config passage back? for #9
         return $(document.createDocumentFragment())
             .append(document.createTextNode($('tw-storydata')[0].outerHTML)).text();
     }
@@ -150,9 +151,8 @@
         });
         content = content.join('\n\n');
         return poof.data2tw() + content;
+        // add config passage back? for #9
     }
-
-    window.poof.createTweeExport = createTweeExport;
 
     function safeName (str) {
         return str.toLowerCase()
@@ -175,6 +175,7 @@
 
             if (fileExt === 'txt') {
                 // download the plain text twee format
+                // the unescape may be more useful in `createTweeExport()`
                 download(poof.utils.unescape(createTweeExport()), fileName, 'text/plain;charset=utf-8');
             } else if (fileExt === 'html') {
                 // download this single page web app
