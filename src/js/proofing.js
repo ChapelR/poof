@@ -222,7 +222,7 @@
                 obj.sizing = sizing;
             }
             try {
-                meta = JSON.stringify(obj);
+                meta = JSON.stringify(obj, null, 4);
             } catch (err) {
                 console.error('Passage metadata could not be encoded for passage "' + passage.name + '".');
                 // ignore if it throws, in accordance with the spec
