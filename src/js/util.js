@@ -41,22 +41,27 @@
         }
         // get startnode passage
         var start = poof.passages.find( function (psg) {
-            return psg === poof.data.start;
+            // find the startnode pid
+            return psg.id === poof.data.start;
         });
         if (!start) {
+            // fallback to `Start` passage
             start = poof.passages.find( function (psg) {
                 return psg.name === 'Start';
             });
         }
         if (!start) {
-            // return first passage
+            // fallback to first passage, which is pid 1
             return poof.passages[0];
         }
-        return start;
+        return start; // send the whole passage back
     }
 
     function escapeQuotes (string) {
-        return string.replace(/"/g, '\\"').replace(/'/g, "\\'");
+        // for link parsers, i know it looks weird and pointless
+        return string
+            .replace(/"/g, '\\"')
+            .replace(/'/g, "\\'");
     }
 
     function scrollToPassage (passageName, onStart, onEnd) {
@@ -92,11 +97,12 @@
         return false;
     }
 
+    // this and `linksToFrom` may belong in parser.js...
     function createJumpLink (passageName) {
         // create a link with the name of a passage that, when clicked, scrolls that passage card into view
         return el('a', {
             classes : 'jumpto',
-            href : 'javascript:void(0)'
+            href : 'javascript:void(0)' // ignore warnings
         }, passageName)
             .on('click', function () {
                 scrollToPassage(passageName);
@@ -130,7 +136,7 @@
     }
 
     function voidElement () {
-        // creat a void element, as a no-op for jQuery
+        // create a void element (just displays none)
         el('span', { classes : 'void' });
     }
 
@@ -148,7 +154,7 @@
             .replace(/'/g, "&#039;");
     }
 
-    function unescape(safe) {
+    function unescape(safe) { // preferred to the other implementation; needs more testing
         return safe
             .replace(/&amp;/g, "&")
             .replace(/&lt;/g, "<")
@@ -157,12 +163,14 @@
             .replace(/&#039;/g, "'");
     }
 
-    /*function unescape(safe) {
+    /* NOT A FAN OF THIS IMPLEMENTATION (see replacement above)
+    function unescape(safe) {
         var e = document.createElement('div');
         e.innerHTML = safe;
         // handle case of empty input
         return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-    }*/
+    }
+    */
 
     function isValidPassage (passageName) {
         // check if the passage name (or object) passed is in our passage list
@@ -190,19 +198,22 @@
         if (poof && poof.config) {
             spec = poof.config.twee || 1;
         }
-        // all twee specs: escape tags
-        string = string.replace(/\\/g, '\\\\')
+        // escape compiler special chars \, [, ]
+        string = string
+            .replace(/\\/g, '\\\\')
             .replace(/\[/g, '\\[')
             .replace(/]/g, '\\]');
         if (spec === 3) {
-            // twee 3: escape metadata wrapper
-            string = string.replace(/{/g, '\\{')
-            .replace(/}/g, '\\}');
+            // twee 3: also escape { and }
+            string = string
+                .replace(/{/g, '\\{')
+                .replace(/}/g, '\\}');
         }
         if (spec === 2) {
-            // twee 2: escape position wrapper
-            string = string.replace(/</g, '\\<')
-            .replace(/>/g, '\\>');
+            // twee 2: also escape < and >
+            string = string
+                .replace(/</g, '\\<') // escape pos opener <
+                .replace(/>/g, '\\>'); // escape pos closer >
         }
         return string;
     }

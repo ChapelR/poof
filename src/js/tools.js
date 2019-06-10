@@ -373,7 +373,7 @@
         poof.modal.write('Find Passages', [$finder, $error], [$confirm, $cancel]);
     }
 
-    function starting () {
+    function starting () { // easily the simplest tool here
         poof.utils.scrollTo(poof.utils.getStartingPassage().name || poof.passages[0].name);
     }
 

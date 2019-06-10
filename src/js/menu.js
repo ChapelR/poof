@@ -16,6 +16,7 @@
     }
 
     function creditLink (text, site, license) {
+        // utility for the credits links below
         return poof.el('li', { classes : 'credit-link' }, [
             poof.el('a', { href : site, target : '_blank' }, text),
             ' (' + license + ') '
@@ -24,6 +25,7 @@
 
     function generateCredits () {
         var a = creditLink;
+        // nice and simple
         return poof.el('ul', { id : 'credits' }, [
             a('twinejs', 'http://twinery.org/', 'GPL-3.0'),
             a('pdfmake', 'http://pdfmake.org/', 'MIT'),
@@ -41,6 +43,7 @@
         /*** LOADER ***/
 
     $(document).on(':load-open', function () {
+        // show the loading screen; hide everything
         showOverlay();
         $('.pure-menu').addClass('hide');
         $('#story-stylesheet #story-javascript').addClass('hide');
@@ -48,11 +51,13 @@
     });
 
     $(document).on(':load-close', function () {
+        // an event to close the load screen
         hideOverlay();
         $('.pure-menu').removeClass('hide');
         $('#overlay').find('.loader').addClass('hide');
     });
 
+    // some tools should show the loader while processing to prever user interaction
     $(document).on(':sort-start :filter-start :pdf-export-start', function () {
         $(document).trigger(':load-open');
     });
@@ -69,6 +74,7 @@
 
         // about 
         $('#about').on('click', function () {
+            // generate the credits modal
             var $byline = poof.el('p', {}, $('body').attr('data-byline') + '.');
             var $version = poof.el('p', {}, 'Version: ' + $('body').attr('data-version'));
             var $creditsP = poof.el('p', {}, 'Open Source Software Credits: ');
@@ -81,16 +87,16 @@
 
         // export menu
         $('#twee-export').on('click', function () {
-            poof.createDownload('txt');
+            poof.createDownload('txt'); // creates a file download
         }).attr('title', 'Export to plain text in Twee notation.');
         $('#html-export').on('click', function () {
-            poof.createDownload('html');
+            poof.createDownload('html'); // DEACTIVATED
         }).attr('title', 'Save this HTML view for sharing and later use.');
         $('#pdf-export').on('click', function () {
-            poof.createDownload('pdf');
+            poof.createDownload('pdf'); // creates a file download
         }).attr('title', 'Export to PDF format for printing or sharing.');
         $('#archive-export').on('click', function () {
-            poof.createDownload('archive');
+            poof.createDownload('archive'); // creates a file download
         }).attr('title', 'Export to a Twine 2 archive HTML file.');
 
         // view menu
@@ -136,24 +142,24 @@
 
         // tools menu
         $('#tools-filter').on('click', function () {
-            poof.tools.filter();
+            poof.tools.filter(); // opens a modal
         }).attr('title', 'Filter the displayed passages.');
         $('#tools-sort').on('click', function () {
-            poof.tools.sort();
+            poof.tools.sort(); // opens a modal
         }).attr('title', 'Sort the displayed passages.');
         $('#tools-find').on('click', function () {
-            poof.tools.find();
+            poof.tools.find(); // opens a modal
         }).attr('title', 'Find a specific passage by title.');
         $('#tools-starting').on('click', function () {
-            poof.tools.starting();
+            poof.tools.starting(); // scrolls the page
         }).attr('title', 'Locate the starting passage.');
 
         // comments menu
         $('#comments-export').on('click', function () {
-            poof.comments.export();
+            poof.comments.export(); // opens a modal
         }).attr('title', 'Export comments to file.');
         $('#comments-import').on('click', function () {
-            poof.comments.importer();
+            poof.comments.importer(); // opens a modal
         }).attr('title', 'Import comments from a file.');
         
     }

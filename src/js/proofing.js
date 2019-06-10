@@ -47,7 +47,7 @@
         name : dataChunk.attr('name'),
         compiler : dataChunk.attr('creator'),
         compilerVersion : dataChunk.attr('creator-version'),
-        ifid : dataChunk.attr('ifid'),
+        ifid : dataChunk.attr('ifid') || 'NO IFID. Consider fixing this!',
         start : Number(dataChunk.attr('starnode')),
         zoom : Number(dataChunk.attr('zoom'))
     };
@@ -94,7 +94,7 @@
         var tagsClass = !!passage.tags.trim() ? '' : 'hide';
         var references = poof.utils.referenceLinks(passage);
         var $el = poof.el('div', { 'data-id' : passage.id, classes : 'passage-card' })
-            .append( poof.el('div', { 
+            .append( poof.el('div', { // pencil button
                 classes : 'edit', 
                 role : 'button',
                 title : "Create a comment using this passage's text."
@@ -104,14 +104,19 @@
                     passage : passage
                 });
             }))
+            // passage title
             .append( poof.el('h2', { classes : 'passage-title' }, passage.name))
+            // the tag block
             .append( poof.el('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
                 .addClass(tagsClass) )
+            // passage references block
             .append( (references) ? poof.el('div', { classes : 'passage-references' }, [poof.el('h3', {
                 classes : 'passage-references-title'
             }, 'References to Other Passages: '), references]) : poof.utils.voidEl() )
+            // passage source code
             .append( poof.el('div', { classes : 'passage-source' },
                 poof.el('pre', {}, passage.source.trim())) )
+            // footer (comments)
             .append( poof.el('div', { classes : 'passage-footer closed' }, [poof.el('button', { 
                 classes : 'comment-open pure-button pure-button-primary',
                 title : "View this passage's comments."
@@ -128,19 +133,41 @@
                 'data-pid' : passage.id,
                 'data-lt' : passage.source.length
             });
+        // give the passage an element property and return
         passage.$el = $el;
         return $el;
     }
 
     function dataToTwee (story) {
         // this creates the twee-notation story data passages
-        var data = ':: StoryData\n' +
-            storyMetadata() + '\n\n';
-        if (poof.config.twee < 3) {
-            // include legacy `StorySettings` passage
-            data = data + ":: StorySettings\n" +
-                "ifid:" + story.ifid + "\n\n";
+        var data = '', 
+            config = '';
+        switch (poof.config.twee) {
+            case 2:
+                // twee2
+                data = ":: StorySettings [twee2]\n" + "Twee2::build_config.story_ifid = '" + story.ifid + "'\n\n";
+                break;
+            case 3:
+                // twee3
+                data = ':: StoryData\n' + storyMetadata() + '\n\n';
+                break;
+            default:
+                // twee1 (Tweego style); poof only supports Twine 2, so there should always be an ifid
+                data = ":: StorySettings\n" + "ifid:" + story.ifid + "\n\n";
         }
+        // re add the `poof.config` passage (if possible), so stories survive a round trip through poof
+        if (poof.configPassage && poof.utils.stringNotEmpty(poof.configPassage.text())) {
+            config = ':: poof.config';
+            if (poof.utils.stringNotEmpty(poof.configPassage.attr('tags'))) {
+                config = config + '[' + poof.configPassage.attr('tags') + ']';
+            } 
+            config = config + '\n' + poof.configPassage.text().trim() + '\n\n';
+        }
+
+        if (poof.utils.stringNotEmpty(config)) {
+            data = data + config;
+        }
+
         return data + ":: StoryTitle\n" + story.name + "\n\n";
     }
 
@@ -159,7 +186,9 @@
     function userScriptsToHtml () {
         // mostly like a passage card, but with some minor style changes
         return poof.el('div', { id : 'story-javascript', classes : 'passage-card' })
+            // title
             .append( poof.el('h2', { classes : 'passage-title' }, 'Story JavaScript'))
+            // script scource code
             .append( poof.el('div', { classes : 'passage-source' })
                 .append( poof.el('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )))
             .append( poof.el('div', { classes : 'lint-btn-wrapper' }, 
@@ -167,7 +196,7 @@
                 poof.el('button', { classes : 'lint-btn pure-button pure-button-disabled', id : 'lint' }, 'Lint')
                     .attr('title', 'Requires an Internet connection...')
                     .on('click', function () {
-                        if (JSHINT) {
+                        if (JSHINT) { // check for the library
                             var opts = (poof.lint) ? poof.lint.options || {} : {};
                             var globals = (poof.lint) ? poof.lint.globals || {} : {};
                             JSHINT(userScripts, opts, globals);
@@ -197,14 +226,16 @@
     }
 
     function userStylesToHtml () {
-        // as with the user scripts
+        // refreshingly simple, compared to the scripts
         return poof.el('div', { id : 'story-stylesheet', classes : 'passage-card' })
+            // title
             .append( poof.el('h2', { classes : 'passage-title' }, 'Story StyleSheet'))
+            // source
             .append( poof.el('div', { classes : 'passage-source' })
                 .append( poof.el('pre', { 'data-language' : 'css', classes : 'story-code css' }, userStyles )));
     }
 
-    function passageToTwee (passage) {
+    function passageToTwee (passage) { // TODO: clean mess this up
         // create each passage's twee notation
         var position = passage.pos || '',
             sizing = passage.size || '',
@@ -253,12 +284,12 @@
     }
 
     function createTweeSource () {
-        // combine all the twee-notation elements into one passage
+        // combine all the twee-notation elements into one string
         var tweePassages = passages.map( function (psg) {
             return passageToTwee(psg);
         }).join('\n\n');
         var twee = dataToTwee(story) + userStylesToTwee() + userScriptsToTwee() + tweePassages;
-        // the doc fragment and text() method get us a poor man's unescape
+        // the doc fragment and text() method get us a poor man's unescape (may no longer be necessary)
         return $(document.createDocumentFragment()).append(twee).text();
     }
 
@@ -267,6 +298,7 @@
         var htmlPassages = passages.map( function (psg) {
             return passageToHtml(psg);
         });
+        // this is the primary passage view
         return poof.el('div', { id : 'main', classes : 'collapse' }, dataToHtml(story)).append(htmlPassages);
     }
 
@@ -291,6 +323,7 @@
     function proofingInit () {
         // attach the DOM structure, and the overlay and view-switching elements, to the #content element
         $('#content').append(output.html());
+        // re-rendering everything is too slow, just show/hide the three types of source code via css
         $('#overlay').append(output.$scripts.addClass('hide'), output.$styles.addClass('hide'));
     }
 

@@ -1,17 +1,19 @@
 (function () {
     'use strict';
 
-    // initialize everything
+    // run the app
     $(document).ready(function () {
         if (!window.poof || !window.poof.init) {
+            // this is why modules are nice, i reckon
             console.error('BUILD ERROR');
             return;
         }
-        poof.init.proofing();
-        poof.init.comments();
-        poof.init.menu();
 
-        // configs
+        poof.init.proofing(); // start the rendering process
+        poof.init.comments(); // start the commenting subsystem
+        poof.init.menu(); // attach the menu event handlers
+
+        // set a few last-minute configs
         if (poof.config.simplified) {
             $('#content').addClass('simple');
         }
@@ -39,11 +41,11 @@
             Object.assign(poof.lint.globals, poof.lint.objectify(poof.config.globals));
         }
 
-        // syntax highlighting
+        // add syntax highlighting
         $('pre.story-code').each(function(i, block) {
             hljs.highlightBlock(block);
         });
-        // line numbers 
+        // add line numbers 
         $('pre').each(function(i, block) {
             hljs.lineNumbersBlock(block);
         });
