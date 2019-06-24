@@ -4,7 +4,7 @@
     window.poof = window.poof || {};
 
     function handleNotLoadedScript (name) {
-        // do something here
+        // do something mroe useful here
         console.error('Script: "' + name + '" is not loaded...');
         return false;
     }
@@ -18,9 +18,16 @@
     }
 
     function twArchive () {
+        var $story = $('tw-storydata').clone();
+        if (poof.configPassage && poof.stringNotEmpty(poof.configPassage.text())) {
+            // add `poof.config` if it existed
+            $story.append(poof.configPassage);
+        }
         return $(document.createDocumentFragment())
-            .append(document.createTextNode($('tw-storydata')[0].outerHTML)).text();
+            .append(document.createTextNode($story[0].outerHTML)).text();
     }
+
+    // PDF JUNK (pdf.js could probably be its own thing...)
 
     function loadFonts () {
         return {
@@ -122,7 +129,7 @@
                     content.push({ text : "\n\nTags: " + passage.tags, style : 'tags' });
                 }
                 content.push({ 
-                    text : '\n\n' + poof.esc.unescape(passage.source) + '\n\n', 
+                    text : '\n\n' + poof.utils.unescape(passage.source) + '\n\n', 
                     style : 'content', 
                     preserveLeadingSpaces : true
                 }); 
@@ -135,6 +142,8 @@
             $(document).trigger(':pdf-export-complete');
         });
     }
+
+    // END PDF JUNK
 
     function createTweeExport () {
         var passages = $('div.passage-card').toArray();
@@ -149,10 +158,12 @@
             content.push(poof.p2tw(passage));
         });
         content = content.join('\n\n');
-        return poof.esc.unescape(poof.data2tw() + content);
+        return poof.data2tw() + content;
+        // add config passage back? for #9
     }
 
     function safeName (str) {
+        // create safe(ish) file names from story titles
         return str.toLowerCase()
             .replace(/\s+/g, '-')
             .replace(/[^\w\-]+/g, '')
@@ -169,12 +180,31 @@
                 console.error('Cannot find generated content output!');
                 return;
             }
-            var fileName = safeName(poof.data.name) + '.' + fileExt;
+
+            // set twee file extention 
+            var extension = fileExt;
+            if (extension === 'txt') {
+                switch (poof.config.twee) {
+                    case 1:
+                    case 3: // i don't think there's any future in `.tw3`, but we'll see how it shakes out
+                        extension = 'twee';
+                        break;
+                    case 2:
+                        extension = 'tw2';
+                        break;
+                    default:
+                        extention = 'txt';
+                }
+            }
+
+            var fileName = safeName(poof.data.name) + '.' + extension;
 
             if (fileExt === 'txt') {
                 // download the plain text twee format
-                download(createTweeExport(), fileName, 'text/plain;charset=utf-8');
+                // the unescape may be more useful in `createTweeExport()`
+                download(poof.utils.unescape(createTweeExport()), fileName, 'text/plain;charset=utf-8');
             } else if (fileExt === 'html') {
+                // DEACTIVATED: with comments and such, this is a liability
                 // download this single page web app
                 download(document.documentElement.outerHTML, fileName, 'text/html;charset=utf-8');
             } else if (fileExt === 'pdf') {

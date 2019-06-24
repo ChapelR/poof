@@ -4,23 +4,8 @@
     window.poof = window.poof || {};
     window.poof.init = window.poof.init || {};
 
-    function escape(unsafe) { // from: https://stackoverflow.com/a/6234804
-        return unsafe
-             .replace(/&/g, "&amp;")
-             .replace(/</g, "&lt;")
-             .replace(/>/g, "&gt;")
-             .replace(/"/g, "&quot;")
-             .replace(/'/g, "&#039;");
-     }
-
-     function unescape(safe) {
-        var e = document.createElement('div');
-        e.innerHTML = safe;
-        // handle case of empty input
-        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-     }
-
-     poof.esc = { escape : escape, unescape : unescape };
+    var escape = poof.utils.escape;
+    var unescape = poof.utils.unescape;
 
     function commentToHtml (comment, idx, passage) {
         var el = poof.el;

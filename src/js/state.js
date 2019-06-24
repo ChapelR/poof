@@ -1,13 +1,16 @@
 (function () {
     'use strict';
+    // should probably be called 'storage.js'
 
     window.poof = window.poof || {};
-
+    // create a local strorage key unique to this story
+    // note: Twee2 doesn't require IFIDs; that's risky for this method
     var key = '%%poof-' + poof.data.name + poof.data.ifid;
 
     function store () {
         if (!window.localStorage) {
             console.warn('Cannot access storage.');
+            // return no-ops to avoid throwing
             return {
                 save : function () {},
                 load : function () {},
