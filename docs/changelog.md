@@ -4,6 +4,7 @@
 - Added "passage references", which parses passage source code for links (and macro code, like gotos, includes/displays, etc) and displays them in the passage card as links that scroll to the indicated passages.
 - Added Twee encoding options and support for the Twee 3 spec (https://github.com/iftechfoundation/twine-specs/blob/master/twee-3-specification.md).
 - Added the 'Starting Passage' tool.
+- Updated SugarCube v2 globals for linter.
 - Improved documentation.
 - Internal improvements.
 
