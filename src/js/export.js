@@ -129,7 +129,7 @@
                     content.push({ text : "\n\nTags: " + passage.tags, style : 'tags' });
                 }
                 content.push({ 
-                    text : '\n\n' + poof.esc.unescape(passage.source) + '\n\n', 
+                    text : '\n\n' + poof.utils.unescape(passage.source) + '\n\n', 
                     style : 'content', 
                     preserveLeadingSpaces : true
                 }); 
