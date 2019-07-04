@@ -162,7 +162,28 @@
             poof.comments.importer(); // opens a modal
         }).attr('title', 'Import comments from a file.');
         
+        // filter clearing
+        $(document.body).append(poof.el('button', { 
+            id : 'clear-filters', 
+            label : 'Clear all current filters.',
+            classes : 'pure-button pure-button-primary'
+        }, 'Clear Filters')
+            .on('click', function () {
+                $(document).trigger(':filter-start');
+                poof.filter.clear();
+                $(document).trigger(':filter-complete');
+            })
+            .hide());
     }
+
+    $(document).on(':filter-start :filter-complete', function () {
+        var $clear = $('button#clear-filters');
+        if ($('.passage-card.hide').length) {
+            $clear.show();
+        } else {
+            $clear.hide();
+        }
+    });
 
     window.poof.init.menu = menuInit;
 

@@ -104,11 +104,16 @@ html.night div#content.simple {
 
 html.night div#content.simple div#story-data, 
 html.night div#content.simple div.passage-card, 
-html.night div#content.simple p.passage-tags {
+html.night div#content.simple p.passage-tags,
+html.night div#content.simple div.passage-references {
     padding: 1em;
     box-shadow: none;
     background-color: #454545;
     border: 0;
+}
+
+html.night div#content.simple div.passage-references {
+    border-top: 1px solid #ccc;
 }
 
 html.night div#content.simple div.passage-source {
@@ -124,4 +129,8 @@ html.night div#content.simple div#main {
 
 html.night div#content.simple pre.hljs {
     background-color: #333;
+}
+
+html.night #clear-filters {
+    box-shadow: -1px 1px 2px #222;
 }

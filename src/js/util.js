@@ -163,15 +163,6 @@
             .replace(/&#039;/g, "'");
     }
 
-    /* NOT A FAN OF THIS IMPLEMENTATION (see replacement above)
-    function unescape(safe) {
-        var e = document.createElement('div');
-        e.innerHTML = safe;
-        // handle case of empty input
-        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-    }
-    */
-
     function isValidPassage (passageName) {
         // check if the passage name (or object) passed is in our passage list
         if (typeof passageName === 'object' && passageName.name && typeof passageName.name === 'string') {
@@ -218,6 +209,40 @@
         return string;
     }
 
+    var colorMap = {
+        gray : '#AAAAAA',
+        grey : '#AAAAAA',
+        red : '#FF4136',
+        orange : '#FF851B',
+        yellow : '#FFDC00',
+        green : '#2ECC40',
+        blue : '#0074D9',
+        purple : '#B10DC9'
+    };
+    var validColors = Object.keys(colorMap);
+
+    function getColor (color) {
+        if (!color || typeof color !== 'string') {
+            color = '';
+        }
+        color = color.toLowerCase().trim();
+        if (validColors.includes(color)) {
+            return colorMap[color];
+        }
+        return '#AAAAAA';
+    }
+
+    function getTagColor (tag, tagMetadata) {
+        var tagColors = tagMetadata;
+        if (!tagColors) {
+            tagColors = poof.tagColors;
+        }
+        if (!tagColors || typeof tagColors !== 'object') {
+            return '#AAAAAA';
+        }
+        return getColor(tagColors[tag]);
+    }
+
     poof.utils = {
         backSlash : bslash,
         isPassage : isValidPassage,
@@ -231,7 +256,8 @@
         unescape : unescape,
         escape : escape,
         escapeQuotes : escapeQuotes,
-        tweeEscape : tweeEscape
+        tweeEscape : tweeEscape,
+        getTagColor : getTagColor
     };
 
 }());

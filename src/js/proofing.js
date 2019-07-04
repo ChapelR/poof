@@ -91,6 +91,7 @@
 
     function passageToHtml (passage) {
         // this creates the DOM structure for each "passage card"
+        var tags = passage.tags.replace(/\s+/g, ' ').trim();
         var tagsClass = !!passage.tags.trim() ? '' : 'hide';
         var references = poof.utils.referenceLinks(passage);
         var $el = poof.el('div', { 'data-id' : passage.id, classes : 'passage-card' })
@@ -107,7 +108,34 @@
             // passage title
             .append( poof.el('h2', { classes : 'passage-title' }, passage.name))
             // the tag block
-            .append( poof.el('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
+            .append( poof.el('p', { classes : 'passage-tags' }, poof.el('span', { classes : 'tag-title' }, 'Tags: '))
+                    .append( tags.split(' ').map( function (tag) {
+                        var isFiltered = false;
+                        $(document).on(':filter-complete', function () {
+                            isFiltered = false;
+                        });
+                        return poof.el('span', { classes : 'tag-listing', title : 'Filter...' }, tag)
+                            .css({
+                                'display' : 'inline-block',
+                                'border-width' : '0 1.1em',
+                                'border-left-style' : 'solid',
+                                'border-color' : poof.utils.getTagColor(tag),
+                                'padding' : '0 0.1rem',
+                                'margin-right' : '0.5rem'
+                            })
+                            .on('click', function () {
+                                var doIt = confirm('Would you like to filter the passage view using this tag?');
+                                if (!doIt) {
+                                    return;
+                                }
+                                if (poof && poof.filter && poof.filter.run && typeof poof.filter.run === 'function') {
+                                    $(document).trigger(':filter-start');
+                                    isFiltered = true;
+                                    poof.filter.run('tags', tag);
+                                    $(document).trigger(':filter-complete');
+                                }
+                            });
+                    }))
                 .addClass(tagsClass) )
             // passage references block
             .append( (references) ? poof.el('div', { classes : 'passage-references' }, [poof.el('h3', {
@@ -309,6 +337,7 @@
         data2tw : function () {
             return dataToTwee(story) + userStylesToTwee() + userScriptsToTwee();
         },
+        tagColors : tags,
         metadata : storyMetadata,
         twee : createTweeSource,
         data : story,

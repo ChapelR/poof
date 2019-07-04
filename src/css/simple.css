@@ -6,11 +6,15 @@ div#content.simple {
     background-color: #fff;
 }
 
-div#content.simple div#story-data, div#content.simple div.passage-card, div#content.simple p.passage-tags {
+div#content.simple div#story-data, div#content.simple div.passage-card, div#content.simple p.passage-tags, div#content.simple div.passage-references {
     padding: 1em;
     box-shadow: none;
     background-color: #fff;
     border: 0;
+}
+
+div#content.simple div.passage-references {
+    border-top: 1px solid #111;
 }
 
 div#content.simple div.passage-source {
