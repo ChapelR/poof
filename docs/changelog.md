@@ -1,5 +1,8 @@
 # Release Versions
 
+## Version 1.3.1
+- Fixed bug with parsing of tag metadata that could cause stories to hang indefinitely.
+
 ## Version 1.3.0 
 - Added "passage references", which parses passage source code for links (and macro code, like gotos, includes/displays, etc) and displays them in the passage card as links that scroll to the indicated passages.
 - Added Twee encoding options and support for the Twee 3 spec (https://github.com/iftechfoundation/twine-specs/blob/master/twee-3-specification.md).
