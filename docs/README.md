@@ -105,7 +105,7 @@ The story metadata pulled from your story by poof, including your story's title,
 The passage card contains all the content and metadata for a passage.
 
 1. The passage's title.  
-2. The passage's tags (if any).  
+2. The passage's tags (if any). You can click on tags to quickly [filter](#tools) passages.  
 3. The passage's references: passages referenced to or by this passage are listed here, as links you can navigate to within poof.  
 4. The passage's raw content.  
 5. The comment button--create, view, and edit comments regarding this passage.  
@@ -114,20 +114,25 @@ The passage card contains all the content and metadata for a passage.
 > [!NOTE]
 > Poof will attempt to parse many different kinds of passage references, not just markup links, based on the format you are using.
 
-### View Options
+### Options
 
 > [!TIP]
-> You can use the `poof.config` special passage (see [below](#configuration)) to set most of these options for a given story so that you don't have to, say, go turn on the night mode option every time you view your proofing copy.
+> You can use the `poof.config` special passage (see [below](#configuration)) to set these options for a given story so that you don't have to, say, go turn on the dark mode option every time you view your proofing copy.
 
-You'll likely immediately notice your story's vital information on display, including story and passage data. Across the top of the window is several menus, the first of which is `View`. Hover over or click / tap on it to access your viewing options.
+You'll likely immediately notice your story's vital information on display, including story and passage data. Across the top of the window is several menus, and a gear icon (&#9881;) on the left. Click on the gear icon to configure your proofing view.
 
 - `Night Mode`: This option toggles the page between the standard light-on-dark theme and a dark-on-light theme that may be easier on some eyeballs.
 - `Simplified View`: This option removes some of the boxes, borders, and shadows that separate passages and other elements. You may prefer reading without my dead-sexy CSS skills getting all up in your eyes. I promise I'm not offended. Click to toggle.  
 - `Line Numbers`: You can use this option to toggle the display of line numbers in your source code.  
-- `Code Text Height`: I'm open to a better name for this option. To keep things somewhat sane when dealing with massive passages, poof will by default limit the height of code boxes and slap scrollbars on them after about 15 or so lines. If you'd rather not have that happen, you can toggle this option to see everything.  
-- `View Passages`: This is the default view; click it to see your story data and all your passages and their code and tags.  
-- `View JavaScript`: This view shows your Story JavaScript area or equivalent.  
-- `View Stylesheet`: This view shows your Story Stylesheet or equivalent.  
+- `Code Text Height`: I'm open to a better name for this option. To keep things somewhat sane when dealing with massive passages, poof will by default limit the height of code boxes and slap scrollbars on them after about 15 or so lines. If you'd rather not have that happen, you can toggle this option to see everything.
+
+### View
+
+The next menu is the `View` menu, which allows you to switch between viewing your story's passages, JavaScript, and stylesheet.
+
+- `Passages`: This is the default view; click it to see your story data and all your passages and their code and tags.  
+- `JavaScript`: This view shows your Story JavaScript area or equivalent.  
+- `Stylesheet`: This view shows your Story Stylesheet or equivalent.  
 
 ### Tools
 
@@ -136,7 +141,7 @@ If you have a lot of passages, you'll likely want a way to sort, filter, and fin
 - `Filter`: This option allows you do determine what passages you want to see. For example, you can set poof to only show you `widget`-tagged passages, only passages with `castle` in the name, or even only show passages with [comments](#comments). You can also filter by the text of your passages, but be aware that this is somewhat slow to resolve based on the number of passages and their length. You can use the `Invert` check-box to instead filter **out** the passages that meet the specified criteria. To get all your passages back again, come back here and click the `Clear` button.  
 - `Sort`: You can sort your passages based on a few different metrics, and can get those results in ascending or descending order by using the `Reverse` check-box. You can sort by passage name (alphanumeric), the length of the passage's text, or by *Passage ID*. Passage IDs are numbers that start at 0 and count up as you create passages, meaning their order is largely the same as the order in which you created your passages (though this ordering isn't guaranteed, necessarily), and is poof's default order.  
 - `Find`: You can use this tool to find a specific passage by name. The text input also functions as a drop down list, and will make suggestions as you type. If you try to find a passage that you've previously filtered out, it will magically pop back into existence none the worse for wear.
-- `Starting Passage`: This tool allows you to immediately scroll the story's starting passage into view.
+- `Start`: This tool allows you to immediately scroll the story's starting passage into view.
 
 ### Syntax Highlighting 
 
