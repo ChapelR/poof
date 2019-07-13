@@ -102,19 +102,19 @@
         // view menu
         $('#night').on('click', function () {
             // toggle night mode (light text on dark)
-            $(document.documentElement).toggleClass('night');
+            poof.viewModes.dark($(this));
         }).attr('title', 'Toggle night mode.');
         $('#simple').on('click', function () {
             // toggle the simplified view (default is a more material-inspired view)
-            $('#content').toggleClass('simple');
+            poof.viewModes.simple($(this));
         }).attr('title', 'Toggle a simpler view mode.');
         $('#line-no').on('click', function () {
             // toggle line numbers
-            $('td.hljs-ln-numbers').toggleClass('hide');
+            poof.viewModes.lineNo($(this));
         }).attr('title', 'Toggle whether to show line numbers.');
         $('#collapse').on('click', function () {
             // controls whether long text nodes are given a max-height and scrollbars
-            $('#main').toggleClass('collapse');
+            poof.viewModes.textHt($(this));
         }).attr('title', 'Toggle whether to use a scrollbar for lengthy text.');
         $('#passages').on('click', function () {
             // the main passage view

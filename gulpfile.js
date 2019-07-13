@@ -63,6 +63,7 @@ function buildScripts () {
         'export.js',
         'comments.js',
         'comment-import.js',
+        'view-modes.js',
         'menu.js',
         'init.js'
     ].map( function (file) {

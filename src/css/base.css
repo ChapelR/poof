@@ -27,6 +27,25 @@ body {
     min-width: 100%;
 }
 
+.pure-menu-item a span {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid #eee;
+    background: #eee;
+    margin-right: 0.5rem;
+    margin-bottom: .1rem;
+}
+
+.pure-menu-item a.on span {
+    background: #111;
+}
+
+#configs::after {
+    content: '';
+    padding: 0;
+}
+
 div#content {
     margin: 4em 2em;
 }

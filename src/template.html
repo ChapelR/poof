@@ -29,28 +29,33 @@
         <div class="pure-menu pure-menu-horizontal">
             <ul class="pure-menu-list">
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <a href="javascript:void(0)" id="menuLink1" class="pure-menu-link">View</a>
+                    <a href="javascript:void(0)" id="configs" class="pure-menu-link" title="Settings">&#9881;</a>
                     <ul class="pure-menu-children">
-                        <li class="pure-menu-item"><a id="night" href="javascript:void(0)" class="pure-menu-link">Night Mode</a></li>
-                        <li class="pure-menu-item"><a id="simple" href="javascript:void(0)" class="pure-menu-link">Simplified View</a></li>
-                        <li class="pure-menu-item"><a id="line-no" href="javascript:void(0)" class="pure-menu-link">Line Numbers</a></li>
-                        <li class="pure-menu-item"><a id="collapse" href="javascript:void(0)" class="pure-menu-link">Code Text Height</a></li>
-                        <li class="pure-menu-item"><a id="passages" href="javascript:void(0)" class="pure-menu-link">View Passages</a></li>
-                        <li class="pure-menu-item"><a id="javascript" href="javascript:void(0)" class="pure-menu-link">View JavaScript</a></li>
-                        <li class="pure-menu-item"><a id="stylesheet" href="javascript:void(0)" class="pure-menu-link">View Stylesheet</a></li>
+                        <li class="pure-menu-item"><a id="night" href="javascript:void(0)" class="pure-menu-link"><span></span>Dark Mode</a></li>
+                        <li class="pure-menu-item"><a id="simple" href="javascript:void(0)" class="pure-menu-link"><span></span>Simplified View</a></li>
+                        <li class="pure-menu-item"><a id="line-no" href="javascript:void(0)" class="pure-menu-link on"><span></span>Line Numbers</a></li>
+                        <li class="pure-menu-item"><a id="collapse" href="javascript:void(0)" class="pure-menu-link on"><span></span>Code Text Height</a></li>
                     </ul>
                 </li>
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <a href="javascript:void(0)" id="menuLink2" class="pure-menu-link">Tools</a>
+                    <a href="javascript:void(0)" id="menuLink1" class="pure-menu-link" title="View">View</a>
+                    <ul class="pure-menu-children">
+                        <li class="pure-menu-item"><a id="passages" href="javascript:void(0)" class="pure-menu-link">Passages</a></li>
+                        <li class="pure-menu-item"><a id="javascript" href="javascript:void(0)" class="pure-menu-link">JavaScript</a></li>
+                        <li class="pure-menu-item"><a id="stylesheet" href="javascript:void(0)" class="pure-menu-link">Stylesheet</a></li>
+                    </ul>
+                </li>
+                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                    <a href="javascript:void(0)" id="menuLink2" class="pure-menu-link" title="Tools">Tools</a>
                     <ul class="pure-menu-children">
                         <li class="pure-menu-item"><a id="tools-filter" href="javascript:void(0)" class="pure-menu-link">Filter...</a></li>
                         <li class="pure-menu-item"><a id="tools-sort" href="javascript:void(0)" class="pure-menu-link">Sort...</a></li>
                         <li class="pure-menu-item"><a id="tools-find" href="javascript:void(0)" class="pure-menu-link">Find...</a></li>
-                        <li class="pure-menu-item"><a id="tools-starting" href="javascript:void(0)" class="pure-menu-link">Starting Passage</a></li>
+                        <li class="pure-menu-item"><a id="tools-starting" href="javascript:void(0)" class="pure-menu-link">Start</a></li>
                     </ul>
                 </li>
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <a href="javascript:void(0)" id="menuLink3" class="pure-menu-link">Export</a>
+                    <a href="javascript:void(0)" id="menuLink3" class="pure-menu-link" title="Export">Export</a>
                     <ul class="pure-menu-children">
                         <li class="pure-menu-item"><a id="twee-export" href="javascript:void(0)" class="pure-menu-link">Twee</a></li>
                         <!--! <li class="pure-menu-item"><a id="html-export" href="javascript:void(0)" class="pure-menu-link">HTML</a></li> -->
@@ -59,14 +64,14 @@
                     </ul>
                 </li>
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <a href="javascript:void(0)" id="menuLink4" class="pure-menu-link">Comments</a>
+                    <a href="javascript:void(0)" id="menuLink4" class="pure-menu-link" title="Comments">Comments</a>
                     <ul class="pure-menu-children">
                         <li class="pure-menu-item"><a id="comments-export" href="javascript:void(0)" class="pure-menu-link">Export</a></li>
                         <li class="pure-menu-item"><a id="comments-import" href="javascript:void(0)" class="pure-menu-link">Import...</a></li>
                     </ul>
                 </li>
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <a href="javascript:void(0)" id="menuLink5" class="pure-menu-link">About</a>
+                    <a href="javascript:void(0)" id="menuLink5" class="pure-menu-link" title="About">About</a>
                     <ul class="pure-menu-children">
                         <li class="pure-menu-item"><a id="website" target="_blank" href="https://twinelab.net/poof" class="pure-menu-link">Website</a></li>
                         <li class="pure-menu-item"><a id="bugs" target="_blank" href="https://github.com/ChapelR/poof/issues/new" class="pure-menu-link">Report Bugs</a></li>
