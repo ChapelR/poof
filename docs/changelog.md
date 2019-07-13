@@ -2,10 +2,14 @@
 
 ## Version 1.4.0
 - Added passage tag colors to passage cards.  
-- Clean up rendering engine.  
+- Cleaned up rendering engine.  
 - Clicking passage tags on passage cards performs a quick filter operation.  
 - Filtering passages now causes a `Clear Filters` button to appear on the interface.  
-- Adjusted styles and layout of certain elements in certain view modes.
+- Adjusted styles and layout of certain elements in certain view modes.  
+- Split configs out of `View` menu, which now only handles the proofing view. Configs now have a separate menu and checkbox-like UI elements.  
+- Improved accessibility.  
+- Added basic support for Chapbook (beta) to reference parser and JavaScript linter. Will fine-tune as needed.  
+- Other internal improvements.
 
 ## Version 1.3.1
 - Fixed bug with parsing of tag metadata that could cause stories to hang indefinitely.

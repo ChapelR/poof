@@ -5,17 +5,17 @@ Demos:
 - [Example PDF output](https://twinelab.net/poof/demo/poof.pdf)  
 - [Example plain text output](https://twinelab.net/poof/demo/poof.txt)
 
-A Twine 2 proofing format.
+Poof is a Twine 2 proofing and utility format that empowers you to review, edit, and proofread your content in a more productive way.
 
-If you have any ideas for features, please [open an issue on the github repo](https://github.com/ChapelR/poof/issues/new). Do the same if you've found a bug!
+If you have ideas, requests, or problems, please [open an issue on the github repo](https://github.com/ChapelR/poof/issues/new).
 
-Features:  
-- Simple and readable, but more manageable than Paperthin.  
-- Review your stylesheet and JavaScript code in addition to your passages.  
-- Lint your JavaScript code to find errors.  
-- Export your passages to PDF, plain text (in twee notation), or a Twine 2 archive file.  
-- Sortable, filterable, and search-able passage list.  
-- Create comments and notes that can be exported, imported, and shared with others.
+**Features:**  
+- Simple and readable, but  customizable and feature-rich.  
+- Create comments and notes on passages that can be exported, imported, and shared with others.  
+- Tools to help you organize, sort, filter, and find passages using a variety of metrics.  
+- Parses your code for links and macros that reference other passages, allowing you to click through your game or follow along while playing.  
+- Export your passages to PDF, plain text (in twee notation), or Twine 2 archive files.  
+- Review your stylesheet and JavaScript code in addition to your passages, with story format-aware linting for your JavaScript. 
 
 ## Installation
 
@@ -61,7 +61,8 @@ Open source software used:
 Built with:
 
 - [nodejs](https://nodejs.org/en/) ([License](https://raw.githubusercontent.com/nodejs/node/master/LICENSE))  
-- [gulp](https://gulpjs.com/) (MIT)
+- [gulp](https://gulpjs.com/) (MIT)  
+- [node-zip](https://github.com/daraosn/node-zip) (MIT)
 
 ## Buy Me a Coffee
 

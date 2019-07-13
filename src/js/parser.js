@@ -64,6 +64,26 @@
                 regex : /\(display:\s*?["'](.*?)['"]\s*?\)/g,
                 group : 1
             }
+        ],
+        chapbook : [
+            {
+                // {link to 'passage' ... }
+                name : 'linkInsert',
+                regex : /{\s*?link\s+to\s+["'](.*?)["'].*?}/g,
+                group : 1
+            },
+            {
+                // {embed passage: 'passage'} -or- {embed passage named: 'passage'}
+                name : 'embedInsert',
+                regex: /{\s*?embed\s+passage(\s+named)?:\s+["'](.*?)["']\s*?}/g,
+                group : 2
+            },
+            {
+                // {reveal link: 'text', passage: 'passage' ... }
+                name : 'revealInsert',
+                regex: /{\s*?reveal\s+link:.*?passage:\s+?['"](.*?)["'].*?}/g,
+                group : 2
+            }
         ]
     };
 

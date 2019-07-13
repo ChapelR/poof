@@ -174,7 +174,21 @@
         'passage'
     ];
 
-    // TODO: chapbook, after it stabilizes
+    var cbGlobals = [
+        'browser',
+        'config',
+        'engine',
+        'now',
+        'passage',
+        'random',
+        'sound',
+        'story',
+        // advanced
+        'history',
+        'state',
+        'process',
+        'output'
+    ];
 
     var format = getFormat();
 
@@ -199,6 +213,9 @@
         }
         if (format.name === 'harlowe') {
             return objectify(hlGlobals);
+        }
+        if (format.name === 'chapbook') {
+            return objectify(cbGlobals);
         }
         return {}; // no globals
     }
