@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "dependencies": {
     "del": "^3.0.0",
+    "fs-jetpack": "^2.2.2",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-clean-css": "^3.10.0",
     "gulp-concat": "^2.6.1",
@@ -13,7 +14,8 @@
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "gulp-uglify": "^3.0.2",
-    "jshint": "^2.10.2"
+    "jshint": "^2.10.2",
+    "node-zip": "^1.1.1"
   },
   "devDependencies": {
     "gulp": "^4.0.2"
@@ -22,7 +24,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "gulp": "gulp",
     "build": "gulp build",
-    "docs": "docsify serve ./docs -o"
+    "docs": "docsify serve ./docs -o",
+    "pack": "node ./pack.js"
   },
   "author": "chapel",
   "license": "Unlicense",
