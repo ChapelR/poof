@@ -30,7 +30,7 @@
 
     dataChunk.children('tw-tag').each( function () {
         var $self = $(this);
-        tags[tag.attr('name')] = tag.attr('color');
+        tags[$self.attr('name')] = $self.attr('color');
     });
 
     passages = passages.sort(function (a, b) {

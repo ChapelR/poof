@@ -42,7 +42,7 @@ Older versions of poof can be accessed by replacing the `@latest` in the URL wit
 
 You can also access the development version of poof with the URL `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/dev.js`. The development version is never stable, and is not recommended for general use.
 
-[Changelog](https://twinelab.net/poof/changelog.txt)
+[Changelog](changelog)
 
 ## Credits 
 
@@ -164,7 +164,7 @@ Poof comes with a few options for exporting your story to help you get the most 
 ### Twee
 
 > [!WARNING]
-> The generated Twee export will not include your `poof.config` passage, or any passages you've currently filtered out. The sort order you have set up will also influence the order of the passages in the Twee file.
+> The generated Twee export will not include any passages you've currently filtered out. The sort order you have set up will also influence the order of the passages in the Twee file.
 
 The first way you can export is to [Twee notation](https://twinery.org/cookbook/terms/terms_twee.html), in a plain text format. This is useful both for editing, and for transitioning your story to a different compiler, like Twee2 or Tweego.
 
@@ -181,7 +181,7 @@ Exporting to PDF is useful if you want a printable copy of your story, or someth
 ### Archive
 
 > [!NOTE]
-> Unlike the other exports, the archive option will not respect your filter or sort settings. The `poof.config` special passage will be omitted in the archive.
+> Unlike the other exports, the archive option will not respect your filter or sort settings.
 
 As you (hopefully) know, you can make a back-up of all of your stories by creating an archive from the story list in Twine 2. You should do this a lot. This option does exactly the same thing, but only creates an archive of the current story. This archive can be used to back-up your story (though really, look into version control) and can also be used with certain compilers like Entwine and Tweego.
 
