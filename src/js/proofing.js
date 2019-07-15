@@ -74,11 +74,15 @@
     // here we make sure to grab the user scripts and styles
     var userScripts = dataChunk.children('*[type="text/twine-javascript"]').toArray().map( function (el) {
         return $(el).html();
-    }).join('\n\n').trim();
+    });
+
+    userScripts = (userScripts && userScripts.length) ? userScripts.join('\n\n').trim() : '';
 
     var userStyles = dataChunk.children('*[type="text/twine-css"]').toArray().map( function (el) {
         return $(el).html();
-    }).join('\n\n').trim();
+    });
+
+    userStyles = (userStyles && userStyles.length) ? userStyles.join('\n\n').trim() : '';
 
     function dataToHtml (story) {
         // this creates the DOM structure for the story header
@@ -91,6 +95,7 @@
 
     function passageToHtml (passage) {
         // this creates the DOM structure for each "passage card"
+        var tags = passage.tags.replace(/\s+/g, ' ').trim();
         var tagsClass = !!passage.tags.trim() ? '' : 'hide';
         var references = poof.utils.referenceLinks(passage);
         var $el = poof.el('div', { 'data-id' : passage.id, classes : 'passage-card' })
@@ -107,7 +112,34 @@
             // passage title
             .append( poof.el('h2', { classes : 'passage-title' }, passage.name))
             // the tag block
-            .append( poof.el('p', { classes : 'passage-tags' }, 'Tags: ' + passage.tags)
+            .append( poof.el('p', { classes : 'passage-tags' }, poof.el('span', { classes : 'tag-title' }, 'Tags: '))
+                    .append( tags.split(' ').map( function (tag) {
+                        var isFiltered = false;
+                        $(document).on(':filter-complete', function () {
+                            isFiltered = false;
+                        });
+                        return poof.el('span', { classes : 'tag-listing', title : 'Filter...' }, tag)
+                            .css({
+                                'display' : 'inline-block',
+                                'border-width' : '0 1.1em',
+                                'border-left-style' : 'solid',
+                                'border-color' : poof.utils.getTagColor(tag),
+                                'padding' : '0 0.1rem',
+                                'margin-right' : '0.5rem'
+                            })
+                            .on('click', function () {
+                                var doIt = confirm('Would you like to filter the passage view using this tag?');
+                                if (!doIt) {
+                                    return;
+                                }
+                                if (poof && poof.filter && poof.filter.run && typeof poof.filter.run === 'function') {
+                                    $(document).trigger(':filter-start');
+                                    isFiltered = true;
+                                    poof.filter.run('tags', tag);
+                                    $(document).trigger(':filter-complete');
+                                }
+                            });
+                    }))
                 .addClass(tagsClass) )
             // passage references block
             .append( (references) ? poof.el('div', { classes : 'passage-references' }, [poof.el('h3', {
@@ -185,12 +217,15 @@
 
     function userScriptsToHtml () {
         // mostly like a passage card, but with some minor style changes
+        var scriptPre = !!userScripts.trim() ? 
+            poof.el('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts ) :
+            poof.utils.voidEl();
         return poof.el('div', { id : 'story-javascript', classes : 'passage-card' })
             // title
             .append( poof.el('h2', { classes : 'passage-title' }, 'Story JavaScript'))
             // script scource code
             .append( poof.el('div', { classes : 'passage-source' })
-                .append( poof.el('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )))
+                .append( scriptPre ))
             .append( poof.el('div', { classes : 'lint-btn-wrapper' }, 
                 // LINTING
                 poof.el('button', { classes : 'lint-btn pure-button pure-button-disabled', id : 'lint' }, 'Lint')
@@ -227,12 +262,15 @@
 
     function userStylesToHtml () {
         // refreshingly simple, compared to the scripts
+        var stylePre = !!userStyles.trim() ? 
+            poof.el('pre', { classes : 'story-code css', 'data-language' : 'css' }, userStyles ) :
+            poof.utils.voidEl();
         return poof.el('div', { id : 'story-stylesheet', classes : 'passage-card' })
             // title
             .append( poof.el('h2', { classes : 'passage-title' }, 'Story StyleSheet'))
             // source
             .append( poof.el('div', { classes : 'passage-source' })
-                .append( poof.el('pre', { 'data-language' : 'css', classes : 'story-code css' }, userStyles )));
+                .append( stylePre ));
     }
 
     function passageToTwee (passage) { // TODO: clean mess this up
@@ -309,6 +347,7 @@
         data2tw : function () {
             return dataToTwee(story) + userStylesToTwee() + userScriptsToTwee();
         },
+        tagColors : tags,
         metadata : storyMetadata,
         twee : createTweeSource,
         data : story,

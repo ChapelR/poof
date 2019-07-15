@@ -5,17 +5,17 @@ Demos:
 - [Example PDF output](https://twinelab.net/poof/demo/poof.pdf)  
 - [Example plain text output](https://twinelab.net/poof/demo/poof.txt)
 
-A Twine 2 proofing format.
+Poof is a Twine 2 proofing and utility format that empowers you to review, edit, and proofread your content in a more productive way.
 
-If you have any ideas for features, please [open an issue on the github repo](https://github.com/ChapelR/poof/issues/new). Do the same if you've found a bug!
+If you have ideas, requests, or problems, please [open an issue on the github repo](https://github.com/ChapelR/poof/issues/new).
 
-Features:  
-- Simple and readable, but more manageable than Paperthin.  
-- Review your stylesheet and JavaScript code in addition to your passages.  
-- Lint your JavaScript code to find errors.  
-- Export your passages to PDF, plain text (in twee notation), or a Twine 2 archive file.  
-- Sortable, filterable, and search-able passage list.  
-- Create comments and notes that can be exported, imported, and shared with others.
+**Features:**  
+- Simple and readable, but  customizable and feature-rich.  
+- Create comments and notes on passages that can be exported, imported, and shared with others.  
+- Tools to help you organize, sort, filter, and find passages using a variety of metrics.  
+- Parses your code for links and macros that reference other passages, allowing you to click through your game or follow along while playing.  
+- Export your passages to PDF, plain text (in twee notation), or Twine 2 archive files.  
+- Review your stylesheet and JavaScript code in addition to your passages, with story format-aware linting for your JavaScript. 
 
 ## Installation
 
@@ -37,7 +37,8 @@ Older versions of poof can be accessed by replacing the `@latest` in the URL wit
 - v1.0.0  
 - v1.1.0  
 - v1.2.0  
-- v1.3.1 (latest)
+- v1.3.1  
+- v1.4.0 (latest)
 
 You can also access the development version of poof with the URL `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/dev.js`. The development version is never stable, and is not recommended for general use.
 
@@ -60,7 +61,8 @@ Open source software used:
 Built with:
 
 - [nodejs](https://nodejs.org/en/) ([License](https://raw.githubusercontent.com/nodejs/node/master/LICENSE))  
-- [gulp](https://gulpjs.com/) (MIT)
+- [gulp](https://gulpjs.com/) (MIT)  
+- [node-zip](https://github.com/daraosn/node-zip) (MIT)
 
 ## Buy Me a Coffee
 
@@ -104,7 +106,7 @@ The story metadata pulled from your story by poof, including your story's title,
 The passage card contains all the content and metadata for a passage.
 
 1. The passage's title.  
-2. The passage's tags (if any).  
+2. The passage's tags (if any). You can click on tags to quickly [filter](#tools) passages.  
 3. The passage's references: passages referenced to or by this passage are listed here, as links you can navigate to within poof.  
 4. The passage's raw content.  
 5. The comment button--create, view, and edit comments regarding this passage.  
@@ -113,20 +115,25 @@ The passage card contains all the content and metadata for a passage.
 > [!NOTE]
 > Poof will attempt to parse many different kinds of passage references, not just markup links, based on the format you are using.
 
-### View Options
+### Options
 
 > [!TIP]
-> You can use the `poof.config` special passage (see [below](#configuration)) to set most of these options for a given story so that you don't have to, say, go turn on the night mode option every time you view your proofing copy.
+> You can use the `poof.config` special passage (see [below](#configuration)) to set these options for a given story so that you don't have to, say, go turn on the dark mode option every time you view your proofing copy.
 
-You'll likely immediately notice your story's vital information on display, including story and passage data. Across the top of the window is several menus, the first of which is `View`. Hover over or click / tap on it to access your viewing options.
+You'll likely immediately notice your story's vital information on display, including story and passage data. Across the top of the window is several menus, and a gear icon (&#9881;) on the left. Click on the gear icon to configure your proofing view.
 
 - `Night Mode`: This option toggles the page between the standard light-on-dark theme and a dark-on-light theme that may be easier on some eyeballs.
 - `Simplified View`: This option removes some of the boxes, borders, and shadows that separate passages and other elements. You may prefer reading without my dead-sexy CSS skills getting all up in your eyes. I promise I'm not offended. Click to toggle.  
 - `Line Numbers`: You can use this option to toggle the display of line numbers in your source code.  
-- `Code Text Height`: I'm open to a better name for this option. To keep things somewhat sane when dealing with massive passages, poof will by default limit the height of code boxes and slap scrollbars on them after about 15 or so lines. If you'd rather not have that happen, you can toggle this option to see everything.  
-- `View Passages`: This is the default view; click it to see your story data and all your passages and their code and tags.  
-- `View JavaScript`: This view shows your Story JavaScript area or equivalent.  
-- `View Stylesheet`: This view shows your Story Stylesheet or equivalent.  
+- `Code Text Height`: I'm open to a better name for this option. To keep things somewhat sane when dealing with massive passages, poof will by default limit the height of code boxes and slap scrollbars on them after about 15 or so lines. If you'd rather not have that happen, you can toggle this option to see everything.
+
+### View
+
+The next menu is the `View` menu, which allows you to switch between viewing your story's passages, JavaScript, and stylesheet.
+
+- `Passages`: This is the default view; click it to see your story data and all your passages and their code and tags.  
+- `JavaScript`: This view shows your Story JavaScript area or equivalent.  
+- `Stylesheet`: This view shows your Story Stylesheet or equivalent.  
 
 ### Tools
 
@@ -135,7 +142,7 @@ If you have a lot of passages, you'll likely want a way to sort, filter, and fin
 - `Filter`: This option allows you do determine what passages you want to see. For example, you can set poof to only show you `widget`-tagged passages, only passages with `castle` in the name, or even only show passages with [comments](#comments). You can also filter by the text of your passages, but be aware that this is somewhat slow to resolve based on the number of passages and their length. You can use the `Invert` check-box to instead filter **out** the passages that meet the specified criteria. To get all your passages back again, come back here and click the `Clear` button.  
 - `Sort`: You can sort your passages based on a few different metrics, and can get those results in ascending or descending order by using the `Reverse` check-box. You can sort by passage name (alphanumeric), the length of the passage's text, or by *Passage ID*. Passage IDs are numbers that start at 0 and count up as you create passages, meaning their order is largely the same as the order in which you created your passages (though this ordering isn't guaranteed, necessarily), and is poof's default order.  
 - `Find`: You can use this tool to find a specific passage by name. The text input also functions as a drop down list, and will make suggestions as you type. If you try to find a passage that you've previously filtered out, it will magically pop back into existence none the worse for wear.
-- `Starting Passage`: This tool allows you to immediately scroll the story's starting passage into view.
+- `Start`: This tool allows you to immediately scroll the story's starting passage into view.
 
 ### Syntax Highlighting 
 

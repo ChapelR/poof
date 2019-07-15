@@ -14,7 +14,7 @@
             {  
                 // normal link markup
                 name : 'markup',
-                regex : /\[{2,}(.*?)](\[.*?])?]{1,}/g,
+                regex : /\[{2,}(.*?)](\[.*?])?]{1,}/gi,
                 group : 1
             }
         ],
@@ -23,19 +23,19 @@
             {
                 // <<link 'link' 'passage'>> -or- <<button 'link' 'passage'>>
                 name : 'linkMacro',
-                regex : /<<(link|button)\s*["'](.*?)["']\s*['"](.*?)['"]\s*?>>/g,
+                regex : /<<(link|button)\s*["'](.*?)["']\s*['"](.*?)['"]\s*?>>/gi,
                 group : 3
             },
             {
                 // <<goto 'passage'>>
                 name : 'gotoMacro',
-                regex : /<<goto\s*["'](.*?)["']\s*?>>/g,
+                regex : /<<goto\s*["'](.*?)["']\s*?>>/gi,
                 group : 1
             },
             {
                 // <<include 'passage'>> -or- <<display 'passage'>>
                 name : 'includeMacro',
-                regex : /<<(include|display)\s*["'](.*?)["']\s*?.*?>>/g,
+                regex : /<<(include|display)\s*["'](.*?)["']\s*?.*?>>/gi,
                 group : 2
             }
         ],
@@ -43,25 +43,45 @@
             {
                 // (link-goto: 'link', 'passage') -or- (click-goto: 'hook/string', 'passage')
                 name : 'linkMacro',
-                regex : /\((link|click)-?go-?to:\s*?["'](.*?)['"],\s*?['"](.*?)['"]\s*?\)/g,
+                regex : /\((link|click)-?go-?to:\s*?["'](.*?)['"],\s*?['"](.*?)['"]\s*?\)/gi,
                 group : 3
             },
             {
                 // (link-reveal-goto: 'link', 'passage')
                 name : 'linkRevealMacro',
-                regex : /\((link|click)-?reveal-?go-?to:\s*?["'](.*?)['"],\s*?['"](.*?)['"]\s*?\)/g,
+                regex : /\((link|click)-?reveal-?go-?to:\s*?["'](.*?)['"],\s*?['"](.*?)['"]\s*?\)/gi,
                 group : 3
             },
             {
                 // (goto: 'passage')
                 name : 'gotoMacro',
-                regex : /\(go-?to:\s*?["'](.*?)['"]\s*?\)/g,
+                regex : /\(go-?to:\s*?["'](.*?)['"]\s*?\)/gi,
                 group : 1
             },
             {
                 // (display: 'passage')
                 name : 'includeMacro',
-                regex : /\(display:\s*?["'](.*?)['"]\s*?\)/g,
+                regex : /\(display:\s*?["'](.*?)['"]\s*?\)/gi,
+                group : 1
+            }
+        ],
+        chapbook : [
+            {
+                // {link to 'passage' ... }
+                name : 'linkInsert',
+                regex : /{\s*?link\s+to\s+["'](.*?)["'].*?}/gi,
+                group : 1
+            },
+            {
+                // {embed passage: 'passage'} -or- {embed passage named: 'passage'}
+                name : 'embedInsert',
+                regex: /{\s*?embed\s+passage(\s+named)?:\s+["'](.*?)["']\s*?}/gi,
+                group : 2
+            },
+            {
+                // {reveal link: 'text', passage: 'passage' ... }
+                name : 'revealInsert',
+                regex: /{\s*?reveal\s+link:.*?passage:\s+?['"](.*?)["'].*?}/gi,
                 group : 1
             }
         ]
@@ -116,7 +136,7 @@
             var matches = source.match(parser.regex);
             if (matches) {
                 matches.forEach( function (match) {
-                    var parsed = parser.regex.exec(match),
+                    var parsed = parser.regex.exec(match) || parser.regex.exec(match),
                         psg;
                     if (!parsed && parser.name === 'markup') {
                         match = match.replace(/\[+/g, '[[').replace(/(]\[.*]+|]+)/g, ']]');

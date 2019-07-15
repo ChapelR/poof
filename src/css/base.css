@@ -27,6 +27,25 @@ body {
     min-width: 100%;
 }
 
+.pure-menu-item a span {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid #eee;
+    background: #eee;
+    margin-right: 0.5rem;
+    margin-bottom: .1rem;
+}
+
+.pure-menu-item a.on span {
+    background: #111;
+}
+
+#configs::after {
+    content: '';
+    padding: 0;
+}
+
 div#content {
     margin: 4em 2em;
 }
@@ -80,6 +99,15 @@ input[type="file"] {
 
 .void {
     display: none;
+}
+
+#clear-filters {
+    position: fixed;
+    background-color: #85144b;
+    top: 2.5em;
+    right: 0;
+    border-radius: 0;
+    box-shadow: -1px 1px 2px #888;
 }
 
 @media only screen and (max-width: 800px) {

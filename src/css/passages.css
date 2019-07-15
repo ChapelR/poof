@@ -6,9 +6,9 @@ div.passage-card {
 }
 
 p.passage-tags {
-    font-style: italic;
     border: 1px solid #111;
     padding: 0.3em;
+    margin : 1em 1em;
 }
 
 div.passage-references {
@@ -66,4 +66,12 @@ div.passage-source pre {
     padding: 1em;
     background: #eee;
     border: 1px solid #ccc;
+}
+
+span.tag-listing {
+    cursor: pointer;
+}
+
+span.tag-listing:hover {
+    opacity: 0.8;
 }

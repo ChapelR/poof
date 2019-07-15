@@ -15,16 +15,16 @@
 
         // set a few last-minute configs
         if (poof.config.simplified) {
-            $('#content').addClass('simple');
+            poof.viewModes.simple($('#simple'));
         }
         if (!poof.config.codeHeightLimit) {
-            $('#main').removeClass('collapse');
+            poof.viewModes.textHt($('#collapse'));
         }
         if (!poof.config.lineNumbers) {
-            $('td.hljs-ln-numbers').addClass('hide');
+            poof.viewModes.lineNo($('#line-no'));
         }
         if (poof.config.nightMode) {
-            $(document.documentElement).addClass('night');
+            poof.viewModes.dark($('#night'));
         }
         if (poof.config.fonts && typeof poof.config.fonts === 'object') {
             // custom fonts

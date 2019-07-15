@@ -102,19 +102,19 @@
         // view menu
         $('#night').on('click', function () {
             // toggle night mode (light text on dark)
-            $(document.documentElement).toggleClass('night');
+            poof.viewModes.dark($(this));
         }).attr('title', 'Toggle night mode.');
         $('#simple').on('click', function () {
             // toggle the simplified view (default is a more material-inspired view)
-            $('#content').toggleClass('simple');
+            poof.viewModes.simple($(this));
         }).attr('title', 'Toggle a simpler view mode.');
         $('#line-no').on('click', function () {
             // toggle line numbers
-            $('td.hljs-ln-numbers').toggleClass('hide');
+            poof.viewModes.lineNo($(this));
         }).attr('title', 'Toggle whether to show line numbers.');
         $('#collapse').on('click', function () {
             // controls whether long text nodes are given a max-height and scrollbars
-            $('#main').toggleClass('collapse');
+            poof.viewModes.textHt($(this));
         }).attr('title', 'Toggle whether to use a scrollbar for lengthy text.');
         $('#passages').on('click', function () {
             // the main passage view
@@ -162,7 +162,28 @@
             poof.comments.importer(); // opens a modal
         }).attr('title', 'Import comments from a file.');
         
+        // filter clearing
+        $(document.body).append(poof.el('button', { 
+            id : 'clear-filters', 
+            label : 'Clear all current filters.',
+            classes : 'pure-button pure-button-primary'
+        }, 'Clear Filters')
+            .on('click', function () {
+                $(document).trigger(':filter-start');
+                poof.filter.clear();
+                $(document).trigger(':filter-complete');
+            })
+            .hide());
     }
+
+    $(document).on(':filter-start :filter-complete', function () {
+        var $clear = $('button#clear-filters');
+        if ($('.passage-card.hide').length) {
+            $clear.show();
+        } else {
+            $clear.hide();
+        }
+    });
 
     window.poof.init.menu = menuInit;
 

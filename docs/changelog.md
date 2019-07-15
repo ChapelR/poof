@@ -1,5 +1,16 @@
 # Release Versions
 
+## Version 1.4.0
+- Added passage tag colors to passage cards.  
+- Cleaned up rendering engine. Fixed non-critical bugs with empty JavaScript and CSS areas.  
+- Clicking passage tags on passage cards performs a quick filter operation.  
+- Filtering now causes a `Clear Filters` button to appear on the interface to quickly reset.  
+- Adjusted styles and layout of certain elements in certain view modes.  
+- Split configs out of `View` menu, which now only handles the proofing view. Configs now have a separate menu and checkbox-like UI elements.  
+- Improved accessibility features but we are still not fully ARIA-compatible :(. Will continue working on getting closer.  
+- Added basic support for Chapbook (beta) to reference parser and JavaScript linter. Will fine-tune as needed.  
+- Other internal improvements.
+
 ## Version 1.3.1
 - Fixed bug with parsing of tag metadata that could cause stories to hang indefinitely.
 
@@ -7,7 +18,7 @@
 - Added "passage references", which parses passage source code for links (and macro code, like gotos, includes/displays, etc) and displays them in the passage card as links that scroll to the indicated passages.
 - Added Twee encoding options and support for the Twee 3 spec (https://github.com/iftechfoundation/twine-specs/blob/master/twee-3-specification.md).
 - Added the 'Starting Passage' tool.
-- Updated SugarCube globals for linter.
+- Updated SugarCube v2 globals for linter.
 - Improved documentation.
 - Internal improvements.
 
