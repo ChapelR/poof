@@ -2,12 +2,12 @@
 
 ## Version 1.4.0
 - Added passage tag colors to passage cards.  
-- Cleaned up rendering engine.  
+- Cleaned up rendering engine. Fixed non-critical bugs with empty JavaScript and CSS areas.  
 - Clicking passage tags on passage cards performs a quick filter operation.  
-- Filtering passages now causes a `Clear Filters` button to appear on the interface.  
+- Filtering now causes a `Clear Filters` button to appear on the interface to quickly reset.  
 - Adjusted styles and layout of certain elements in certain view modes.  
 - Split configs out of `View` menu, which now only handles the proofing view. Configs now have a separate menu and checkbox-like UI elements.  
-- Improved accessibility.  
+- Improved accessibility features but we are still not fully ARIA-compatible :(. Will continue working on getting closer.  
 - Added basic support for Chapbook (beta) to reference parser and JavaScript linter. Will fine-tune as needed.  
 - Other internal improvements.
 
