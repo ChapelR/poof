@@ -74,11 +74,15 @@
     // here we make sure to grab the user scripts and styles
     var userScripts = dataChunk.children('*[type="text/twine-javascript"]').toArray().map( function (el) {
         return $(el).html();
-    }).join('\n\n').trim();
+    });
+
+    userScripts = (userScripts && userScripts.length) ? userScripts.join('\n\n').trim() : '';
 
     var userStyles = dataChunk.children('*[type="text/twine-css"]').toArray().map( function (el) {
         return $(el).html();
-    }).join('\n\n').trim();
+    });
+
+    userStyles = (userStyles && userStyles.length) ? userStyles.join('\n\n').trim() : '';
 
     function dataToHtml (story) {
         // this creates the DOM structure for the story header
@@ -213,12 +217,15 @@
 
     function userScriptsToHtml () {
         // mostly like a passage card, but with some minor style changes
+        var scriptPre = !!userScripts.trim() ? 
+            poof.el('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts ) :
+            poof.utils.voidEl();
         return poof.el('div', { id : 'story-javascript', classes : 'passage-card' })
             // title
             .append( poof.el('h2', { classes : 'passage-title' }, 'Story JavaScript'))
             // script scource code
             .append( poof.el('div', { classes : 'passage-source' })
-                .append( poof.el('pre', { classes : 'story-code javascript', 'data-language' : 'javascript' }, userScripts )))
+                .append( scriptPre ))
             .append( poof.el('div', { classes : 'lint-btn-wrapper' }, 
                 // LINTING
                 poof.el('button', { classes : 'lint-btn pure-button pure-button-disabled', id : 'lint' }, 'Lint')
@@ -255,12 +262,15 @@
 
     function userStylesToHtml () {
         // refreshingly simple, compared to the scripts
+        var stylePre = !!userStyles.trim() ? 
+            poof.el('pre', { classes : 'story-code css', 'data-language' : 'css' }, userStyles ) :
+            poof.utils.voidEl();
         return poof.el('div', { id : 'story-stylesheet', classes : 'passage-card' })
             // title
             .append( poof.el('h2', { classes : 'passage-title' }, 'Story StyleSheet'))
             // source
             .append( poof.el('div', { classes : 'passage-source' })
-                .append( poof.el('pre', { 'data-language' : 'css', classes : 'story-code css' }, userStyles )));
+                .append( stylePre ));
     }
 
     function passageToTwee (passage) { // TODO: clean mess this up

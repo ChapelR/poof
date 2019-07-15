@@ -82,7 +82,7 @@
                 // {reveal link: 'text', passage: 'passage' ... }
                 name : 'revealInsert',
                 regex: /{\s*?reveal\s+link:.*?passage:\s+?['"](.*?)["'].*?}/g,
-                group : 2
+                group : 1
             }
         ]
     };
