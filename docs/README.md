@@ -42,7 +42,8 @@ Older versions of poof can be accessed by replacing the `@latest` in the URL wit
 
 You can also access the development version of poof with the URL `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/dev.js`. The development version is never stable, and is not recommended for general use.
 
-[Changelog](changelog)
+[Changelog](changelog)  
+[Release Notes](https://twinelab.net/blog/tags/poof/)
 
 ## Credits 
 
