@@ -1,5 +1,10 @@
 # Release Versions
 
+## Version 1.4.1
+
+- Updated default Twee export format to Twee3.
+- Fixed minor bug in Twee encoding.
+
 ## Version 1.4.0
 - Added passage tag colors to passage cards.  
 - Cleaned up rendering engine. Fixed non-critical bugs with empty JavaScript and CSS areas.  

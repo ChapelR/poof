@@ -38,7 +38,7 @@ Older versions of poof can be accessed by replacing the `@latest` in the URL wit
 - v1.1.0  
 - v1.2.0  
 - v1.3.1  
-- v1.4.0 (latest)
+- v1.4.1 (latest)
 
 You can also access the development version of poof with the URL `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/dev.js`. The development version is never stable, and is not recommended for general use.
 
@@ -80,7 +80,7 @@ This is a quick guide to help you get acclimated to poof and some suggestions ab
 > [!NOTE]
 > The first time you use poof, it may take several seconds to load. Poof relies on a number of external libraries fetched over the network, though many of its basic features will work without an Internet connection. These external libraries will be cached to your machine for future use, speeding up future load times and allowing poof to be used in all its glory without an Internet connection. Just be aware that the long initial load times (10+ seconds) are normal.
 
-<img src="assets/proofing.jpg">
+<img src="assets/proofing.jpg" style="border: 1px solid #111">
 
 To get started after installing poof, open your story in the Twine 2 app, open the menu (bottom left of the screen, near the story's name, is an up arrow that opens the menu), and click `View Proofing Copy`. If you're using another compiler, like Tweego, you'll need to set the format option to poof--the CLI compilers treat proofing formats the same as all other formats. For example, `tweego -f poof -o my-poof-story.html src`.
 
@@ -88,7 +88,7 @@ To get started after installing poof, open your story in the Twine 2 app, open t
 
 Your project, as rendered by poof, should wind up looking something like this:
 
-<img src="assets/main.png">
+<img src="assets/main.jpg" style="border: 1px solid #111">
 
 1. This is the main menu, with several submenus. You have a set of *View* options for fine-tuning your experience, or switching to the CSS and JavaScript views, *Tools* for managing your passages, and menu options for handling exports and comments.  
 2. This is your story's header, which contains your project's *story metadata*.  
@@ -96,13 +96,13 @@ Your project, as rendered by poof, should wind up looking something like this:
 
 ### The Header
 
-<img src="assets/head.png">
+<img src="assets/head.jpg" style="border: 1px solid #111">
 
 The story metadata pulled from your story by poof, including your story's title, IFID (important to know for some compilers), selected story format, and more are listed in the header.
 
 ### The Passage Card
 
-<img src="assets/card.png">
+<img src="assets/card.jpg" style="border: 1px solid #111">
 
 The passage card contains all the content and metadata for a passage.
 
@@ -249,14 +249,14 @@ The following options can be used:
 - `format`: A sub-object with two properties, `name` and `version` (which should be a string, like `"1.0.1"`). In Twine 2, poof will automatically detect which story format you have selected and tune the linter and some other features to match that information if it's a *major* format (i.e. Harlowe, SugarCube, Snowman, or Chapbook). In CLI compilers like Tweego, this isn't possible, and the automatically detected format will be poof, which isn't helpful. Set this option to a valid version of the format you want to use to either override what poof detects from Twine 2 or to set the format for the CLI compilers.  
 - `globals`: This option should be set to an array of strings. Each string represents the name of a global variable that your JavaScript has access to, such as from an external JavaScript library. Poof will automatically register the *documented* globals of the core Twine 2 story formats, so you only need to use this to tune the linter when using undocumented features, third-party formats, or external JavaScript (and only if the warnings about undefined variables bother you when using the linter).  
 - `pdf`: This sub-object controls the various styles and features of the PDF export. You can change the `lineHeight` (line spacing) and set it to a number between `1` (single-spaced) and `2` (double-spaced). The default line height is `1.15`. Use the `fontSize` option to change the size of the text in the exported file (the options are `"very small"` [8pt], `"small"` [10pt], `"normal"` [12pt], `"large"` [14pt], and `"very large"` [16pt]). The default is `"normal"` (12pt). The `font` option can be used to set the font to a `"monospace"` (Consolas), `"serif"` (Georgia), or `"san-serif"` (Roboto) font. The default font is `"sans-serif"` (Roboto).  
-- `twee`: set this option to `1`, `2`, or `3`. This options controls the encoding used by the Twee encoder, and can export Twee to the [classic style](http://twee-twine-doc.tiddlyspot.com/) used be Twine 1.4.2 and other first generation Twee compilers if set to `1`, to the format used by [Twee2](https://dan-q.github.io/twee2/documentation.html#twee2-syntax) if set to `2`, or to the new Twee 3 specification format, as [seen here](https://github.com/iftechfoundation/twine-specs/blob/master/twee-3-specification.md), if set to `3`.  
+- `twee`: set this option to `1`, `2`, or `3`. This option controls the encoding used by the Twee encoder, and can export Twee to the [classic style](http://twee-twine-doc.tiddlyspot.com/) used be Twine 1.4.2 and other first generation Twee compilers if set to `1`, to the format used by [Twee2](https://dan-q.github.io/twee2/documentation.html#twee2-syntax) if set to `2`, or to the new Twee 3 specification format, as [seen here](https://github.com/iftechfoundation/twine-specs/blob/master/twee-3-specification.md), if set to `3`.  
 - `parse`: set this option to `true` or `false`. If true, poof will parse passages for "passage references," including link markup and a subset of macros (if poof supports the story format's macro set; it currently only supports Harlowe and SugarCube macros, and only link, click, and goto style macros), and will add information about which passages are referenced by and have references to each other passage in the passage card interface, including links that can be used to zoom to those passage cards.
 
 > [!WARNING]
 > Extremely large stories may take a very long time to parse for passage references (possibly multiple minutes). The `parse` option should be set to `false` in your `poof.config` passage if you are encountering very long start-up loading times.
 
 > [!NOTE]
-> **About the Twee specifications**: As Twee 3 is very new, poof defaults to using the Twee 1 spec. As more compilers adopt the new standard, poof will eventually default to the Twee 3 encoding format. You should also only use the Twee 2 encoding format if you are using the [Twee2 compiler](https://dan-q.github.io/twee2); it is not actually an official specification, and it is only used and understood by that compiler. If you are using the original Twee or Twine 1.4.2, you'll always want to export to the Twee 1 spec.
+> **About the Twee specifications**: Poof defaults to using the [Twee3 encoding format](https://github.com/iftechfoundation/twine-specs/blob/master/twee-3-specification.md) which is supported by Tweego v2.x and Extwee. You should also only use the Twee 2 encoding format if you are using the [Twee2 compiler](https://dan-q.github.io/twee2); it is not actually an official specification, and it is only used and understood by that compiler. If you are using the original Twee, Twine 1.4.2, Entwine, or Tweego v1.x, you'll want to export to the Twee 1 spec.
 
 > [!TIP]
 > Writing valid JSON can be a bit tricky. Here's a validator to help you: https://jsonlint.com/. Plug your JSON in there, and the validator will tell you what, if anything, is wrong with it.

@@ -75,7 +75,7 @@
                 fontSize : 'normal',
                 lineHeight : 1.15
             },
-            twee : 1,
+            twee : 3,
             parse : true // whether to parse for passage references
         };
         var data = $configPassage.text() || '{ "noConfig" : true }';

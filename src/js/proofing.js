@@ -273,8 +273,11 @@
                 .append( stylePre ));
     }
 
-    function passageToTwee (passage) { // TODO: clean mess this up
+    function passageToTwee (passage) { // TODO: clean this mess up
         // create each passage's twee notation
+        if (!passage) {
+            return '';
+        }
         var position = passage.pos || '',
             sizing = passage.size || '',
             meta = '', tags = '', name;

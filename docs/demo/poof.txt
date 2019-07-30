@@ -1,13 +1,19 @@
-:: StorySettings
-ifid:6F575307-1AF9-4A72-8995-5932ED8EDE35
+:: StoryData
+{
+    "ifid": "6F575307-1AF9-4A72-8995-5932ED8EDE35",
+    "format": "SugarCube",
+    "format-version": "2.29.0",
+    "start": "Start",
+    "tag-colors": {},
+    "zoom": 1
+}
 
 :: poof.config
 {
     "format" : {
         "name" : "SugarCube",
         "version" : "2.29.0"
-    },
-    "twee": 1
+    }
 }
 
 :: StoryTitle
@@ -32,28 +38,28 @@ postdisplay['hello'] = function () {
     }
 };
 
-:: Start
+:: Start {"position":"225,100","sizing":"100,100"}
 Poof is a proofing format for Twine 2 and other Twine 2-style compilers.
 
 [[next]]
 
-:: next [this-is-a-tag]
+:: next [this-is-a-tag] {"position":"350,100","sizing":"100,100"}
 Poof can parse a variety of different kinds of passage references, export your story content to Twee, PDF, and Twine 2 archives, and it includes several tools to help you manage, find, and organize your passages.
 
 <<link 'next' 'move on'>><</link>>
 <<link 'go back' 'Start'>><</link>>
 
-:: move on
+:: move on {"position":"475,100","sizing":"100,100"}
 Poof allows authors and editors to make, save, export, import, and share comments. You can create comments on each passage to make notes about changes you want to make, mistakes that need fixed, and other problems. Poof also allows you to view your CSS and JS, the latter of which can be linted!
 
 <<goto 'another'>>
 
-:: another [another-tag]
+:: another [another-tag] {"position":"600,100","sizing":"100,100"}
 Using the passage references, you can also click through your story to read it in order, or to follow along while you play it.
 
 <<button 'Start over' 'Start'>><</button>>
 
-:: Lorem Ipsum [this-is-a-tag another-tag]
+:: Lorem Ipsum [this-is-a-tag another-tag] {"position":"725,100","sizing":"100,100"}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
