@@ -98,6 +98,9 @@
         $('#archive-export').on('click', function () {
             poof.createDownload('archive'); // creates a file download
         }).attr('title', 'Export to a Twine 2 archive HTML file.');
+        $('#json-export').on('click', function () {
+            poof.createDownload('json'); // creates a file download
+        }).attr('title', 'Export passage data to JSON. JavaScript, CSS, and story metadata are omitted.');
 
         // view menu
         $('#night').on('click', function () {

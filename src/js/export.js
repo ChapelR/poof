@@ -210,6 +210,8 @@
             } else if (fileExt === 'pdf') {
                 // download a pdf for printing and sharing
                 createPDF(fileName);
+            } else if (fileExt === 'json') {
+                poof.stringifyModal(fileName);
             } else { // 'archive'
                 fileName = fileName + '.html';
                 download(twArchive(), fileName, 'text/html;charset=utf-8');

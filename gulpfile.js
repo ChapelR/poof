@@ -60,6 +60,7 @@ function buildScripts () {
         'parser.js',
         'state.js',
         'tools.js',
+        'stringify.js',
         'export.js',
         'comments.js',
         'comment-import.js',
