@@ -116,11 +116,11 @@
             { text : 'Story: ' + poof.data.name + '\n\n', style : 'storyTitle' }, 
             { text : 'IFID: ' + poof.data.ifid + '\n\n\n\n', style : 'ifid' } 
         ];
-        passages.forEach( function (psg) {
+        Fast.forEach(passages, function (psg) {
             if ($(psg).hasClass('hide')) {
                 return;
             }
-            var passage = poof.passages.find(function (p) { 
+            var passage = Fast.find(poof.passages, function (p) { 
                 return Number($(psg).attr('data-pid')) === p.id; 
             });
             if (passage && typeof passage === 'object') {
@@ -148,11 +148,11 @@
     function createTweeExport () {
         var passages = $('div.passage-card').toArray();
         var content = [];
-        passages.forEach( function (psg) {
+        Fast.forEach(passages, function (psg) {
             if ($(psg).hasClass('hide')) {
                 return;
             }
-            var passage = poof.passages.find(function (p) { 
+            var passage = Fast.find(poof.passages, function (p) { 
                 return Number($(psg).attr('data-pid')) === p.id; 
             });
             content.push(poof.p2tw(passage));

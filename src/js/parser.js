@@ -130,12 +130,12 @@
         }
         var passages = [];
         var source = poof.utils.unescape(passageText);
-        parsers.forEach( function (parser) {
+        Fast.forEach(parsers, function (parser) {
             var ret = [];
             // find each valid passage reference 
             var matches = source.match(parser.regex);
             if (matches) {
-                matches.forEach( function (match) {
+                Fast.forEach(matches, function (match) {
                     var parsed = parser.regex.exec(match) || parser.regex.exec(match),
                         psg;
                     if (!parsed && parser.name === 'markup') {
@@ -168,13 +168,13 @@
 
     function parseAllPassages () {
         // run each passage through the parser
-        poof.passages.forEach( function (passage) {
+        Fast.forEach(poof.passages, function (passage) {
             if (poof.utils.stringNotEmpty(passage.source)) {
                 // get a list of passages linked/referred to by this passage
                 passage.links.to = poof.utils.filterPassages(parse(passage.source, parsers));
                 // add data to the linked-to passages
-                passage.links.to.forEach( function (psg) {
-                    var idx = poof.passages.findIndex( function (passage){
+                Fast.forEach(passage.links.to, function (psg) {
+                    var idx = Fast.findIndex(poof.passages, function (passage){
                         return psg === passage.name;
                     });
                     var passageFrom = poof.passages[idx];

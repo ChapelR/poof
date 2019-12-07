@@ -40,13 +40,13 @@
             return; // can't run yet
         }
         // get startnode passage
-        var start = poof.passages.find( function (psg) {
+        var start = Fast.find(poof.passages, function (psg) {
             // find the startnode pid
             return psg.id === poof.data.start;
         });
         if (!start) {
             // fallback to `Start` passage
-            start = poof.passages.find( function (psg) {
+            start = Fast.find(poof.passages, function (psg) {
                 return psg.name === 'Start';
             });
         }
@@ -115,10 +115,10 @@
         var $wrapper = el('div', { classes : 'passage-reference-wrapper' });
         var $toWrapper = el('div', { title : 'Links and other code in this passage that points to other passages.' }, 'Refers to: ');
         var $fromWrapper = el('div', { title : 'Links and other code in other passages that points to this passage.' }, 'Referred by: ');
-        var to = passage.links.to.map( function (psg) {
+        var to = Fast.map(passage.links.to, function (psg) {
             return createJumpLink(psg);
         });
-        var from = passage.links.from.map( function (psg) {
+        var from = Fast.map(passage.links.from, function (psg) {
             return createJumpLink(psg);
         });
         if (from.length) {
@@ -179,7 +179,7 @@
         if (!list || !Array.isArray(list) || !list.length) {
             return [];
         }
-        return list.filter( function (psg) {
+        return Fast.filter(list, function (psg) {
             return isValidPassage(psg);
         });
     }

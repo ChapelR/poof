@@ -50,6 +50,7 @@ function buildScripts () {
         'vendor/highlight.pack.js',
         'vendor/download.js',
         // scripts
+        'fast.js',
         'util.js',
         'modal.js',
         'buttons.js',

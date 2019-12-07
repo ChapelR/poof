@@ -20,7 +20,7 @@
 
     function filter (arr, prop, test, shouldInvert) {
         var ret;
-        return arr.filter( function (member) {
+        return Fast.filter(arr, function (member) {
             // because we're filtering out the passages we *don't* want to hide, 
             // this filter function needs to return the opposite of what you may expect
             if (prop === 'tags') {
@@ -31,7 +31,7 @@
                 // handle tag tests (most complicated)
                 needle = breakTags(test);
                 tags = handleStrings(member.tags);
-                ret = needle.every( function (testTag) {
+                ret = Fast.every(needle, function (testTag) {
                     // every tag must be assigned to the passage
                     return tags.includes(testTag);
                 });
@@ -74,7 +74,7 @@
     }
 
     function getElements (arr) {
-        return arr.map( function (i) {
+        return Fast.map(arr, function (i) {
             return i.$el;
         });
     }
@@ -236,7 +236,7 @@
 (function () {
     'use strict';
 
-    var passageNames = poof.passages.map( function (p) {
+    var passageNames = Fast.map(poof.passages, function (p) {
         return p.name;
     });
 

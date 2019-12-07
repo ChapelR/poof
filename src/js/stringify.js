@@ -26,7 +26,7 @@
 
     function createObjectFromAllPassages (noMeta) {
         var ret = [];
-        poof.passages.forEach( function (psg) {
+        Fast.forEach(poof.passages, function (psg) {
             ret.push(createPassageObject(psg, noMeta));
         });
         return ret;

@@ -124,10 +124,10 @@
 
             // check globals
             settings.globals = handleArrays(settings.globals);
-            settings.globals = settings.globals.filter( function (gl) {
+            settings.globals = Fast.map(Fast.filter(settings.globals, function (gl) {
                 // make sure globals are valid identifiers
                 return typeof gl === 'string' && (/[A-Za-z_$]/).test(gl[0]);
-            }).map( function (gl) {
+            }), function (gl) {
                 // trim each global
                 return handleStrings(gl);
             });

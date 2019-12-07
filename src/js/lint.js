@@ -194,7 +194,7 @@
 
     function objectify (arr) { // lol
         var ret = {};
-        arr.forEach( function (el) {
+        Fast.forEach(arr, function (el) {
             ret[el] = false;
         });
         return ret;
