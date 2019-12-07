@@ -38,7 +38,8 @@ Older versions of poof can be accessed by replacing the `@latest` in the URL wit
 - v1.1.0  
 - v1.2.0  
 - v1.3.1  
-- v1.4.1 (latest)
+- v1.4.1 
+- v1.5.0 (latest)
 
 You can also access the development version of poof with the URL `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/dev.js`. The development version is never stable, and is not recommended for general use.
 
@@ -188,6 +189,10 @@ As you (hopefully) know, you can make a back-up of all of your stories by creati
 
 > [!TIP]
 > When you import an archive, it sometimes won't work at first. Try changing your story format and reselecting your start passage to fix this.
+
+### JSON
+
+You can export your story to JSON format, which can allow you to import your passage data into other tools and applications. You can optionally include additional metadata and optionally pretty print the data.
 
 ## Comments
 
