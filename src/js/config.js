@@ -75,6 +75,10 @@
                 fontSize : 'normal',
                 lineHeight : 1.15
             },
+            json : {
+                pretty : 0,
+                verbose : false
+            },
             twee : 3,
             parse : true // whether to parse for passage references
         };
@@ -89,6 +93,7 @@
             settings.codeHeightLimit = enforceBool(settings.codeHeightLimit);
             settings.nightMode = enforceBool(settings.nightMode);
             settings.parse = enforceBool(settings.parse);
+            settings.json.verbose = enforceBool(settings.json.verbose);
 
             // handle strings
             settings.ignoreTag = handleStrings(settings.ignoreTag);
@@ -101,7 +106,8 @@
 
             // handle numbers
             settings.pdf.lineHeight = handleNums(settings.pdf.lineHeight);
-            settings.twee = handleNums(settings.twee);
+            settings.twee = Math.trunc(handleNums(settings.twee));
+            settings.json.pretty = Math.trunc(handleNums(settings.json.pretty));
 
             // check for valid options
             if (!validFonts.includes(settings.pdf.font)) {
@@ -120,6 +126,12 @@
             }
             if (settings.pdf.lineHeight > 2) {
                 settings.pdf.lineHeight = 2;
+            }
+            if (settings.json.pretty > 8) {
+                settings.json.pretty = 8;
+            }
+            if (settings.json.pretty < 0) {
+                settings.json.pretty = 0;
             }
 
             // check globals

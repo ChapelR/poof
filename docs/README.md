@@ -237,6 +237,9 @@ A `poof.config` passage may look like this:
     "pdf" : {
         "lineHeight": 2,
         "font": "monospace"
+    },
+    "json" : {
+        "verbose" : true
     }
 }
 ```
@@ -254,6 +257,7 @@ The following options can be used:
 - `format`: A sub-object with two properties, `name` and `version` (which should be a string, like `"1.0.1"`). In Twine 2, poof will automatically detect which story format you have selected and tune the linter and some other features to match that information if it's a *major* format (i.e. Harlowe, SugarCube, Snowman, or Chapbook). In CLI compilers like Tweego, this isn't possible, and the automatically detected format will be poof, which isn't helpful. Set this option to a valid version of the format you want to use to either override what poof detects from Twine 2 or to set the format for the CLI compilers.  
 - `globals`: This option should be set to an array of strings. Each string represents the name of a global variable that your JavaScript has access to, such as from an external JavaScript library. Poof will automatically register the *documented* globals of the core Twine 2 story formats, so you only need to use this to tune the linter when using undocumented features, third-party formats, or external JavaScript (and only if the warnings about undefined variables bother you when using the linter).  
 - `pdf`: This sub-object controls the various styles and features of the PDF export. You can change the `lineHeight` (line spacing) and set it to a number between `1` (single-spaced) and `2` (double-spaced). The default line height is `1.15`. Use the `fontSize` option to change the size of the text in the exported file (the options are `"very small"` [8pt], `"small"` [10pt], `"normal"` [12pt], `"large"` [14pt], and `"very large"` [16pt]). The default is `"normal"` (12pt). The `font` option can be used to set the font to a `"monospace"` (Consolas), `"serif"` (Georgia), or `"san-serif"` (Roboto) font. The default font is `"sans-serif"` (Roboto).  
+- `json`: This sun-object controls the settings of the JSON export. You can provide an integer for how many spaces the JSON's pretty printing should include for each level with the `pretty` property. If you pass a `0`, the JSON will not be pretty printed, and instead be minified. The `verbose` property can be set to `true`, causing additional meta data to be added to the JSON output.
 - `twee`: set this option to `1`, `2`, or `3`. This option controls the encoding used by the Twee encoder, and can export Twee to the [classic style](http://twee-twine-doc.tiddlyspot.com/) used be Twine 1.4.2 and other first generation Twee compilers if set to `1`, to the format used by [Twee2](https://dan-q.github.io/twee2/documentation.html#twee2-syntax) if set to `2`, or to the new Twee 3 specification format, as [seen here](https://github.com/iftechfoundation/twine-specs/blob/master/twee-3-specification.md), if set to `3`.  
 - `parse`: set this option to `true` or `false`. If true, poof will parse passages for "passage references," including link markup and a subset of macros (if poof supports the story format's macro set; it currently only supports Harlowe and SugarCube macros, and only link, click, and goto style macros), and will add information about which passages are referenced by and have references to each other passage in the passage card interface, including links that can be used to zoom to those passage cards.
 

@@ -52,40 +52,21 @@
         }
     }
 
-    function stringifyModal (fileName) {
-        var $pretty = poof.forms.check('pretty-print', 'Pretty print JSON.')
-                .attr('title', 'Pretty print JSON.'),
-            $meta = poof.forms.check('include-metadata', 'Include additional metadata.')
-                .attr('title', 'Include additional metadata.');
+    function getJSON (fileName) {
 
-        var $form = poof.forms.form([$pretty, $meta]);
+        var pretty = poof.config.json.pretty,
+            meta = !!poof.config.json.verbose;
 
-        var $confirm = poof.forms.confirm('Export', function () {
+        download(stringifyPassages({
+            spaces : pretty ? 4 : 0,
+            meta : meta
+        }), fileName, 'application/json;charset=utf-8');
 
-            poof.modal.close();
+        $(document).trigger(':json-export-end');
 
-            $(document).trigger(':json-export-start');
-
-            var pretty = $('#pretty-print').prop('checked'),
-                meta = $('#include-metadata').prop('checked');
-
-            download(stringifyPassages({
-                spaces : pretty ? 4 : 0,
-                meta : meta
-            }), fileName, 'application/json;charset=utf-8');
-
-            $(document).trigger(':json-export-end');
-        });
-
-        var $cancel = poof.forms.cancel('Cancel', function () {
-            poof.modal.close();
-        });
-
-        poof.modal.write('Export to JSON', [$pretty, $meta], [$confirm, $cancel]);
- 
     }
 
     poof.stringify = stringifyPassages;
-    poof.stringifyModal = stringifyModal;
+    poof.getJSON = getJSON;
 
 }());
