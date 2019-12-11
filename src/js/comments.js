@@ -30,7 +30,7 @@
         var el = poof.el;
         var $list = el('div', { classes : 'comments-list'});
 
-        var commentEls = commentList.map( function (comment, idx) {
+        var commentEls = Fast.map(commentList, function (comment, idx) {
             return commentToHtml(comment, idx, passage);
         });
 
@@ -160,7 +160,7 @@
 
     function displayCommentNumbers () {
         var comments = poof.state.comments;
-        Object.keys(comments).forEach( function (psg) {
+        Fast.forEach(Object.keys(comments), function (psg) {
             var readout = comments[psg].length;
             if (!readout) {
                 return;
@@ -263,7 +263,7 @@
             comments : (loadMe && loadMe.comments) || {} // array of comments indexed by passage name
         };
         displayCommentNumbers();
-    };
+    }
 
     function createCommentExport () {
         // this utility function exports the state, with comments; a seperate function handles imports
@@ -331,8 +331,8 @@
             return (item && Array.isArray(item) && item.length);
         };
 
-        Object.keys(read.comments).forEach( function (passage) {
-            if (poof.passages.findIndex( function (psg) {
+        Fast.forEach(Object.keys(read.comments), function (passage) {
+            if (Fast.findIndex(poof.passages, function (psg) {
                 return passage === psg.name;
             }) === -1) {
                 warnings.push('Cannot find passage "' + passage + '", ignoring comments.');

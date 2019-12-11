@@ -30,7 +30,7 @@
         }
         return poof.el('div', { class : 'pure-controls' }, [
             poof.el('label', { for : id }, label),
-            poof.el('select', { id : id }, opts.map( function (opt) {
+            poof.el('select', { id : id }, Fast.map(opts, function (opt) {
                 return poof.el('option', {}, opt);
             }))
         ]);
@@ -42,7 +42,7 @@
             poof.el('fieldset', {}, [
                 poof.el('label', {}, [ label, 
                     poof.el('input', { 'list': listID, id : id, placeholder : placeholder })]),
-                poof.el('datalist', { id : listID }, opts.map( function (opt) {
+                poof.el('datalist', { id : listID }, Fast.map(opts, function (opt) {
                     return poof.el('option', { value : opt });
                 }))
         ]));

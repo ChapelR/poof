@@ -50,6 +50,7 @@ function buildScripts () {
         'vendor/highlight.pack.js',
         'vendor/download.js',
         // scripts
+        'fast.js',
         'util.js',
         'modal.js',
         'buttons.js',
@@ -60,6 +61,7 @@ function buildScripts () {
         'parser.js',
         'state.js',
         'tools.js',
+        'stringify.js',
         'export.js',
         'comments.js',
         'comment-import.js',

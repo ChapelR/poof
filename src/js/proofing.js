@@ -34,11 +34,11 @@
     });
 
     passages = passages.sort(function (a, b) {
-        // sort the passage array by pid, which is roughly the order of creation
+        // sort the passage array by pid, which is sometimes the order of creation
         return a.id - b.id;
     });
 
-    var passageNames = passages.map( function (psg) {
+    var passageNames = Fast.map(passages, function (psg) {
         return psg.name;
     });
 
@@ -72,13 +72,13 @@
     }
 
     // here we make sure to grab the user scripts and styles
-    var userScripts = dataChunk.children('*[type="text/twine-javascript"]').toArray().map( function (el) {
+    var userScripts = Fast.map(dataChunk.children('*[type="text/twine-javascript"]').toArray(), function (el) {
         return $(el).html();
     });
 
     userScripts = (userScripts && userScripts.length) ? userScripts.join('\n\n').trim() : '';
 
-    var userStyles = dataChunk.children('*[type="text/twine-css"]').toArray().map( function (el) {
+    var userStyles = Fast.map(dataChunk.children('*[type="text/twine-css"]').toArray(), function (el) {
         return $(el).html();
     });
 
@@ -113,7 +113,7 @@
             .append( poof.el('h2', { classes : 'passage-title' }, passage.name))
             // the tag block
             .append( poof.el('p', { classes : 'passage-tags' }, poof.el('span', { classes : 'tag-title' }, 'Tags: '))
-                    .append( tags.split(' ').map( function (tag) {
+                    .append( Fast.map(tags.split(' '), function (tag) {
                         var isFiltered = false;
                         $(document).on(':filter-complete', function () {
                             isFiltered = false;
@@ -237,7 +237,7 @@
                             JSHINT(userScripts, opts, globals);
                             var $output;
                             if (JSHINT.errors && Array.isArray(JSHINT.errors) && JSHINT.errors.length) {
-                                $output = poof.el('div', { classes : 'errors js-errors' }, JSHINT.errors.map( function (err) {
+                                $output = poof.el('div', { classes : 'errors js-errors' }, Fast.map(JSHINT.errors, function (err) {
                                     return poof.el('p', { classes : 'error-p' })
                                         .append( poof.el('span', { classes : 'error-line' }, err.line),
                                             poof.el('span', { classes : 'error-msg' }, err.reason));
@@ -326,7 +326,7 @@
 
     function createTweeSource () {
         // combine all the twee-notation elements into one string
-        var tweePassages = passages.map( function (psg) {
+        var tweePassages = Fast.map(passages, function (psg) {
             return passageToTwee(psg);
         }).join('\n\n');
         var twee = dataToTwee(story) + userStylesToTwee() + userScriptsToTwee() + tweePassages;
@@ -336,7 +336,7 @@
 
     function createHtmlOutput () {
         // create our overall DOM structure for output to the page
-        var htmlPassages = passages.map( function (psg) {
+        var htmlPassages = Fast.map(passages, function (psg) {
             return passageToHtml(psg);
         });
         // this is the primary passage view

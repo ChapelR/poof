@@ -164,7 +164,7 @@
     ];
 
     // Snowman JavaScript globals
-    var smGlobals = [
+    var sm1Globals = [
         // vendor
         '$',
         'jQuery',
@@ -172,6 +172,22 @@
         // APIs
         'story',
         'passage'
+    ];
+
+    var sm2Globals = [
+        // vendor
+        '$',
+        'jQuery',
+        '_',
+        // APIs
+        'story',
+        'passage',
+        // functions
+        'either',
+        'hasVisited',
+        'visited',
+        'renderToSelector',
+        'getStyles'
     ];
 
     var cbGlobals = [
@@ -194,7 +210,7 @@
 
     function objectify (arr) { // lol
         var ret = {};
-        arr.forEach( function (el) {
+        Fast.forEach(arr, function (el) {
             ret[el] = false;
         });
         return ret;
@@ -209,7 +225,11 @@
             }
         }
         if (format.name === 'snowman') {
-            return objectify(smGlobals);
+            if (format.major === '1') {
+                return objectify(sm1Globals);
+            } else {
+                return objectify(sm2Globals);
+            }
         }
         if (format.name === 'harlowe') {
             return objectify(hlGlobals);

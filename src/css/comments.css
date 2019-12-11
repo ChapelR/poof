@@ -46,6 +46,7 @@ div.empty-comment.add-comment {
     text-align: center;
     color: #888;
     cursor: pointer;
+    margin: 0.1em;
 }
 
 div.empty-comment.add-comment:hover, div.empty-comment.add-comment:active {

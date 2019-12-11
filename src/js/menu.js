@@ -72,7 +72,6 @@
             here we'll handle all of our menu options
         */
 
-        // about 
         $('#about').on('click', function () {
             // generate the credits modal
             var $byline = poof.el('p', {}, $('body').attr('data-byline') + '.');
