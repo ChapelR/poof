@@ -32,26 +32,6 @@
     // export
     poof.el = el;
 
-    function menuLink (link, title, cb) {
-        var $link;
-
-        if (typeof link === 'string' || link instanceof HTMLElement) {
-            $link = $(link);
-        } else if (link instanceof jQuery) {
-            $link = link;
-        } else {
-            return;
-        }
-        if (typeof title !== 'string') {
-            title = '';
-        }
-        if (typeof callback !== 'function') {
-            return;
-        }
-
-        return $link.on('click', cb).attr('title', title);
-    }
-
     var bslash = '\\';
 
     function getStartPassage () {
@@ -264,7 +244,6 @@
     }
 
     poof.utils = {
-        menu : menuLink,
         backSlash : bslash,
         isPassage : isValidPassage,
         filterPassages : filterForPassages,
