@@ -68,12 +68,13 @@
         /*** MENUS ***/
 
     function menuInit () {
+        var menu = poof.util.menu;
         /*
             here we'll handle all of our menu options
         */
 
         // about 
-        $('#about').on('click', function () {
+        menu('#about', 'About this story format.', function () {
             // generate the credits modal
             var $byline = poof.el('p', {}, $('body').attr('data-byline') + '.');
             var $version = poof.el('p', {}, 'Version: ' + $('body').attr('data-version'));
@@ -83,26 +84,23 @@
                 poof.modal.close();
             });
             poof.modal.write('About poof', [$byline, $version, $creditsP, $credits], $cancel);
-        }).attr('title', 'About this story format.');
+        });
 
         // export menu
-        $('#twee-export').on('click', function () {
-            poof.createDownload('txt'); // creates a file download
-        }).attr('title', 'Export to plain text in Twee notation.');
-        $('#html-export').on('click', function () {
-            poof.createDownload('html'); // DEACTIVATED
-        }).attr('title', 'Save this HTML view for sharing and later use.');
-        $('#pdf-export').on('click', function () {
-            poof.createDownload('pdf'); // creates a file download
-        }).attr('title', 'Export to PDF format for printing or sharing.');
-        $('#archive-export').on('click', function () {
-            poof.createDownload('archive'); // creates a file download
-        }).attr('title', 'Export to a Twine 2 archive HTML file.');
-        $('#json-export').on('click', function () {
-            poof.createDownload('json'); // creates a file download
-        }).attr('title', 'Export passage data to JSON. JavaScript, CSS, and story metadata are omitted.');
+        menu('#twee-export', 'Export to plain text in Twee notation.', function () {
+            poof.createDownload('txt');
+        });
+        menu('#pdf-export', 'Export to PDF format for printing or sharing.', function () {
+            poof.createDownload('pdf');
+        });
+        menu('#archive-export', 'Export to a Twine 2 archive HTML file.', function () {
+            poof.createDownload('archive');
+        });
+        menu('#json-export', 'Export passage data to JSON. JavaScript, CSS, and story metadata are omitted.', function () {
+            poof.createDownload('json');
+        });
 
-        // view menu
+        // config menu
         $('#night').on('click', function () {
             // toggle night mode (light text on dark)
             poof.viewModes.dark($(this));
@@ -119,13 +117,15 @@
             // controls whether long text nodes are given a max-height and scrollbars
             poof.viewModes.textHt($(this));
         }).attr('title', 'Toggle whether to use a scrollbar for lengthy text.');
-        $('#passages').on('click', function () {
+
+        // view menu
+        menu('#passages', 'View your passages.', function () {
             // the main passage view
             hideOverlay();
             $('#story-stylesheet').addClass('hide');
             $('#story-javascript').addClass('hide');
-        }).attr('title', 'View your passages.');
-        $('#javascript').on('click', function () {
+        });
+        menu('#javascript', 'View your JavaScript code.', function () {
             // view the story javascript area code
             showOverlay();
             $('#story-stylesheet').addClass('hide');
@@ -135,35 +135,35 @@
                     .removeClass('pure-button-disabled')
                     .attr('title', 'Check your JavaScript code for errors.');
             }
-        }).attr('title', 'View your JavaScript code.');
-        $('#stylesheet').on('click', function () {
+        });
+        menu('#stylesheet', 'View your stylesheet.', function () {
             // view the story stylesheet
             showOverlay();
             $('#story-stylesheet').removeClass('hide');
             $('#story-javascript').addClass('hide');
-        }).attr('title', 'View your stylesheet.');
+        });
 
         // tools menu
-        $('#tools-filter').on('click', function () {
+        menu('#tools-filter', 'Filter the displayed passages.', function () {
             poof.tools.filter(); // opens a modal
-        }).attr('title', 'Filter the displayed passages.');
-        $('#tools-sort').on('click', function () {
+        });
+        menu('#tools-sort', 'Sort the displayed passages.', function () {
             poof.tools.sort(); // opens a modal
-        }).attr('title', 'Sort the displayed passages.');
-        $('#tools-find').on('click', function () {
+        });
+        menu('#tools-find', 'Find a specific passage by title.', function () {
             poof.tools.find(); // opens a modal
-        }).attr('title', 'Find a specific passage by title.');
-        $('#tools-starting').on('click', function () {
+        });
+        $('#tools-starting', 'Locate the starting passage.', function () {
             poof.tools.starting(); // scrolls the page
-        }).attr('title', 'Locate the starting passage.');
+        });
 
         // comments menu
-        $('#comments-export').on('click', function () {
+        menu('#comments-export', 'Export comments to file.', function () {
             poof.comments.export(); // opens a modal
-        }).attr('title', 'Export comments to file.');
-        $('#comments-import').on('click', function () {
+        });
+        $('#comments-import', 'Import comments from a file.', function () {
             poof.comments.importer(); // opens a modal
-        }).attr('title', 'Import comments from a file.');
+        });
         
         // filter clearing
         $(document.body).append(poof.el('button', { 

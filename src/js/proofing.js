@@ -34,7 +34,7 @@
     });
 
     passages = passages.sort(function (a, b) {
-        // sort the passage array by pid, which is roughly the order of creation
+        // sort the passage array by pid, which is sometimes the order of creation
         return a.id - b.id;
     });
 
