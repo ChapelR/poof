@@ -27,6 +27,7 @@
 
         <!--! Menu -->
         <div class="pure-menu pure-menu-horizontal">
+            <a href="javascript:void(0)" id="sidebar-link" class="pure-menu-heading pure-menu-link" title="Passage List">&#9776;</a>
             <ul class="pure-menu-list">
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                     <a href="javascript:void(0)" id="configs" class="pure-menu-link" title="Settings">&#9881;</a>
@@ -82,7 +83,7 @@
             </ul>
         </div>
         <!--! /Menu -->
-        <div id='sidebar'><ul></ul></div>
+        <div id='sidebar' class="closed"><ul></ul></div>
         <div id="content"><div id='overlay'><div class='loader'>Loading...</div></div></div>
         {{STORY_DATA}}
         <script type="text/javascript">

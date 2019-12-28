@@ -12,6 +12,7 @@
         poof.init.proofing(); // start the rendering process
         poof.init.comments(); // start the commenting subsystem
         poof.init.menu(); // attach the menu event handlers
+        poof.init.sidebar(); // sidebar listings and event handlers
 
         // set a few last-minute configs
         if (poof.config.simplified) {

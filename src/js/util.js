@@ -102,7 +102,8 @@
         // create a link with the name of a passage that, when clicked, scrolls that passage card into view
         return el('a', {
             classes : 'jumpto',
-            href : 'javascript:void(0)' // ignore warnings
+            href : 'javascript:void(0)', // ignore warnings
+            title : 'Jump'
         }, passageName)
             .on('click', function () {
                 scrollToPassage(passageName);

@@ -2,13 +2,27 @@
     position: fixed;
     background-color: #ccc;
     left: 0;
-    top: 0;
+    top: 2em;
     bottom: 0;
     width: 15em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 2px #000;
+    color: #111;
+    transition: left 300ms;
+    -webkit-transition: left 300ms;
+    -moz-transition: left 300ms;
+    -ms-transition: left 300ms;
+    -o-transition: left 300ms;
+}
+
+#sidebar.closed {
+    left: -16em;
 }
 
 #sidebar ul {
-    padding: 4em 1em;
+    padding: 0;
+    margin: 0;
 }
 
 #sidebar li {
@@ -26,6 +40,8 @@ a.jumpto.sidebar-jump {
     display: block;
     height: 100%;
     padding: 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: padding-left 300ms;
     -webkit-transition: padding-left 300ms;
     -moz-transition: padding-left 300ms;
@@ -35,4 +51,12 @@ a.jumpto.sidebar-jump {
 
 a.jumpto.sidebar-jump:hover {
     padding-left: 1em;
+}
+
+#sidebar-link {
+    width: 1.1em;
+}
+
+#sidebar-link.invis {
+    visibility: hidden;
 }

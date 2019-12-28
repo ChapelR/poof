@@ -120,12 +120,14 @@
             hideOverlay();
             $('#story-stylesheet').addClass('hide');
             $('#story-javascript').addClass('hide');
+            $('#sidebar-link').removeClass('invis');
         }).attr('title', 'View your passages.');
         $('#javascript').on('click', function () {
             // view the story javascript area code
             showOverlay();
             $('#story-stylesheet').addClass('hide');
             $('#story-javascript').removeClass('hide');
+            $('#sidebar-link').addClass('invis');
             if (JSHINT) {
                 $('#lint')
                     .removeClass('pure-button-disabled')
@@ -137,6 +139,7 @@
             showOverlay();
             $('#story-stylesheet').removeClass('hide');
             $('#story-javascript').addClass('hide');
+            $('#sidebar-link').addClass('invis');
         }).attr('title', 'View your stylesheet.');
 
         // tools menu
