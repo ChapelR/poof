@@ -1,5 +1,9 @@
 # Release Versions
 
+## Version 1.6.0
+
+- UI improvements.
+
 ## Version 1.5.0
 
 - Added JSON export. Exports passage data (but not JavaScript, CSS, or additional story metadata) to a single JSON array, which can be optionally pretty printed. Additional meta data, most of which is for either poof or the Twine 2 app specifically, can be added to the export if desired.
