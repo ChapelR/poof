@@ -134,3 +134,7 @@ html.night div#content.simple pre.hljs {
 html.night #clear-filters {
     box-shadow: -1px 1px 2px #222;
 }
+
+html.night a {
+    color: #7FDBFF;
+}
