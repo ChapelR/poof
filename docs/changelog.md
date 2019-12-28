@@ -2,6 +2,8 @@
 
 ## Version 1.6.0
 
+- Added passage list interface to help authors quickly move between passages in large projects. Click the hamburger icon on the top left in the passage view to toggle the passage list. This list reflects your current sorting and filtering settings.
+- Fixed bug in click-to-filter tags.
 - UI improvements.
 
 ## Version 1.5.0
