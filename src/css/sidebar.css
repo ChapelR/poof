@@ -1,0 +1,38 @@
+#sidebar {
+    position: fixed;
+    background-color: #ccc;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 15em;
+}
+
+#sidebar ul {
+    padding: 4em 1em;
+}
+
+#sidebar li {
+    list-style: none;
+    display: block;
+}
+
+#sidebar li:not(:last-child) {
+    border-bottom: 1px solid #111;
+}
+
+a.jumpto.sidebar-jump {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    height: 100%;
+    padding: 0.5em;
+    transition: padding-left 300ms;
+    -webkit-transition: padding-left 300ms;
+    -moz-transition: padding-left 300ms;
+    -ms-transition: padding-left 300ms;
+    -o-transition: padding-left 300ms;
+}
+
+a.jumpto.sidebar-jump:hover {
+    padding-left: 1em;
+}
