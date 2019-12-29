@@ -134,3 +134,20 @@ html.night div#content.simple pre.hljs {
 html.night #clear-filters {
     box-shadow: -1px 1px 2px #222;
 }
+
+html.night a.jumpto {
+    color: #7FDBFF;
+}
+
+html.night a.jumpto.sidebar-jump {
+    color: #fff;
+}
+
+html.night #sidebar {
+    color: #fff;
+    background-color: #222;
+}
+
+html.night #sidebar li {
+    border-color: #ccc;
+}

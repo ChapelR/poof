@@ -39,7 +39,8 @@ Older versions of poof can be accessed by replacing the `@latest` in the URL wit
 - v1.2.0  
 - v1.3.1  
 - v1.4.1 
-- v1.5.0 (latest)
+- v1.5.0
+- v1.6.0 (latest)
 
 You can also access the development version of poof with the URL `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/dev.js`. The development version is never stable, and is not recommended for general use.
 
@@ -117,12 +118,19 @@ The passage card contains all the content and metadata for a passage.
 > [!NOTE]
 > Poof will attempt to parse many different kinds of passage references, not just markup links, based on the format you are using.
 
+### Passage List
+
+You'll likely immediately notice your story's vital information on display, including story and passage data. Across the top of the window is several menus, and a hamburger icon ( &#9776;) on the left. Clicking this icon toggles the passage list interface, which you can use to quickly jump to passages by clicking on their names.
+
+>  [!NOTE]
+> When you use tools (see [below](#tools)) to sort and filter your passages, these changes will also be reflected in the passage list.
+
 ### Options
 
 > [!TIP]
 > You can use the `poof.config` special passage (see [below](#configuration)) to set these options for a given story so that you don't have to, say, go turn on the dark mode option every time you view your proofing copy.
 
-You'll likely immediately notice your story's vital information on display, including story and passage data. Across the top of the window is several menus, and a gear icon (&#9881;) on the left. Click on the gear icon to configure your proofing view.
+Click on the gear icon (&#9881;) to configure your proofing view.
 
 - `Night Mode`: This option toggles the page between the standard light-on-dark theme and a dark-on-light theme that may be easier on some eyeballs.
 - `Simplified View`: This option removes some of the boxes, borders, and shadows that separate passages and other elements. You may prefer reading without my dead-sexy CSS skills getting all up in your eyes. I promise I'm not offended. Click to toggle.  
@@ -183,7 +191,7 @@ Exporting to PDF is useful if you want a printable copy of your story, or someth
 ### Archive
 
 > [!NOTE]
-> Unlike the other exports, the archive option will not respect your filter or sort settings.
+> The archive option will not respect your filter or sort settings.
 
 As you (hopefully) know, you can make a back-up of all of your stories by creating an archive from the story list in Twine 2. You should do this a lot. This option does exactly the same thing, but only creates an archive of the current story. This archive can be used to back-up your story (though really, look into version control) and can also be used with certain compilers like Entwine and Tweego.
 
@@ -191,6 +199,9 @@ As you (hopefully) know, you can make a back-up of all of your stories by creati
 > When you import an archive, it sometimes won't work at first. Try changing your story format and reselecting your start passage to fix this.
 
 ### JSON
+
+>[!NOTE]
+>The JSON option will not respect your filter or sort settings.
 
 You can export your story to JSON format, which can allow you to import your passage data into other tools and applications. You can optionally include additional metadata and optionally pretty print the data.
 

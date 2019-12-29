@@ -61,6 +61,7 @@ function buildScripts () {
         'parser.js',
         'state.js',
         'tools.js',
+        'sidebar.js',
         'stringify.js',
         'export.js',
         'comments.js',
@@ -85,6 +86,7 @@ function buildStyles () {
         // styles
         'base.css',
         'passages.css',
+        'sidebar.css',
         'simple.css',
         'modal.css',
         'comments.css',

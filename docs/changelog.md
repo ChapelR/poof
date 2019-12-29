@@ -1,5 +1,11 @@
 # Release Versions
 
+## Version 1.6.0
+
+- Added passage list interface to help authors quickly move between passages in large projects. Click the hamburger icon on the top left in the passage view to toggle the passage list. This list reflects your current sorting and filtering settings.
+- Fixed bug in click-to-filter tags.
+- UI improvements.
+
 ## Version 1.5.0
 
 - Added JSON export. Exports passage data (but not JavaScript, CSS, or additional story metadata) to a single JSON array, which can be optionally pretty printed. Additional meta data, most of which is for either poof or the Twine 2 app specifically, can be added to the export if desired.

@@ -53,13 +53,26 @@
         }
         return -1;
     }
+
+    function fastEvery (arr, fn) {
+        var lt = arr.length, i;
+        
+        for (i = 0; i < lt; i++) {
+            if (!fn(arr[i], i, arr)) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
     
     window.Fast = {
         filter : fastFilter,
         forEach : fastForEach,
         map : fastMap,
         find : fastFind,
-        findIndex: fastFindIndex
+        findIndex: fastFindIndex,
+        every: fastEvery
     };
 
 }());
