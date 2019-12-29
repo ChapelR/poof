@@ -11,6 +11,10 @@ div.passage-footer.closed {
     border: 0;
 }
 
+button.comment-open {
+    color: #000;
+}
+
 div.passage-footer button.comment-open {
     min-width: 100%;
     transition: 300ms all;
