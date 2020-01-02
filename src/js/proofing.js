@@ -146,7 +146,7 @@
                 classes : 'passage-references-title'
             }, 'References to Other Passages: '), references]) : poof.utils.voidEl() )
             // passage source code
-            .append( poof.el('div', { classes : 'passage-source' },
+            .append( poof.el('div', { classes : 'passage-source', tabindex : "0" },
                 poof.el('pre', {}, passage.source.trim())) )
             // footer (comments)
             .append( poof.el('div', { classes : 'passage-footer closed' }, [poof.el('button', { 

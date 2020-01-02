@@ -15,11 +15,11 @@
     <body data-version="/% version %/" data-byline="/% byline %/">
 
         <!--! Modal -->
-        <div class="modale" aria-hidden="true">
+        <div class="modale" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
           <div class="modal-dialog">
             <div class="modal-header">
                 <h2 id="modal-title">Title</h2>
-                <a href="javascript:void(0)" class="btn-close closemodale" aria-hidden="true">&times;</a>
+                <a href="javascript:void(0)" tabindex="-1" class="btn-close closemodale" aria-hidden="true">&times;</a>
             </div>
             <div id="modal-body" class="modal-body">Body</div>
             <div id="modal-footer" class="modal-footer">Footer</div>
@@ -28,7 +28,7 @@
         <!--! /Modal -->
 
         <!--! Menu -->
-        <div class="pure-menu pure-menu-horizontal">
+        <div class="pure-menu pure-menu-horizontal" role="navigation">
             <a href="javascript:void(0)" id="sidebar-link" class="pure-menu-heading pure-menu-link" title="Passage List">&#9776;</a>
             <ul class="pure-menu-list">
                 <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
@@ -85,8 +85,8 @@
             </ul>
         </div>
         <!--! /Menu -->
-        <div id='sidebar' class="closed"><ul></ul></div>
-        <div id="content"><div id='overlay'><div class='loader'>Loading...</div></div></div>
+        <div id='sidebar' class="closed" role="complementary"><ul></ul></div>
+        <div id="content" role="main"><div id='overlay'><div class='loader'>Loading...</div></div></div>
         {{STORY_DATA}}
         <script type="text/javascript">
         /% scripts %/

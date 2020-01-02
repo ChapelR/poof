@@ -1,5 +1,11 @@
 # Release Versions
 
+## Version 1.6.2
+
+- Performance and accessibility improvements.
+- Screen reader compatibility has been improved.
+- Keyboard-only navigation should now be possible.
+
 ## Version 1.6.1
 
 - Performance improvements.

@@ -15,10 +15,24 @@
 
     // basic methods
     function openModal () {
-        $('.modale').addClass('opened');
+        $('.modale')
+            .addClass('opened')
+            .attr('aria-hidden', 'false')
+            .find('a[tabindex="-1"]')
+                .attr({
+                    "tabindex": "0",
+                    "aria-hidden": "false"
+                });
     }
     function closeModal () {
-        $('.modale').removeClass('opened');
+        $('.modale')
+            .removeClass('opened')
+            .attr('aria-hidden', 'true')
+            .find('a[tabindex="0"]')
+                .attr({
+                    "tabindex": "-1",
+                    "aria-hidden": "true"
+                });
     }
 
     function modalBody (content, keep) {
