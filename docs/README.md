@@ -122,8 +122,7 @@ The passage card contains all the content and metadata for a passage.
 
 You'll likely immediately notice your story's vital information on display, including story and passage data. Across the top of the window is several menus, and a hamburger icon ( &#9776;) on the left. Clicking this icon toggles the passage list interface, which you can use to quickly jump to passages by clicking on their names.
 
->  [!NOTE]
-> When you use tools (see [below](#tools)) to sort and filter your passages, these changes will also be reflected in the passage list.
+You can use the `poof.config` special passage (see [below](#configuration)) to set these options for a given story so that you don't have to, say, go turn on the dark mode option every time you view your proofing copy.
 
 ### Options
 
