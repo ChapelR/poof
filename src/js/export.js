@@ -19,7 +19,7 @@
 
     function twArchive () {
         var $story = $('tw-storydata').clone();
-        if (poof.configPassage && poof.stringNotEmpty(poof.configPassage.text())) {
+        if (poof.configPassage && poof.utils.stringNotEmpty(poof.configPassage.text())) {
             // add `poof.config` if it existed
             $story.append(poof.configPassage);
         }

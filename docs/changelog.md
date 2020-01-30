@@ -1,5 +1,9 @@
 # Release Versions
 
+## Version 1.6.3
+
+- Fixed error in archive export.
+
 ## Version 1.6.2
 
 - Performance and accessibility improvements.
