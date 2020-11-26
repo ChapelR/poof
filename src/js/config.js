@@ -157,10 +157,68 @@
         }
     }());
 
+    function removeMe (obj, prop, val) {
+        if (val === undefined) {
+            if (!obj[prop]) {
+                delete obj[prop];
+            }
+        } else {
+            if (obj[prop] === val) {
+                delete obj[prop];
+            }
+        }
+    }
+
+    function removeSubObj (obj, subObj) {
+        var props = Object.keys(obj[subObj]);
+        if (props.length) {
+            if (props.every( function (p) {
+                return p === undefined;
+            })) {
+                delete obj[subObj];
+            }
+        } else {
+            delete obj[subObj];
+        }
+    }
+
+    function configExport (cfg) {
+        cfg = JSON.parse(JSON.stringify(cfg || config));
+        
+        removeMe(cfg.fonts, 'main', '');
+        removeMe(cfg.fonts, 'code', '');
+        removeSubObj(cfg, 'fonts');
+
+        removeMe(cfg.format, 'name', '');
+        removeMe(cfg.format, 'version', '');
+        removeSubObj(cfg, 'format');
+
+        if (!cfg.globals.length) {
+            delete cfg.globals;
+        }
+        removeMe(cfg, 'twee', 3);
+        removeMe(cfg, 'ingoreTag', 'poof.ignore');
+        removeMe(cfg, 'parse', true);
+
+        removeMe(cfg.pdf, 'font', 'sans');
+        removeMe(cfg.pdf, 'fontSize', 'normal');
+        removeMe(cfg.pdf, 'lineHeight', 1.15);
+        removeSubObj(cfg, 'pdf');
+
+        removeMe(cfg.json, 'pretty', 0);
+        removeMe(cfg.json, 'verbose', false);
+        removeSubObj(cfg, 'json');
+
+        return JSON.stringify(cfg, null, 2);
+    }
+
     // remove the config passage
     window.poof.configPassage = $configPassage.remove(); // save a reference for later
 
     // export the config settings
     window.poof.config = config;
+
+    // config exporter
+    window.poof.configExport = configExport;
 
 }());

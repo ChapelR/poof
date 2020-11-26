@@ -97,6 +97,9 @@
         $('#archive-export').on('click', function () {
             poof.createDownload('archive'); // creates a file download
         }).attr('title', 'Export to a Twine 2 archive HTML file.');
+        $('#config-export').on('click', function () {
+            poof.export.config(); // creates a modal with configurations for copy/paste
+        }).attr('title', 'Create a JSON configuration for your current settings.');
 
         // view menu
         $('#night').on('click', function () {

@@ -219,11 +219,31 @@
         }
     }
 
+    // CONFIGURATION EXPORT
+    function configuration () {
+        var data = poof.configExport(poof.config);
+        var $p = poof.el('p', {}, 'To make your current settings the default for the current story, copy and paste the below JSON into a passage named <code>poof.config</code> in your story.');
+        var $data = poof.el('textarea', { id : 'config-json' }).css({
+            width : '100%',
+            height : '9em' 
+        }).text(data);
+        var $select = poof.forms.confirm("Select All", function () {
+            $data.select();
+        });
+        var $copy = poof.forms.confirm("Copy to Clipboard", function () {
+            $data.select();
+            document.execCommand('copy');
+        }).removeClass('confirm-btn').css('float', 'right');
+
+        poof.modal.write('Export Configuration', [$p, $data], [$select, $copy]);
+    }
+
     window.poof.hasScript = hasScript;
 
     window.poof.export = {
         archive : twArchive,
-        PDF : createPDF
+        PDF : createPDF,
+        config : configuration
     };
 
     window.poof.createDownload = createDownload;
