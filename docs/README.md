@@ -3,7 +3,8 @@
 Demos:  
 - [Example HTML output](https://twinelab.net/poof/demo/)  
 - [Example PDF output](https://twinelab.net/poof/demo/poof.pdf)  
-- [Example plain text output](https://twinelab.net/poof/demo/poof.txt)
+- [Example plain text output](https://twinelab.net/poof/demo/poof.txt)  
+- [Example JSON output](https://twinelab.net/poof/demo/poof.json)
 
 Poof is a Twine 2 proofing and utility format that empowers you to review, edit, and proofread your content in a more productive way.
 
@@ -38,9 +39,10 @@ Older versions of poof can be accessed by replacing the `@latest` in the URL wit
 - v1.1.0  
 - v1.2.0  
 - v1.3.1  
-- v1.4.1 
-- v1.5.0
-- v1.6.3 (latest)
+- v1.4.1  
+- v1.5.0  
+- v1.6.3f  
+- v1.7.0 (latest)
 
 You can also access the development version of poof with the URL `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/dev.js`. The development version is never stable, and is not recommended for general use.
 
@@ -204,6 +206,10 @@ As you (hopefully) know, you can make a back-up of all of your stories by creati
 
 You can export your story to JSON format, which can allow you to import your passage data into other tools and applications. You can optionally include additional metadata and optionally pretty print the data.
 
+### Poof Config
+
+You can use this option to create a JSON export of your current settings, which you can then copy and paste into a special passage called `poof.config` in your story to preserve those settings. See the [configuration section](#configuration) below for more info.
+
 ## Comments
 
 Comments can be added to any passage. The blue comment button under every passage shows you how many comments each passage has and allows you to create, view, edit, and delete them. Click this button, then `+ Add a comment...` to get started. You can also click the pencil icon (&#9998;) in the upper right corner of a passage card to create a new comment that is pre-filled with the text of the passage, to make notes about edits or changes you want to make.
@@ -216,9 +222,9 @@ A comment must have either a body or a title, or both. After you make a comment,
 ### Local Storage
 
 > [!TIP]
-> It is recommended that you periodically make back-ups of your comments via the `Comments > Export` menu option (see [below](#comment-files)). While local storage is a fairly safe place for data, if you stop using poof for a while, it's possible that your browser will allow poof's data to be overwritten. It's also possible that clearing your browing history in certain ways or using certain "free up disk space" tools could delete your comment data.
+> It is recommended that you periodically make back-ups of your comments via the `Comments > Export` menu option (see [below](#comment-files)). While local storage is a fairly safe place for data, if you stop using poof for a while, it's possible that your browser will allow poof's data to be overwritten. It's also possible that clearing your browing history in certain ways or using certain "free up disk space" tools could delete your comment data. **Note that so-called "privacy" browsers, like Brave, as well as private browsing modes, like Chrome's "Incognito Mode," will restrict access to local storage causing data to not be saved!**
 
-Poof saves your comments to your browser's local storage anytime they are changed in anyway. This means that some care must be taken to preserve them, just like your Twine stories. Note that each story you open with poof will have it's own little place to hang out in local storage, so don't worry about overwriting one project's comments with another.
+Poof attempts to save your comments to your browser's local storage anytime they are changed in anyway. This means that some care must be taken to preserve them, just like your Twine stories. Note that each story you open with poof will have it's own little place to hang out in local storage, so don't worry about overwriting one project's comments with another.
 
 ### Comment Files
 
@@ -230,7 +236,7 @@ If the story you import the comments into doesn't have a passage that the commen
 
 ## Configuration
 
-You can configure your poof experience with a special passage in your story. This passage must be written in JSON format and called `poof.config`.  You have a number of options you can use to set things up for your viewing pleasure.
+You can configure your poof experience with a special passage in your story. This passage must be written in JSON format and  called `poof.config`.  You have a number of options you can use to set things up for your viewing pleasure. You may also configure poof according to your preferences and then export your settings using the `Poof Config` option in the `Export` menu and copy and paste the resulting JSON data into a passage called `poof.config`.
 
 ### The `poof.config` Passage
 

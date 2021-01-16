@@ -1,5 +1,11 @@
 # Release Versions
 
+## Version 1.7.0
+
+- Fixed error in JSON export.
+- Poof can now generate and export the `poof.config` passage JSON data based on the current configuration.
+- Other minor improvements and fixes.
+
 ## Version 1.6.3
 
 - Fixed error in archive export.
