@@ -1,5 +1,11 @@
 # Release Versions
 
+## Version 1.8.0
+
+- Cleaned up and improved interface and style.
+- Internal improvements.
+- Minor bug fixes and performance improvements.
+
 ## Version 1.7.0
 
 - Fixed error in JSON export.

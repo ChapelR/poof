@@ -7,7 +7,7 @@
     width: 15em;
     overflow-y: auto;
     overflow-x: hidden;
-    box-shadow: 0 0 2px #000;
+    box-shadow: 0 0 4px #000;
     color: #111;
     transition: left 300ms;
     -webkit-transition: left 300ms;
@@ -20,6 +20,13 @@
     left: -16em;
 }
 
+#sidebar h3 {
+    text-align: center;
+    border-bottom: 1px solid #555;
+    padding-bottom: 1em;
+    margin-bottom: 0.2em;
+}
+
 #sidebar ul {
     padding: 0;
     margin: 0;
@@ -28,10 +35,20 @@
 #sidebar li {
     list-style: none;
     display: block;
+    margin: 0.2em 0.5em;
+    padding: 0.2em 0;
 }
 
 #sidebar li:not(:last-child) {
     border-bottom: 1px solid #111;
+}
+
+#sidebar li::before {
+    content: '\23F5';
+    display: inline-block;
+    float: left;
+    bottom: -0.5em;
+    position: relative;
 }
 
 a.jumpto.sidebar-jump {
@@ -42,6 +59,7 @@ a.jumpto.sidebar-jump {
     padding: 0.5em;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
     transition: padding-left 300ms;
     -webkit-transition: padding-left 300ms;
     -moz-transition: padding-left 300ms;
@@ -51,6 +69,7 @@ a.jumpto.sidebar-jump {
 
 a.jumpto.sidebar-jump:hover {
     padding-left: 1em;
+    color: #555;
 }
 
 #sidebar-link {

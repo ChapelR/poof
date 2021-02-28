@@ -92,8 +92,8 @@
         var $confirm = poof.forms.confirm('Save', function () {
 
             var newComment = {
-                title : $('#comment-title').val(),
-                body : $('#comment-content').val()
+                title : poof.utils.escComment($('#comment-title').val()),
+                body : poof.utils.escComment($('#comment-content').val())
             };
 
             if (!newComment.title && !newComment.body) {

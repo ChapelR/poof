@@ -24,6 +24,7 @@ div.passage-footer button.comment-open {
 div.passage-footer.closed button.comment-open {
     min-width: 10%;
     font-size: 1.2rem;
+    color: #fff;
 }
 
 div.passage-footer button.comment-open::after {

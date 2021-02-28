@@ -244,6 +244,27 @@
         return getColor(tagColors[tag]);
     }
 
+    function fixQuotes (text) {
+        return text
+          .replace(/[\u2018\u2019]/g, "'")
+          .replace(/[\u201C\u201D]/g, '"');
+    }
+
+    function fixDashes (text) {
+        return text
+            .replace(/[\u2010\u2011\u2012\u2013]/g, '-')
+            .replace(/[\u2014\u2015]/g, '--');
+    }
+
+    function fixOther (text) {
+        return text
+            .replace(/[\u2026]/g, '...');
+    }
+
+    function escapeComment (text) {
+        return fixOther(fixDashes(fixQuotes(text)));
+    }
+
     poof.utils = {
         backSlash : bslash,
         isPassage : isValidPassage,
@@ -258,7 +279,8 @@
         escape : escape,
         escapeQuotes : escapeQuotes,
         tweeEscape : tweeEscape,
-        getTagColor : getTagColor
+        getTagColor : getTagColor,
+        escComment : escapeComment
     };
 
 }());
