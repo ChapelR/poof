@@ -42,7 +42,8 @@ Older versions of poof can be accessed by replacing the `@latest` in the URL wit
 - v1.4.1  
 - v1.5.0  
 - v1.6.3f  
-- v1.7.0 (latest)
+- v1.7.0  
+- v1.8.0 (latest)
 
 You can also access the development version of poof with the URL `https://cdn.jsdelivr.net/gh/chapelr/poof@latest/docs/use/dev.js`. The development version is never stable, and is not recommended for general use.
 
