@@ -2,7 +2,7 @@
 
 html.night .hljs {
   color: #eee;
-  background: #333;
+  background: #151515;
 }
 
 html.night .hljs-keyword,
@@ -33,17 +33,22 @@ html.night td.hljs-ln-numbers {
 }
 
 html.night body {
-    background: #333;
+    background: #111;
     color: #eee;
 }
 
 html.night div#story-data, html.night div.passage-card {
-    background-color: #454545;
+    background-color: #333;
     box-shadow: 0 0 3px #000;
 }
 
 html.night div.passage-source {
-    background-color: #333;
+    background-color: #151515;
+}
+
+html.night div.passage-references {
+    background-color: #252525;
+    border: 0;
 }
 
 html.night .passage-card .edit {
@@ -59,7 +64,7 @@ html.night div.comment-wrapper div.comment-readout:last-child {
 }
 
 html.night .pure-menu.pure-menu-horizontal {
-    border-bottom: 1px solid #555;
+    border-bottom: 1px solid #333;
 }
 
 html.night .pure-menu-children {

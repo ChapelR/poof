@@ -55,6 +55,7 @@ div.passage-source pre {
     background: #ccc;
     border-radius: 50%;
     transition: 300ms all;
+    user-select: none;
 }
 
 .passage-card:hover .edit {

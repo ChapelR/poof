@@ -63,7 +63,7 @@
             simplified : false,
             lineNumbers : true,
             codeHeightLimit : true,
-            nightMode : false,
+            nightMode : true,
             fonts : {
                 main : '',
                 code : ''

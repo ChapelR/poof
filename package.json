@@ -20,11 +20,13 @@
     "node-zip": "^1.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tweego -f poof -o docs/demo/index.html docs/demo/poof.twee",
     "gulp": "npx gulp",
     "build": "npx gulp build",
     "docs": "docsify serve ./docs -o",
-    "pack": "node ./pack.js"
+    "pack": "node ./pack.js",
+    "copy": "xcopy .\\dist\\format.js C:\\tweego\\story-formats\\poof\\format.js /y & xcopy .\\dist\\format.js .\\docs\\use\\format.js /y",
+    "all": "npm run build && npm run copy && npm test"
   },
   "author": "Chapel",
   "license": "Unlicense",
