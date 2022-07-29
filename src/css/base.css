@@ -47,7 +47,8 @@ body {
 }
 
 div#content {
-    margin: 4em 2em;
+    margin: 3em auto;
+    max-width: 970px;
 }
 
 div#story-data {
