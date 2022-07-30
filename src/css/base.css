@@ -1,5 +1,5 @@
 body {
-    background-color: #eee;
+    background-color: #aaa;
     font-family: Verdana, Geneva, sans-serif;
     font-size: 16px;
 }
@@ -47,7 +47,8 @@ body {
 }
 
 div#content {
-    margin: 4em 2em;
+    margin: 3em auto;
+    max-width: 970px;
 }
 
 div#story-data {
@@ -64,12 +65,12 @@ p#format {
     float: right;
 }
 
-p#ifid {
-    font-style: italic;
+#story-data > p {
+    font-family: Consolas, monaco, monospace;
 }
 
 div#overlay {
-    background: #eee;
+    background: #333;
     padding: 4em 2em;
     position: absolute;
     top: 0;
@@ -77,6 +78,13 @@ div#overlay {
     right: 0;
     bottom: 0;
     z-index: 10;
+}
+
+.loader {
+    border-top: 1.1em solid #666;
+    border-right: 1.1em solid #666;
+    border-bottom: 1.1em solid #666;
+    border-left: 1.1em solid #eee;
 }
 
 .hide {
@@ -108,6 +116,19 @@ input[type="file"] {
     right: 0;
     border-radius: 0;
     box-shadow: -1px 1px 2px #888;
+}
+
+#title {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 0.67em;
+    margin-bottom: 0.6em;
+    padding-bottom: 0.6em;
+    border-bottom: 1px solid #888;
+}
+
+#story-data, .passage-card {
+    border-radius: 5px;
 }
 
 @media only screen and (max-width: 800px) {

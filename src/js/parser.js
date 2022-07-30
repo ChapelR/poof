@@ -48,14 +48,21 @@
             },
             {
                 // (link-reveal-goto: 'link', 'passage')
+                // (mouseover-goto:) (mouseout-goto:)
                 name : 'linkRevealMacro',
-                regex : /\((link|click)-?reveal-?go-?to:\s*?["'](.*?)['"],\s*?['"](.*?)['"]\s*?\)/gi,
+                regex : /\((link|click|mouse-?over|mouse-?out)-?reveal-?go-?to:\s*?["'](.*?)['"],\s*?['"](.*?)['"]\s*?\)/gi,
                 group : 3
             },
             {
                 // (goto: 'passage')
                 name : 'gotoMacro',
                 regex : /\(go-?to:\s*?["'](.*?)['"]\s*?\)/gi,
+                group : 1
+            },
+            {
+                // (redirect: 'passage')
+                name : 'redirectMacro',
+                regex : /\(redirect:\s*?["'](.*?)['"]\s*?\)/gi,
                 group : 1
             },
             {

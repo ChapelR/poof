@@ -1,9 +1,11 @@
 {
   "name": "poof",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "A Twine 2 proofing format.",
   "main": "gulpfile.js",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.2",
     "del": "^3.0.0",
     "fs-jetpack": "^2.4.0",
     "gulp-autoprefixer": "^6.1.0",
@@ -17,17 +19,16 @@
     "jshint": "^2.12.0",
     "node-zip": "^1.1.1"
   },
-  "devDependencies": {
-    "gulp": "^4.0.2"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "gulp": "gulp",
-    "build": "gulp build",
+    "test": "tweego -f poof -o docs/demo/index.html docs/demo/poof.twee",
+    "gulp": "npx gulp",
+    "build": "npx gulp build",
     "docs": "docsify serve ./docs -o",
-    "pack": "node ./pack.js"
+    "pack": "node ./pack.js",
+    "copy": "xcopy .\\dist\\format.js C:\\tweego\\story-formats\\poof\\format.js /y & xcopy .\\dist\\format.js .\\docs\\use\\format.js /y",
+    "all": "npm run build && npm run copy && npm test"
   },
-  "author": "chapel",
+  "author": "Chapel",
   "license": "Unlicense",
   "directories": {
     "doc": "docs"
@@ -44,5 +45,6 @@
   "bugs": {
     "url": "https://github.com/ChapelR/poof/issues"
   },
-  "homepage": "https://github.com/ChapelR/poof#readme"
+  "homepage": "https://github.com/ChapelR/poof#readme",
+  "private": true
 }

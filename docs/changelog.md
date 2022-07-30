@@ -1,5 +1,12 @@
 # Release Versions
 
+## Version 1.9.0
+
+- Defaulted dark mode.
+- Improved styles.
+- Internal improvements.
+- Added `(redirect:)`, `(mouseover-goto:)`, and `(mouseout-goto:)` to passage ref parser.
+
 ## Version 1.8.0
 
 - Cleaned up and improved interface and style.
@@ -67,7 +74,7 @@
 - Internal improvements.
 
 ## Version 1.2.0
-- Added a loading spinner to the export process to prevent reclicks and provide user feedback, as it can take several seconds.
+- Added a loading spinner to the export process to prevent re-clicks and provide user feedback, as it can take several seconds.
 - Created a custom VFS font file served via jsDelivr that loads over the network to provide PDF font options.
 - Added `pdf.lineHeight`, `pdf.font`, and `pdf.fontSize` configuration options to `poof.config` special passage.
 - Other internal improvements.
@@ -78,7 +85,7 @@
 - The scripts for the PDF exporter are now delivered via CDN.
 - The format.js file has been made much smaller (from ~580KB down to ~170KB).
 - The Twee exporter has been rewritten and will now respect sort order and filtering.
-- Other internal imporvements.
+- Other internal improvements.
 
 ## Version 1.0.0
 - Release version!
@@ -105,7 +112,7 @@
 - Added syntax highlighting for JS & CSS.
 - Added JSHint JavaScript linting (requires connection).
 - Added JSHint and highlight.js to credits.
-- Fixed Tweego comatibility bug.
+- Fixed Tweego compatibility bug.
 
 ## Version 0.3.3
 - Fixed code font config bug.

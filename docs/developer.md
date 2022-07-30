@@ -6,7 +6,7 @@ This is some developer documentation to get you started if you want to hack on p
 
 To set up poof, clone the repo and run `npm install`.
 
-To build the format, run `gulp build` or `npm run build`. You can use, but do not need, a globally-installed version of gulp. The built format is deposited in the `dist` folder. Do not create or use a folder named `staging` in the poof directory, it will get deleted during the build process because I am not super good at writing complex gulp tasks.
+To build the format, run `npm run build` or `gulp build`. You can use, but do not need, a globally-installed version of gulp. The built format is deposited in the `dist` folder. Do not create or use a folder named `staging` in the poof directory, it will get deleted during the build process because I am not super good at writing complex gulp tasks.
 
 You can create a zip file package of poof with the command `npm run pack`. It will bundle the most recently built version with the icon and license files in an archive.
 
