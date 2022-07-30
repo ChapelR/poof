@@ -46,7 +46,8 @@ html.night div.passage-source {
     background-color: #151515;
 }
 
-html.night div.passage-references {
+html.night div.passage-references, 
+html.night p.passage-tags {
     background-color: #252525;
     border: 0;
 }

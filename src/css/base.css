@@ -1,5 +1,5 @@
 body {
-    background-color: #eee;
+    background-color: #aaa;
     font-family: Verdana, Geneva, sans-serif;
     font-size: 16px;
 }
@@ -65,8 +65,8 @@ p#format {
     float: right;
 }
 
-p#ifid {
-    font-style: italic;
+#story-data > p {
+    font-family: Consolas, monaco, monospace;
 }
 
 div#overlay {
@@ -109,6 +109,19 @@ input[type="file"] {
     right: 0;
     border-radius: 0;
     box-shadow: -1px 1px 2px #888;
+}
+
+#title {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 0.67em;
+    margin-bottom: 0.6em;
+    padding-bottom: 0.6em;
+    border-bottom: 1px solid #888;
+}
+
+#story-data, .passage-card {
+    border-radius: 5px;
 }
 
 @media only screen and (max-width: 800px) {

@@ -5,14 +5,27 @@ div.passage-card {
     box-shadow: 0 0 2px #888;
 }
 
+h2.passage-title {
+    padding-left: 5%;
+    margin-top: 0;
+    font-size: 1.7rem;
+    font-family: Corbel, Arial, sans-serif;
+}
+
+h2.passage-title::before {
+    content: "::\00a0";
+}
+
 p.passage-tags {
-    border: 1px solid #111;
-    padding: 0.3em;
+    border-left: 5px solid #888;
+    background-color: #eee;
+    padding: 1em;
     margin : 1em 1em;
 }
 
 div.passage-references {
-    border: 1px solid #111;
+    border-left: 5px solid #888;
+    background-color: #eee;
     padding: 1em;
     margin: 1em;
 }
@@ -25,6 +38,7 @@ h3.passage-references-title {
 
 div.passage-reference-wrapper {
     font-size: 0.8rem;
+    margin-left: 1rem;
 }
 
 a.jumpto {
@@ -37,6 +51,7 @@ div.passage-source {
     margin: 1em;
     background-color: #f8f8f8;
     overflow: auto;
+    scrollbar-width: thin;
 }
 
 div.passage-source pre {
