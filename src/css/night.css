@@ -88,17 +88,6 @@ html.night .pure-form-message-inline {
     color: #aaa;
 }
 
-html.night .loader {
-    border-top: 1.1em solid #666;
-    border-right: 1.1em solid #666;
-    border-bottom: 1.1em solid #666;
-    border-left: 1.1em solid #eee;
-}
-
-html.night div#overlay {
-    background: #333;
-}
-
 html.night div.empty-comment.add-comment:active, 
 html.night div.empty-comment.add-comment:hover {
     color: #eee;
