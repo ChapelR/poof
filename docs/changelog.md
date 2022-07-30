@@ -4,6 +4,7 @@
 
 - Defaulted dark mode.
 - Improved styles.
+- Internal improvements.
 - Added `(redirect:)`, `(mouseover-goto:)`, and `(mouseout-goto:)` to passage ref parser.
 
 ## Version 1.8.0
